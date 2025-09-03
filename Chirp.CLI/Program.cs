@@ -24,7 +24,7 @@ using (TextFieldParser csvParser = new TextFieldParser(path))
     }
 }
 
-if (args[0] == "read")
+if (args[0].ToLower() == "read")
 {
 
 
@@ -38,7 +38,7 @@ if (args[0] == "read")
         Console.WriteLine("" + Authors[i] + " @ " + switchedDayMonth[1] + "/" + switchedDayMonth[0] + "/" + switchedDayMonth[2] + ": " + Messages[i]);
     }
 }
-else if (args[0] == "cheep")
+else if (args[0].ToLower() == "cheep")
 {
     string csv = "";
     string line = "";
