@@ -1,39 +1,55 @@
 ﻿using System;
 using Microsoft.VisualBasic.FileIO;
-using CSVHelper;
+using CsvHelper;
 using IDatabaseRepository;
 using SimpleDB;
-using TextFieldParser;
 
 namespace SimpleDB
 {
+}
 
-
-class CSVDatabase{
-        var path = "chirp_cli_db.csv";
-        TextFieldParser csvParser = new TextFieldParser(path);
-        csvParser.CommentTokens
-
-        csvParser.CommentTokens = new string[] { "#" };
-        csvParser.SetDelimiters(new string[] { "," });
-        csvParser.HasFieldsEnclosedInQuotes = true;
-
-        // Skip the row with the column names
-        csvParser.ReadLine();
-
-while (!csvParser.EndOfData)
+public class CSVDatabase<T> : IDatabaseRepository<T>
 {
+        var path = "chirp_cli_db";
 
-    // Read current line fields, pointer moves to the next line.
-    string[] fields = csvParser.ReadFields();
-    Authors.Add(fields[0]);
-    Messages.Add(fields[1]);
-    Timestamps.Add(fields[2]);
+    private readonly string csvPath;
+
+    public CSVDatabase(string path)
+    {
+        csvPath = path;
+    }
+
+    public void Save(Cheep cheep)
+    {
+        using var writer = new StreamWriter(csvPath, true);
+        using var csv = new CsvHelper.CsvWriter(writer, CultureInfo.InvariantCulture);
+
+        csv.WriteRecord(cheep);
+        csv.NextRecord();
+    }
+
+    public List<Cheep> Load()
+    {
+        if (!FileExists(csvPath))
+        {
+            //If the list is empty return empty string
+            Console.WriteLine("File not found, check the path");
+                return new List<Cheep>();
+
+        }
+        using var reader = StreamReader(csvPath);
+
+        var confiq = new CsvHelper.CsvReader(reader, new CsvHelper.Configuration.CsvConfiguration(CultureInfo.InvariantCulture))
+        {
+            HasHeaderRecord = false
+        };
+        
+        using var csv = new CsvHelper.CsvReader(reader, config);
+
+
+        var cheeps = csv.GetRecords<T>().ToList();
+        return cheeps;
+    }
 
 }
-    
 
-}
-
-}
-}
