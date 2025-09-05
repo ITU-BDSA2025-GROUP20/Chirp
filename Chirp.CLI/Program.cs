@@ -9,25 +9,7 @@ using System;
     List<string> Timestamps = new List<string>();
     List<Cheep> cheeps = new List<Cheep>();
 
-    using (TextFieldParser csvParser = new TextFieldParser(path))
-    {
-        csvParser.CommentTokens = new string[] { "#" };
-        csvParser.SetDelimiters(new string[] { "," });
-        csvParser.HasFieldsEnclosedInQuotes = true;
-
-        // Skip the row with the column names
-        csvParser.ReadLine();
-
-    while (!csvParser.EndOfData)
-    {
-
-        // Read current line fields, pointer moves to the next line.
-        string[] fields = csvParser.ReadFields();
-        Authors.Add(fields[0]);
-        Messages.Add(fields[1]);
-        Timestamps.Add(fields[2]);
-        
-    }
+    
     
     for (int i = 0; i < Authors.Count; i++)
     {
@@ -35,7 +17,7 @@ using System;
         cheeps.Add(cheep);
     }
     
-    }
+    
 
     if (args[0].ToLower() == "read")
     {
