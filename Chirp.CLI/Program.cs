@@ -7,7 +7,7 @@ using System;
     List<string> Authors = new List<string>();
     List<string> Messages = new List<string>();
     List<string> Timestamps = new List<string>();
-
+    List<Cheep> cheeps = new List<Cheep>();
 
     using (TextFieldParser csvParser = new TextFieldParser(path))
     {
@@ -17,28 +17,38 @@ using System;
 
         // Skip the row with the column names
         csvParser.ReadLine();
-        while (!csvParser.EndOfData)
-        {
-            // Read current line fields, pointer moves to the next line.
-            string[] fields = csvParser.ReadFields();
-            Authors.Add(fields[0]);
-            Messages.Add(fields[1]);
-            Timestamps.Add(fields[2]);
-        }
+
+    while (!csvParser.EndOfData)
+    {
+
+        // Read current line fields, pointer moves to the next line.
+        string[] fields = csvParser.ReadFields();
+        Authors.Add(fields[0]);
+        Messages.Add(fields[1]);
+        Timestamps.Add(fields[2]);
+        
+    }
+    
+    for (int i = 0; i < Authors.Count; i++)
+    {
+        Cheep cheep = new(Authors[i], Messages[i], long.Parse(Timestamps[i]));
+        cheeps.Add(cheep);
+    }
+    
     }
 
     if (args[0].ToLower() == "read")
     {
 
 
-        for (int i = 0; i < Authors.Count; i++)
-        {
+        foreach(Cheep cheep in cheeps) {
             DateTime dateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
-            dateTime = dateTime.AddSeconds(Convert.ToDouble(Timestamps[i])).ToLocalTime();
+            dateTime = dateTime.AddSeconds(Convert.ToDouble(cheep.TimeStamp)).ToLocalTime();
             string[] switchedDayMonth = dateTime.ToString().Split('/');
             switchedDayMonth[2] = switchedDayMonth[2].TrimStart('2');
             switchedDayMonth[2] = switchedDayMonth[2].TrimStart('0');
-            Console.WriteLine("" + Authors[i] + " @ " + switchedDayMonth[1] + "/" + switchedDayMonth[0] + "/" + switchedDayMonth[2] + ": " + Messages[i]);
+            var time = switchedDayMonth[1] + "/" + switchedDayMonth[0] + "/" + switchedDayMonth[2];
+            Console.WriteLine(cheep.Author + " @ " + time + ": " + cheep.Message);
         }
     }
     else if (args[0].ToLower() == "cheep")
