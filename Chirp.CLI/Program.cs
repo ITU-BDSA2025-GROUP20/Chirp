@@ -1,13 +1,13 @@
 ﻿
 using Microsoft.VisualBasic.FileIO;
+
 using System;
+using SimpleDB;
 
+// Skal have omdannet programmet til at snakke med CSVDatabasen
+var database = new CSVDatabase<Cheep>("chirp_cli_db.csv");
 
-    var path = "chirp_cli_db.csv";
-    List<string> Authors = new List<string>();
-    List<string> Messages = new List<string>();
-    List<string> Timestamps = new List<string>();
-    List<Cheep> cheeps = new List<Cheep>();
+    List<Cheep> cheeps = 
 
     
     
