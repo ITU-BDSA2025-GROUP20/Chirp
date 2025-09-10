@@ -1,55 +1,71 @@
 ﻿using System;
+using System.Globalization;
 using Microsoft.VisualBasic.FileIO;
 using CsvHelper;
-using IDatabaseRepository;
+using CsvHelper.Configuration;
 using SimpleDB;
 
 namespace SimpleDB
 {
-}
 
-public class CSVDatabase<T> : IDatabaseRepository<T>
-{
-        var path = "chirp_cli_db";
 
-    private readonly string csvPath;
 
-    public CSVDatabase(string path)
+    public class CSVDatabase<T> : IDatabaseRepository<T>
     {
-        csvPath = path;
-    }
 
-    public void Save(Cheep cheep)
-    {
-        using var writer = new StreamWriter(csvPath, true);
-        using var csv = new CsvHelper.CsvWriter(writer, CultureInfo.InvariantCulture);
+        private readonly string csvPath;
 
-        csv.WriteRecord(cheep);
-        csv.NextRecord();
-    }
-
-    public List<Cheep> Load()
-    {
-        if (!FileExists(csvPath))
+        public CSVDatabase(string path)
         {
-            //If the list is empty return empty string
-            Console.WriteLine("File not found, check the path");
-                return new List<Cheep>();
+            csvPath = path;
+        }
+
+
+
+        public IEnumerable<T> Read(int? limit = null)
+        {
+            if (!File.Exists(csvPath))
+            {
+                //If the list is empty return empty string
+                Console.WriteLine("File not found, check the path");
+                return Enumerable.Empty<T>();
+
+            }
+            using var reader = new StreamReader(csvPath);
+
+            var config = new CsvHelper.Configuration.CsvConfiguration(CultureInfo.InvariantCulture)
+            {
+                HasHeaderRecord = true
+            };
+
+            using var csv = new CsvHelper.CsvReader(reader, config);
+
+
+            var records = csv.GetRecords<T>().ToList();
+            if (limit.HasValue)
+            {
+                return records.Take(limit.Value);
+            }
+            else
+            {
+                return records;
+            }
 
         }
-        using var reader = StreamReader(csvPath);
-
-        var confiq = new CsvHelper.CsvReader(reader, new CsvHelper.Configuration.CsvConfiguration(CultureInfo.InvariantCulture))
+        public void Store(T record)
         {
-            HasHeaderRecord = false
-        };
-        
-        using var csv = new CsvHelper.CsvReader(reader, config);
+            bool fileExists = File.Exists(csvPath);
+            using var writer = new StreamWriter(csvPath, true);
+            var config = new CsvHelper.Configuration.CsvConfiguration(CultureInfo.InvariantCulture)
+        {
+        HasHeaderRecord = !fileExists
+         };
 
+        using var csv = new CsvHelper.CsvWriter(writer, config);
 
-        var cheeps = csv.GetRecords<T>().ToList();
-        return cheeps;
+            csv.WriteRecord(record);
+            csv.NextRecord();
+
+        }
     }
-
 }
-
