@@ -10,62 +10,12 @@ on:
       - "v[0-9]+.[0-9]+.[0-9]+"
 
 jobs:
-  build: 
-    name: Build
-
+  build-and-package:
+    name: Build & Package
     runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v5
-
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v5
-        with:
-          dotnet-version: 9.0.305
-
-      - name: Restore dependencies
-        run: dotnet restore
-
-      - name: Build
-        run: dotnet build --no-restore
-
-  test:
-    name: Test
-    needs: build
-
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v5
-
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v5
-        with:
-          dotnet-version: 9.0.305
-
-      - name: Test
-        run: dotnet test --no-build
-
-  prep-release:
-    name: Prepare GitHub Release
-    needs: test
-
-    runs-on: ubuntu-latest
-    steps:
-      - name: Create GitHub Release
-        uses: softprops/action-gh-release@v2
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-  release:
-    name: Release
-    needs: prep-release
-
     strategy:
       matrix:
         os: ['linux-x64', 'osx-x64', 'win-x64']
-
-    runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v5
@@ -75,22 +25,48 @@ jobs:
         with:
           dotnet-version: 9.0.305
 
-      - name: Publish and package
-        shell: bash
+      - name: Install 7zip (Linux only)
+        if: startsWith(matrix.os, 'linux')
+        run: sudo apt-get update && sudo apt-get install -y p7zip-full
+
+      - name: Restore dependencies
+        run: dotnet restore "src/Chirp.CLI/Chirp.CLI.csproj"
+
+      - name: Build
+        run: dotnet build "src/Chirp.CLI/Chirp.CLI.csproj" --no-restore -c Release
+
+      - name: Publish single-file binary
         run: |
           release_name="Chirp-${{ github.ref_name }}-${{ matrix.os }}"
-
-          dotnet publish "src/Chirp.CLI/Chirp.CLI.csproj" -r "${{ matrix.os }}" -o "${release_name}" --sc false -p:PublishSingleFile=True
-
-          7z a "${release_name}.zip" "${release_name}/."
+          dotnet publish "src/Chirp.CLI/Chirp.CLI.csproj" -c Release -r ${{ matrix.os }} -p:PublishSingleFile=True --self-contained true -o $release_name
+          7z a "${release_name}.zip" "$release_name"
           7z d "${release_name}.zip" "*.pdb"
 
-      - name: Populate GitHub Release
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ matrix.os }}
+          path: "${release_name}.zip"
+
+  create-release:
+    name: Create GitHub Release
+    needs: build-and-package
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Download all build artifacts
+        uses: actions/download-artifact@v3
+        with:
+          path: artifacts
+
+      - name: List downloaded artifacts
+        run: ls -R artifacts
+
+      - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
-          files: "Chirp-${{ github.ref_name }}-${{ matrix.os }}.zip"
+          files: artifacts/*.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: Clean-Up
-        run: rm -r "${release_name}"
-
