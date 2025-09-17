@@ -88,26 +88,45 @@ jobs:
         with:
           dotnet-version: 9.0.305
 
-      - name: Publish and package
+      - name: Publish and package (Windows)
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          $release_name = "Chirp-${{ github.ref_name }}-${{ matrix.rid }}"
+          dotnet publish "src/Chirp.CLI/Chirp.CLI.csproj" `
+            -r "${{ matrix.rid }}" `
+            -o $release_name `
+            --self-contained false `
+            -p:PublishSingleFile=True
+          Compress-Archive -Path "$release_name\*" -DestinationPath "$release_name.zip"
+          Remove-Item -Recurse -Force $release_name
+          
+      - name: Publish and package (Linux/macOS)
+        if: runner.os != 'Windows'
         shell: bash
         run: |
+          set -e
           release_name="Chirp-${{ github.ref_name }}-${{ matrix.rid }}"
-
-          dotnet publish "src/Chirp.CLI/Chirp.CLI.csproj" -r "${{ matrix.rid }}" -o "${release_name}" --self-contained false -p:PublishSingleFile=True
-
-          if [[ "$RUNNER_OS" == "Windows" ]]; then
-            powershell Compress-Archive -Path "${release_name}\*" -DestinationPath "${release_name}.zip"
-            Remove-Item -Recurse -Force "${release_name}"
-          else
-
+          dotnet publish "src/Chirp.CLI/Chirp.CLI.csproj" \
+            -r "${{ matrix.rid }}" \
+            -o "${release_name}" \
+            --self-contained false \
+            -p:PublishSingleFile=True
+        
+          if ! command -v 7z &> /dev/null; then
+            if [[ "$RUNNER_OS" == "Linux" ]]; then
+              sudo apt-get update && sudo apt-get install -y p7zip-full
+            elif [[ "$RUNNER_OS" == "macOS" ]]; then
+              brew install p7zip
+            fi
+          fi
           7z a "${release_name}.zip" "${release_name}/."
           7z d "${release_name}.zip" "*.pdb"
+          rm -rf "${release_name}"
 
-          rm -r "${release_name}"
-
-      - name: Populate GitHub Release
-        uses: softprops/action-gh-release@v2
-        with:
-          files: "Chirp-*"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Upload to GitHub Release
+      uses: softprops/action-gh-release@v2
+      with:
+        files: "Chirp-*.zip"
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
