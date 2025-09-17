@@ -1,132 +1,55 @@
-name: Publish
-run-name: ${{ github.actor }} is publishing Release ${{ github.ref_name }} 🎉
-
-permissions:
-  contents: write
+name: Release Chirp
 
 on:
   push:
     tags:
-      - "v[0-9]+.[0-9]+.[0-9]+"
+      - 'v*'  # Trigger on version tags like v1.0.0
 
 jobs:
-  build: 
-    name: Build
-
+  build-and-release:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v5
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v5
+      - name: Setup .NET 8 SDK
+        uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: 9.0.305
+          dotnet-version: 8.0.x
 
       - name: Restore dependencies
         run: dotnet restore
 
-      - name: Build
-        run: dotnet build --no-restore
+      - name: Run tests
+        run: dotnet test --no-build --verbosity normal
 
-  test:
-    name: Test
-    needs: build
+      - name: Publish executables
+        run: |
+          mkdir -p release
 
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v5
+          # Define target runtimes
+          RUNTIMES=("win-x64" "osx-x64" "linux-x64" "win-arm64" "osx-arm64" "linux-arm64")
 
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v5
-        with:
-          dotnet-version: 9.0.305
+          for RUNTIME in "${RUNTIMES[@]}"; do
+            OUTPUT_DIR="release/chirp-$RUNTIME"
+            dotnet publish -c Release -r $RUNTIME --self-contained false /p:PublishSingleFile=true -o $OUTPUT_DIR
+            zip -r "release/chirp-$RUNTIME.zip" "$OUTPUT_DIR"
+          done
 
-      - name: Test
-        run: dotnet test --no-build
-
-  prep-release:
-    name: Prepare GitHub Release
-    needs: test
-
-    runs-on: ubuntu-latest
-    steps:
       - name: Create GitHub Release
-        uses: softprops/action-gh-release@v2
+        id: create_release
+        uses: actions/create-release@v1
+        with:
+          tag_name: ${{ github.ref_name }}
+          release_name: Release ${{ github.ref_name }}
+          draft: false
+          prerelease: false
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-  release:
-    name: Release
-    needs: prep-release
-
-    strategy:
-      matrix:
-        include:
-        - os: ubuntu-latest
-          rid: linux-x64
-        - os: ubuntu-latest
-          rid: linux-arm64
-        - os: macos-latest
-          rid: osx-x64
-        - os: macos-latest
-          rid: osx-arm64
-        - os: windows-latest
-          rid: win-x64
-        - os: windows-latest
-          rid: win-arm64
-
-    runs-on: ${{ matrix.os }}
-  
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v5
-
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v5
+      - name: Upload release assets
+        uses: softprops/action-gh-release@v1
         with:
-          dotnet-version: 9.0.305
-
-      - name: Publish and package (Windows)
-        if: runner.os == 'Windows'
-        shell: pwsh
-        run: |
-          $release_name = "Chirp-${{ github.ref_name }}-${{ matrix.rid }}"
-          dotnet publish "src/Chirp.CLI/Chirp.CLI.csproj" `
-            -r "${{ matrix.rid }}" `
-            -o $release_name `
-            --self-contained false `
-            -p:PublishSingleFile=True
-          Compress-Archive -Path "$release_name\*" -DestinationPath "$release_name.zip"
-          Remove-Item -Recurse -Force $release_name
-          
-      - name: Publish and package (Linux/macOS)
-        if: runner.os != 'Windows'
-        shell: bash
-        run: |
-          set -e
-          release_name="Chirp-${{ github.ref_name }}-${{ matrix.rid }}"
-          dotnet publish "src/Chirp.CLI/Chirp.CLI.csproj" \
-            -r "${{ matrix.rid }}" \
-            -o "${release_name}" \
-            --self-contained false \
-            -p:PublishSingleFile=True
-        
-          if ! command -v 7z &> /dev/null; then
-            if [[ "$RUNNER_OS" == "Linux" ]]; then
-              sudo apt-get update && sudo apt-get install -y p7zip-full
-            elif [[ "$RUNNER_OS" == "macOS" ]]; then
-              brew install p7zip
-            fi
-          fi
-          7z a "${release_name}.zip" "${release_name}/."
-          7z d "${release_name}.zip" "*.pdb"
-          rm -rf "${release_name}"
-
-    - name: Upload to GitHub Release
-      uses: softprops/action-gh-release@v2
-      with:
-        files: "Chirp-*.zip"
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          files: release/*.zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
