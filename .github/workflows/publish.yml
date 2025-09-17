@@ -63,7 +63,7 @@ jobs:
 
     strategy:
       matrix:
-        os: ['linux-arm64', 'linux-x64', 'osx-arm64', 'osx-x64', 'win-arm64', 'win-x64']
+        os: ['linux-x64', 'osx-x64', 'win-x64']
 
     runs-on: ubuntu-latest
     steps:
@@ -93,5 +93,4 @@ jobs:
           files: "Chirp-*"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-#
 
