@@ -77,7 +77,8 @@ jobs:
         - os: windows-latest
           rid: win-arm64
 
-  runs-on: ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+  
     steps:
       - name: Checkout
         uses: actions/checkout@v5
