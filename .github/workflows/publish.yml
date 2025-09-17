@@ -85,12 +85,12 @@ jobs:
           7z a "${release_name}.zip" "${release_name}/."
           7z d "${release_name}.zip" "*.pdb"
 
-          rm -r "${release_name}"
-
       - name: Populate GitHub Release
         uses: softprops/action-gh-release@v2
         with:
           files: "Chirp-*"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Clean-Up
+        run: rm -r "${release_name}"
 
