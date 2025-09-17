@@ -1,55 +1,98 @@
-name: Release Chirp
+name: Publish
+run-name: ${{ github.actor }} is publishing Release ${{ github.ref_name }} 🎉
+
+permissions:
+  contents: write
 
 on:
   push:
     tags:
-      - 'v*'  # Trigger on version tags like v1.0.0
+      - "v[0-9]+.[0-9]+.[0-9]+"
 
 jobs:
-  build-and-release:
+  build: 
+    name: Build
+
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v5
 
-      - name: Setup .NET 8 SDK
-        uses: actions/setup-dotnet@v3
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v5
         with:
-          dotnet-version: 8.0.x
+          dotnet-version: 9.0.305
 
       - name: Restore dependencies
         run: dotnet restore
 
-      - name: Run tests
-        run: dotnet test --no-build --verbosity normal
+      - name: Build
+        run: dotnet build --no-restore
 
-      - name: Publish executables
-        run: |
-          mkdir -p release
+  test:
+    name: Test
+    needs: build
 
-          # Define target runtimes
-          RUNTIMES=("win-x64" "osx-x64" "linux-x64" "win-arm64" "osx-arm64" "linux-arm64")
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
 
-          for RUNTIME in "${RUNTIMES[@]}"; do
-            OUTPUT_DIR="release/chirp-$RUNTIME"
-            dotnet publish -c Release -r $RUNTIME --self-contained false /p:PublishSingleFile=true -o $OUTPUT_DIR
-            zip -r "release/chirp-$RUNTIME.zip" "$OUTPUT_DIR"
-          done
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: 9.0.305
 
+      - name: Test
+        run: dotnet test --no-build
+
+  prep-release:
+    name: Prepare GitHub Release
+    needs: test
+
+    runs-on: ubuntu-latest
+    steps:
       - name: Create GitHub Release
-        id: create_release
-        uses: actions/create-release@v1
-        with:
-          tag_name: ${{ github.ref_name }}
-          release_name: Release ${{ github.ref_name }}
-          draft: false
-          prerelease: false
+        uses: softprops/action-gh-release@v2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Upload release assets
-        uses: softprops/action-gh-release@v1
+  release:
+    name: Release
+    needs: prep-release
+
+    strategy:
+      matrix:
+        os: ['linux-arm64', 'linux-x64', 'osx-arm64', 'osx-x64', 'win-arm64', 'win-x64']
+
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v5
         with:
-          files: release/*.zip
+          dotnet-version: 9.0.305
+
+      - name: Publish and package
+        shell: bash
+        run: |
+          release_name="Chirp-${{ github.ref_name }}-${{ matrix.os }}"
+
+          dotnet publish "src/Chirp.CLI/Chirp.CLI.csproj" -r "${{ matrix.os }}" -o "${release_name}" --sc false -p:PublishSingleFile=True
+
+          7z a "${release_name}.zip" "${release_name}/."
+          7z d "${release_name}.zip" "*.pdb"
+
+          rm -r "${release_name}"
+
+      - name: Populate GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: "Chirp-*"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+#   Co-Authored-By: Co-Authored-By: Oliver Flinck Sheye <189235422+osheITU@users.noreply.github.com>
+
