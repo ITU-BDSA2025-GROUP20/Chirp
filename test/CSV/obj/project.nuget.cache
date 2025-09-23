@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "W2c6KFmLDN8=",
+  "dgSpecHash": "ZUHNGi1atyA=",
   "success": true,
   "projectFilePath": "C:\\Users\\gusta\\Downloads\\Desktop\\Analysis\\Project\\Chirp\\test\\CSV\\Chirp.Tests1.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\gusta\\.nuget\\packages\\commandlineparser\\2.9.1\\commandlineparser.2.9.1.nupkg.sha512",
     "C:\\Users\\gusta\\.nuget\\packages\\coverlet.collector\\6.0.0\\coverlet.collector.6.0.0.nupkg.sha512",
     "C:\\Users\\gusta\\.nuget\\packages\\csvhelper\\33.1.0\\csvhelper.33.1.0.nupkg.sha512",
     "C:\\Users\\gusta\\.nuget\\packages\\microsoft.codecoverage\\17.8.0\\microsoft.codecoverage.17.8.0.nupkg.sha512",

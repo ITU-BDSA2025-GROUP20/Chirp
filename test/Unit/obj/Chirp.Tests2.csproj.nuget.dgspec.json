@@ -1,7 +1,7 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\gusta\\Downloads\\Desktop\\Analysis\\Project\\Chirp\\test\\CSV\\Chirp.Tests1.csproj": {}
+    "C:\\Users\\gusta\\Downloads\\Desktop\\Analysis\\Project\\Chirp\\test\\Unit\\Chirp.Tests2.csproj": {}
   },
   "projects": {
     "C:\\Users\\gusta\\Downloads\\Desktop\\Analysis\\Project\\Chirp\\src\\Chirp.CLI\\Chirp.CLI.csproj": {
@@ -72,78 +72,14 @@
         }
       }
     },
-    "C:\\Users\\gusta\\Downloads\\Desktop\\Analysis\\Project\\Chirp\\src\\Chirp.CLI\\SimpleDB\\SimpleDB.csproj": {
+    "C:\\Users\\gusta\\Downloads\\Desktop\\Analysis\\Project\\Chirp\\test\\Unit\\Chirp.Tests2.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\gusta\\Downloads\\Desktop\\Analysis\\Project\\Chirp\\src\\Chirp.CLI\\SimpleDB\\SimpleDB.csproj",
-        "projectName": "SimpleDB",
-        "projectPath": "C:\\Users\\gusta\\Downloads\\Desktop\\Analysis\\Project\\Chirp\\src\\Chirp.CLI\\SimpleDB\\SimpleDB.csproj",
+        "projectUniqueName": "C:\\Users\\gusta\\Downloads\\Desktop\\Analysis\\Project\\Chirp\\test\\Unit\\Chirp.Tests2.csproj",
+        "projectName": "Chirp.Tests2",
+        "projectPath": "C:\\Users\\gusta\\Downloads\\Desktop\\Analysis\\Project\\Chirp\\test\\Unit\\Chirp.Tests2.csproj",
         "packagesPath": "C:\\Users\\gusta\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\gusta\\Downloads\\Desktop\\Analysis\\Project\\Chirp\\src\\Chirp.CLI\\SimpleDB\\obj\\",
-        "projectStyle": "PackageReference",
-        "configFilePaths": [
-          "C:\\Users\\gusta\\AppData\\Roaming\\NuGet\\NuGet.Config"
-        ],
-        "originalTargetFrameworks": [
-          "net8.0"
-        ],
-        "sources": {
-          "https://api.nuget.org/v3/index.json": {}
-        },
-        "frameworks": {
-          "net8.0": {
-            "targetAlias": "net8.0",
-            "projectReferences": {}
-          }
-        },
-        "warningProperties": {
-          "warnAsError": [
-            "NU1605"
-          ]
-        },
-        "restoreAuditProperties": {
-          "enableAudit": "true",
-          "auditLevel": "low",
-          "auditMode": "direct"
-        }
-      },
-      "frameworks": {
-        "net8.0": {
-          "targetAlias": "net8.0",
-          "dependencies": {
-            "CsvHelper": {
-              "target": "Package",
-              "version": "[33.1.0, )"
-            }
-          },
-          "imports": [
-            "net461",
-            "net462",
-            "net47",
-            "net471",
-            "net472",
-            "net48",
-            "net481"
-          ],
-          "assetTargetFallback": true,
-          "warn": true,
-          "frameworkReferences": {
-            "Microsoft.NETCore.App": {
-              "privateAssets": "all"
-            }
-          },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.414/PortableRuntimeIdentifierGraph.json"
-        }
-      }
-    },
-    "C:\\Users\\gusta\\Downloads\\Desktop\\Analysis\\Project\\Chirp\\test\\CSV\\Chirp.Tests1.csproj": {
-      "version": "1.0.0",
-      "restore": {
-        "projectUniqueName": "C:\\Users\\gusta\\Downloads\\Desktop\\Analysis\\Project\\Chirp\\test\\CSV\\Chirp.Tests1.csproj",
-        "projectName": "Chirp.Tests1",
-        "projectPath": "C:\\Users\\gusta\\Downloads\\Desktop\\Analysis\\Project\\Chirp\\test\\CSV\\Chirp.Tests1.csproj",
-        "packagesPath": "C:\\Users\\gusta\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\gusta\\Downloads\\Desktop\\Analysis\\Project\\Chirp\\test\\CSV\\obj\\",
+        "outputPath": "C:\\Users\\gusta\\Downloads\\Desktop\\Analysis\\Project\\Chirp\\test\\Unit\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\gusta\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -160,9 +96,6 @@
             "projectReferences": {
               "C:\\Users\\gusta\\Downloads\\Desktop\\Analysis\\Project\\Chirp\\src\\Chirp.CLI\\Chirp.CLI.csproj": {
                 "projectPath": "C:\\Users\\gusta\\Downloads\\Desktop\\Analysis\\Project\\Chirp\\src\\Chirp.CLI\\Chirp.CLI.csproj"
-              },
-              "C:\\Users\\gusta\\Downloads\\Desktop\\Analysis\\Project\\Chirp\\src\\Chirp.CLI\\SimpleDB\\SimpleDB.csproj": {
-                "projectPath": "C:\\Users\\gusta\\Downloads\\Desktop\\Analysis\\Project\\Chirp\\src\\Chirp.CLI\\SimpleDB\\SimpleDB.csproj"
               }
             }
           }

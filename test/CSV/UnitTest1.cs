@@ -1,4 +1,5 @@
 using Xunit;
+using Userinterface;
 
 namespace Chirp.Tests;
 
@@ -9,7 +10,7 @@ public class UnitTest1
     [Fact]
     public void StoreAndRead()
     {
-        var entry = new ChirpRecord
+        var entry = new Cheep
         {
             Username = "testuser",
             Usermessage = "Hello test user",
