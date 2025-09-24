@@ -1,105 +1,25 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\oskar\\Documents\\Chirp\\chirp\\test\\CSV\\Chirp.Tests1.csproj": {}
+    "C:\\KianKorp\\Chirp\\Chirp\\Chirp\\test\\csv\\Chirp.Tests1.csproj": {}
   },
   "projects": {
-    "C:\\Users\\oskar\\Documents\\Chirp\\chirp\\src\\Chirp.CLI\\Chirp.CLI.csproj": {
+    "C:\\KianKorp\\Chirp\\Chirp\\Chirp\\src\\Chirp.CLI\\SimpleDB\\SimpleDB.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\oskar\\Documents\\Chirp\\chirp\\src\\Chirp.CLI\\Chirp.CLI.csproj",
-        "projectName": "Chirp.CLI",
-        "projectPath": "C:\\Users\\oskar\\Documents\\Chirp\\chirp\\src\\Chirp.CLI\\Chirp.CLI.csproj",
-        "packagesPath": "C:\\Users\\oskar\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\oskar\\Documents\\Chirp\\chirp\\src\\Chirp.CLI\\obj\\",
-        "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
-        "configFilePaths": [
-          "C:\\Users\\oskar\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
-        ],
-        "originalTargetFrameworks": [
-          "net8.0"
-        ],
-        "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "https://api.nuget.org/v3/index.json": {}
-        },
-        "frameworks": {
-          "net8.0": {
-            "targetAlias": "net8.0",
-            "projectReferences": {}
-          }
-        },
-        "warningProperties": {
-          "warnAsError": [
-            "NU1605"
-          ]
-        },
-        "restoreAuditProperties": {
-          "enableAudit": "true",
-          "auditLevel": "low",
-          "auditMode": "direct"
-        }
-      },
-      "frameworks": {
-        "net8.0": {
-          "targetAlias": "net8.0",
-          "dependencies": {
-            "CommandLineParser": {
-              "target": "Package",
-              "version": "[2.9.1, )"
-            },
-            "CsvHelper": {
-              "target": "Package",
-              "version": "[33.1.0, )"
-            }
-          },
-          "imports": [
-            "net461",
-            "net462",
-            "net47",
-            "net471",
-            "net472",
-            "net48",
-            "net481"
-          ],
-          "assetTargetFallback": true,
-          "warn": true,
-          "frameworkReferences": {
-            "Microsoft.NETCore.App": {
-              "privateAssets": "all"
-            }
-          },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.204/PortableRuntimeIdentifierGraph.json"
-        }
-      }
-    },
-    "C:\\Users\\oskar\\Documents\\Chirp\\chirp\\src\\Chirp.CLI\\SimpleDB\\SimpleDB.csproj": {
-      "version": "1.0.0",
-      "restore": {
-        "projectUniqueName": "C:\\Users\\oskar\\Documents\\Chirp\\chirp\\src\\Chirp.CLI\\SimpleDB\\SimpleDB.csproj",
+        "projectUniqueName": "C:\\KianKorp\\Chirp\\Chirp\\Chirp\\src\\Chirp.CLI\\SimpleDB\\SimpleDB.csproj",
         "projectName": "SimpleDB",
-        "projectPath": "C:\\Users\\oskar\\Documents\\Chirp\\chirp\\src\\Chirp.CLI\\SimpleDB\\SimpleDB.csproj",
-        "packagesPath": "C:\\Users\\oskar\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\oskar\\Documents\\Chirp\\chirp\\src\\Chirp.CLI\\SimpleDB\\obj\\",
+        "projectPath": "C:\\KianKorp\\Chirp\\Chirp\\Chirp\\src\\Chirp.CLI\\SimpleDB\\SimpleDB.csproj",
+        "packagesPath": "C:\\Users\\kianf\\.nuget\\packages\\",
+        "outputPath": "C:\\KianKorp\\Chirp\\Chirp\\Chirp\\src\\Chirp.CLI\\SimpleDB\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\oskar\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "C:\\Users\\kianf\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -144,43 +64,34 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.204/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.401/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\oskar\\Documents\\Chirp\\chirp\\test\\CSV\\Chirp.Tests1.csproj": {
+    "C:\\KianKorp\\Chirp\\Chirp\\Chirp\\test\\csv\\Chirp.Tests1.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\oskar\\Documents\\Chirp\\chirp\\test\\CSV\\Chirp.Tests1.csproj",
+        "projectUniqueName": "C:\\KianKorp\\Chirp\\Chirp\\Chirp\\test\\csv\\Chirp.Tests1.csproj",
         "projectName": "Chirp.Tests1",
-        "projectPath": "C:\\Users\\oskar\\Documents\\Chirp\\chirp\\test\\CSV\\Chirp.Tests1.csproj",
-        "packagesPath": "C:\\Users\\oskar\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\oskar\\Documents\\Chirp\\chirp\\test\\CSV\\obj\\",
+        "projectPath": "C:\\KianKorp\\Chirp\\Chirp\\Chirp\\test\\csv\\Chirp.Tests1.csproj",
+        "packagesPath": "C:\\Users\\kianf\\.nuget\\packages\\",
+        "outputPath": "C:\\KianKorp\\Chirp\\Chirp\\Chirp\\test\\csv\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\oskar\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "C:\\Users\\kianf\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\oskar\\Documents\\Chirp\\chirp\\src\\Chirp.CLI\\Chirp.CLI.csproj": {
-                "projectPath": "C:\\Users\\oskar\\Documents\\Chirp\\chirp\\src\\Chirp.CLI\\Chirp.CLI.csproj"
-              },
-              "C:\\Users\\oskar\\Documents\\Chirp\\chirp\\src\\Chirp.CLI\\SimpleDB\\SimpleDB.csproj": {
-                "projectPath": "C:\\Users\\oskar\\Documents\\Chirp\\chirp\\src\\Chirp.CLI\\SimpleDB\\SimpleDB.csproj"
+              "C:\\KianKorp\\Chirp\\Chirp\\Chirp\\src\\Chirp.CLI\\SimpleDB\\SimpleDB.csproj": {
+                "projectPath": "C:\\KianKorp\\Chirp\\Chirp\\Chirp\\src\\Chirp.CLI\\SimpleDB\\SimpleDB.csproj"
               }
             }
           }
@@ -233,7 +144,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.204/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.401/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
