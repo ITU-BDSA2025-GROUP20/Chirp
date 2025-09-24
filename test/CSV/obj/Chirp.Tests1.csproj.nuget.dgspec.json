@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\pfran\\Desktop\\Chirp\\test\\csv\\Chirp.Tests1.csproj": {}
+    "C:\\KianKorp\\Chirp\\Chirp\\chirp\\test\\csv\\Chirp.Tests1.csproj": {}
   },
   "projects": {
-    "C:\\Users\\pfran\\Desktop\\Chirp\\src\\Chirp.CLI\\Chirp.CLI.csproj": {
+    "C:\\KianKorp\\Chirp\\Chirp\\chirp\\src\\Chirp.CLI\\Chirp.CLI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\pfran\\Desktop\\Chirp\\src\\Chirp.CLI\\Chirp.CLI.csproj",
+        "projectUniqueName": "C:\\KianKorp\\Chirp\\Chirp\\chirp\\src\\Chirp.CLI\\Chirp.CLI.csproj",
         "projectName": "Chirp.CLI",
-        "projectPath": "C:\\Users\\pfran\\Desktop\\Chirp\\src\\Chirp.CLI\\Chirp.CLI.csproj",
-        "packagesPath": "C:\\Users\\pfran\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\pfran\\Desktop\\Chirp\\src\\Chirp.CLI\\obj\\",
+        "projectPath": "C:\\KianKorp\\Chirp\\Chirp\\chirp\\src\\Chirp.CLI\\Chirp.CLI.csproj",
+        "packagesPath": "C:\\Users\\kianf\\.nuget\\packages\\",
+        "outputPath": "C:\\KianKorp\\Chirp\\Chirp\\chirp\\src\\Chirp.CLI\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\pfran\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\kianf\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
@@ -37,8 +37,7 @@
           "enableAudit": "true",
           "auditLevel": "low",
           "auditMode": "direct"
-        },
-        "SdkAnalysisLevel": "9.0.300"
+        }
       },
       "frameworks": {
         "net8.0": {
@@ -69,86 +68,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.304/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.401/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\pfran\\Desktop\\Chirp\\src\\Chirp.CLI\\SimpleDB\\SimpleDB.csproj": {
+    "C:\\KianKorp\\Chirp\\Chirp\\chirp\\test\\csv\\Chirp.Tests1.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\pfran\\Desktop\\Chirp\\src\\Chirp.CLI\\SimpleDB\\SimpleDB.csproj",
-        "projectName": "SimpleDB",
-        "projectPath": "C:\\Users\\pfran\\Desktop\\Chirp\\src\\Chirp.CLI\\SimpleDB\\SimpleDB.csproj",
-        "packagesPath": "C:\\Users\\pfran\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\pfran\\Desktop\\Chirp\\src\\Chirp.CLI\\SimpleDB\\obj\\",
-        "projectStyle": "PackageReference",
-        "configFilePaths": [
-          "C:\\Users\\pfran\\AppData\\Roaming\\NuGet\\NuGet.Config"
-        ],
-        "originalTargetFrameworks": [
-          "net8.0"
-        ],
-        "sources": {
-          "https://api.nuget.org/v3/index.json": {}
-        },
-        "frameworks": {
-          "net8.0": {
-            "targetAlias": "net8.0",
-            "projectReferences": {}
-          }
-        },
-        "warningProperties": {
-          "warnAsError": [
-            "NU1605"
-          ]
-        },
-        "restoreAuditProperties": {
-          "enableAudit": "true",
-          "auditLevel": "low",
-          "auditMode": "direct"
-        },
-        "SdkAnalysisLevel": "9.0.300"
-      },
-      "frameworks": {
-        "net8.0": {
-          "targetAlias": "net8.0",
-          "dependencies": {
-            "CsvHelper": {
-              "target": "Package",
-              "version": "[33.1.0, )"
-            }
-          },
-          "imports": [
-            "net461",
-            "net462",
-            "net47",
-            "net471",
-            "net472",
-            "net48",
-            "net481"
-          ],
-          "assetTargetFallback": true,
-          "warn": true,
-          "frameworkReferences": {
-            "Microsoft.NETCore.App": {
-              "privateAssets": "all"
-            }
-          },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.304/PortableRuntimeIdentifierGraph.json"
-        }
-      }
-    },
-    "C:\\Users\\pfran\\Desktop\\Chirp\\test\\csv\\Chirp.Tests1.csproj": {
-      "version": "1.0.0",
-      "restore": {
-        "projectUniqueName": "C:\\Users\\pfran\\Desktop\\Chirp\\test\\csv\\Chirp.Tests1.csproj",
+        "projectUniqueName": "C:\\KianKorp\\Chirp\\Chirp\\chirp\\test\\csv\\Chirp.Tests1.csproj",
         "projectName": "Chirp.Tests1",
-        "projectPath": "C:\\Users\\pfran\\Desktop\\Chirp\\test\\csv\\Chirp.Tests1.csproj",
-        "packagesPath": "C:\\Users\\pfran\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\pfran\\Desktop\\Chirp\\test\\csv\\obj\\",
+        "projectPath": "C:\\KianKorp\\Chirp\\Chirp\\chirp\\test\\csv\\Chirp.Tests1.csproj",
+        "packagesPath": "C:\\Users\\kianf\\.nuget\\packages\\",
+        "outputPath": "C:\\KianKorp\\Chirp\\Chirp\\chirp\\test\\csv\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\pfran\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\kianf\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
@@ -160,11 +94,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\pfran\\Desktop\\Chirp\\src\\Chirp.CLI\\Chirp.CLI.csproj": {
-                "projectPath": "C:\\Users\\pfran\\Desktop\\Chirp\\src\\Chirp.CLI\\Chirp.CLI.csproj"
-              },
-              "C:\\Users\\pfran\\Desktop\\Chirp\\src\\Chirp.CLI\\SimpleDB\\SimpleDB.csproj": {
-                "projectPath": "C:\\Users\\pfran\\Desktop\\Chirp\\src\\Chirp.CLI\\SimpleDB\\SimpleDB.csproj"
+              "C:\\KianKorp\\Chirp\\Chirp\\chirp\\src\\Chirp.CLI\\Chirp.CLI.csproj": {
+                "projectPath": "C:\\KianKorp\\Chirp\\Chirp\\chirp\\src\\Chirp.CLI\\Chirp.CLI.csproj"
               }
             }
           }
@@ -178,13 +109,16 @@
           "enableAudit": "true",
           "auditLevel": "low",
           "auditMode": "direct"
-        },
-        "SdkAnalysisLevel": "9.0.300"
+        }
       },
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "CsvHelper": {
+              "target": "Package",
+              "version": "[33.1.0, )"
+            },
             "Microsoft.NET.Test.Sdk": {
               "target": "Package",
               "version": "[17.8.0, )"
@@ -218,7 +152,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.304/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.401/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
