@@ -17,12 +17,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Using Include="Xunit" />
-    <PackageReference Include="xunit.runner.visualstudio"/>
-    <PackageReference Include="Microsoft.NET.Test.Sdk"/>
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\..\src\Chirp.CLI\Chirp.CLI.csproj" />
   </ItemGroup>
 

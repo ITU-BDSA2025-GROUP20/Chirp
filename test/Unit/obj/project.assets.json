@@ -5602,32 +5602,39 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\gusta\\.nuget\\packages\\": {}
+    "C:\\Users\\oskar\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\gusta\\Downloads\\Desktop\\Analysis\\Project\\Chirp\\test\\Unit\\Chirp.Tests2.csproj",
+      "projectUniqueName": "C:\\Users\\oskar\\Documents\\Chirp\\chirp\\test\\unit\\Chirp.Tests2.csproj",
       "projectName": "Chirp.Tests2",
-      "projectPath": "C:\\Users\\gusta\\Downloads\\Desktop\\Analysis\\Project\\Chirp\\test\\Unit\\Chirp.Tests2.csproj",
-      "packagesPath": "C:\\Users\\gusta\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\gusta\\Downloads\\Desktop\\Analysis\\Project\\Chirp\\test\\Unit\\obj\\",
+      "projectPath": "C:\\Users\\oskar\\Documents\\Chirp\\chirp\\test\\unit\\Chirp.Tests2.csproj",
+      "packagesPath": "C:\\Users\\oskar\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\oskar\\Documents\\Chirp\\chirp\\test\\unit\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "C:\\Users\\gusta\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\oskar\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "C:\\Users\\gusta\\Downloads\\Desktop\\Analysis\\Project\\Chirp\\src\\Chirp.CLI\\Chirp.CLI.csproj": {
-              "projectPath": "C:\\Users\\gusta\\Downloads\\Desktop\\Analysis\\Project\\Chirp\\src\\Chirp.CLI\\Chirp.CLI.csproj"
+            "C:\\Users\\oskar\\Documents\\Chirp\\chirp\\src\\Chirp.CLI\\Chirp.CLI.csproj": {
+              "projectPath": "C:\\Users\\oskar\\Documents\\Chirp\\chirp\\src\\Chirp.CLI\\Chirp.CLI.csproj"
             }
           }
         }
@@ -5680,7 +5687,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.414/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.204/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

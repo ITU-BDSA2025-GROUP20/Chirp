@@ -1,7 +1,6 @@
+namespace UnitTests;
 using Xunit;
-using Userinterface;
-
-namespace Chirp.Tests;
+using static UserInterface;
 
 public class UnitTest1
 {
@@ -10,13 +9,9 @@ public class UnitTest1
     [Fact]
     public void StoreAndRead()
     {
-        var entry = new Cheep
-        {
-            Username = "testuser",
-            Usermessage = "Hello test user",
-            Timestamp = 16084696
-        };
-
+        var entry = new Cheep("testuser", "Hello test user", 16084696);
+        
+    
         db.Store(entry);
 
         var records = db.Read().ToList();

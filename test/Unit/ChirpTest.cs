@@ -1,20 +1,19 @@
+namespace ChirpTests;
 using Xunit;
-using Userinterface;
-namespace Chirp.Tests;
-
+using static UserInterface;
 
 public class ChirpTest
 {
     [Fact]
     public void TimeTest()
     {
-         Cheep cheep = new Cheep(ropf,"Hello, BDSA students!",1690891760);
+        Cheep cheep = new Cheep("ropf","Hello, BDSA students!",1690891760);
 
-        var vtime = TimeStamp(cheep);
+        string vtime = Timestamp(cheep);
 
-        var rtime = "14.09.20";
+        string rtime = "08/01/23 14.09.20";
 
-            Assert.Equals(vtime = rtime);
+        Assert.Equal(vtime, rtime);
 
     }
 }
