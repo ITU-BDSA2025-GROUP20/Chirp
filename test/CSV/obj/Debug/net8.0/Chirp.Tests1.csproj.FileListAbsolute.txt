@@ -102,3 +102,10 @@ C:\Users\gusta\Downloads\Desktop\Analysis\Project\Chirp\test\CSV\obj\Debug\net8.
 C:\Users\gusta\Downloads\Desktop\Analysis\Project\Chirp\test\CSV\obj\Debug\net8.0\Chirp.Tests1.pdb
 C:\Users\gusta\Downloads\Desktop\Analysis\Project\Chirp\test\CSV\obj\Debug\net8.0\Chirp.Tests1.genruntimeconfig.cache
 C:\Users\gusta\Downloads\Desktop\Analysis\Project\Chirp\test\CSV\obj\Debug\net8.0\ref\Chirp.Tests1.dll
+C:\Users\pfran\Desktop\Chirp\test\csv\bin\Debug\net8.0\CoverletSourceRootsMapping_Chirp.Tests1
+C:\Users\pfran\Desktop\Chirp\test\csv\obj\Debug\net8.0\Chirp.Tests1.csproj.AssemblyReference.cache
+C:\Users\pfran\Desktop\Chirp\test\csv\obj\Debug\net8.0\Chirp.Tests1.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\pfran\Desktop\Chirp\test\csv\obj\Debug\net8.0\Chirp.Tests1.AssemblyInfoInputs.cache
+C:\Users\pfran\Desktop\Chirp\test\csv\obj\Debug\net8.0\Chirp.Tests1.AssemblyInfo.cs
+C:\Users\pfran\Desktop\Chirp\test\csv\obj\Debug\net8.0\Chirp.Tests1.csproj.CoreCompileInputs.cache
+C:\Users\pfran\Desktop\Chirp\test\csv\obj\Debug\net8.0\Chirp.Tests1.sourcelink.json
