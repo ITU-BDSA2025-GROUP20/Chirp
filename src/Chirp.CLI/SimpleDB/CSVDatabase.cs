@@ -10,16 +10,36 @@ namespace SimpleDB
 
 
 
-    public class CSVDatabase<T> : IDatabaseRepository<T>
+    public sealed class CSVDatabase<T> : IDatabaseRepository<T>
     {
+        private static Lazy<CSVDatabase<T>>? Data;
 
         private readonly string csvPath;
+        
 
-        public CSVDatabase(string path)
+        private CSVDatabase(string path)
         {
+        
             csvPath = path;
         }
 
+        public static void Initialize(string path)
+        {
+            if (Data != null)
+            {
+                throw new InvalidOperationException("CSVDatabase already created");
+            }
+            Data = new Lazy<CSVDatabase<T>>(() => new CSVDatabase<T>(path));
+        }
+        public static CSVDatabase<T> Instance
+        {
+            get
+            {
+                if (Data == null)
+                throw new InvalidOperationException("CSVDatabase not initialized.");
+                return Data.Value;
+            }
+        }
 
 
         public IEnumerable<T> Read(int? limit = null)
