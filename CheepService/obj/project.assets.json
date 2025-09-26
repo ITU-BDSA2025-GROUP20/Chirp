@@ -528,8 +528,8 @@
     },
     "SimpleDB/1.0.0": {
       "type": "project",
-      "path": "../src/Chirp.CLI/SimpleDB/SimpleDB.csproj",
-      "msbuildProject": "../src/Chirp.CLI/SimpleDB/SimpleDB.csproj"
+      "path": "../SimpleDB/SimpleDB.csproj",
+      "msbuildProject": "../SimpleDB/SimpleDB.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -564,8 +564,8 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "D:\\ITU\\Chirps\\Chirp\\src\\Chirp.CLI\\SimpleDB\\SimpleDB.csproj": {
-              "projectPath": "D:\\ITU\\Chirps\\Chirp\\src\\Chirp.CLI\\SimpleDB\\SimpleDB.csproj"
+            "D:\\ITU\\Chirps\\Chirp\\SimpleDB\\SimpleDB.csproj": {
+              "projectPath": "D:\\ITU\\Chirps\\Chirp\\SimpleDB\\SimpleDB.csproj"
             }
           }
         }

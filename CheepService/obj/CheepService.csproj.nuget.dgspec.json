@@ -26,8 +26,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "D:\\ITU\\Chirps\\Chirp\\src\\Chirp.CLI\\SimpleDB\\SimpleDB.csproj": {
-                "projectPath": "D:\\ITU\\Chirps\\Chirp\\src\\Chirp.CLI\\SimpleDB\\SimpleDB.csproj"
+              "D:\\ITU\\Chirps\\Chirp\\SimpleDB\\SimpleDB.csproj": {
+                "projectPath": "D:\\ITU\\Chirps\\Chirp\\SimpleDB\\SimpleDB.csproj"
               }
             }
           }
@@ -79,14 +79,14 @@
         }
       }
     },
-    "D:\\ITU\\Chirps\\Chirp\\src\\Chirp.CLI\\SimpleDB\\SimpleDB.csproj": {
+    "D:\\ITU\\Chirps\\Chirp\\SimpleDB\\SimpleDB.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\ITU\\Chirps\\Chirp\\src\\Chirp.CLI\\SimpleDB\\SimpleDB.csproj",
+        "projectUniqueName": "D:\\ITU\\Chirps\\Chirp\\SimpleDB\\SimpleDB.csproj",
         "projectName": "SimpleDB",
-        "projectPath": "D:\\ITU\\Chirps\\Chirp\\src\\Chirp.CLI\\SimpleDB\\SimpleDB.csproj",
+        "projectPath": "D:\\ITU\\Chirps\\Chirp\\SimpleDB\\SimpleDB.csproj",
         "packagesPath": "C:\\Users\\kianf\\.nuget\\packages\\",
-        "outputPath": "D:\\ITU\\Chirps\\Chirp\\src\\Chirp.CLI\\SimpleDB\\obj\\",
+        "outputPath": "D:\\ITU\\Chirps\\Chirp\\SimpleDB\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\kianf\\AppData\\Roaming\\NuGet\\NuGet.Config"

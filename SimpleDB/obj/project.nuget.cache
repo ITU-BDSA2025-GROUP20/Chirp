@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "inWb62nmDgs=",
+  "success": true,
+  "projectFilePath": "D:\\ITU\\Chirps\\Chirp\\SimpleDB\\SimpleDB.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\kianf\\.nuget\\packages\\csvhelper\\33.1.0\\csvhelper.33.1.0.nupkg.sha512"
+  ],
+  "logs": []
+}

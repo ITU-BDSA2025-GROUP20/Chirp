@@ -2,6 +2,10 @@
 using Microsoft.VisualBasic.FileIO;
 using System;
 using SimpleDB;
+using System.Net;
+using System.Net.Http.Headers;
+using System.Net.Http.Json;
+using System.Runtime.CompilerServices;
 
 public record Cheep(string Author, string Message, long Timestamp);
 
@@ -14,27 +18,57 @@ public record Cheep(string Author, string Message, long Timestamp);
         public string Cheep { get; set; }
     }
 
-    static void Main(string[] args)
+class Program
+{
+    private static readonly HttpClient client = new HttpClient
     {
-        Parser.Default.ParseArguments<Options>(args)
-            .WithParsed<Options>(opts =>
-            {
-                var database = CSVDatabase<Cheep>.Instance;
+        BaseAddress = new Uri("http://localhost:5175/")
+    };
+    static async Task Main(string[] args)
+    {
 
-                if (opts.Read)
-                {
-                    UserInterface.PrintCheeps(database.Read().ToList());
-                }
-                else if (opts.Cheep != null)
-                {
-                    Cheep cheep = new(Environment.UserName, opts.Cheep, DateTimeOffset.UtcNow.ToUnixTimeSeconds());
-                    Console.WriteLine($"Storing cheep: {cheep.Author} - {cheep.Message}");
-                    database.Store(cheep);
-                }
-                else
-                {
-                    Console.WriteLine("No valid command provided. Use --help for more information.");
-                }
-            });
+        var result = Parser.Default.ParseArguments<Options>(args);
+        await result.MapResult(
+            async opts =>
+            {
+                await RunTheShit(opts);
+                return 0;
+            },
+            errs => Task.FromResult(1)
+        );
+    }
+
+    private static async Task RunTheShit(Options opts)
+    {
+        if (opts.Read)
+        {
+            await ReadCheeps();
+        }
+        else if (opts.Cheep != null)
+        {
+            await Cheep(opts.Cheep);
+        }
+        else
+        {
+            Console.WriteLine("No valid command provided. Use --help for more information.");
+        }
+    }
+
+
+    private static async Task ReadCheeps()
+    {
+            var response = await client.GetAsync("cheeps");
+            response.EnsureSuccessStatusCode();
+            Console.WriteLine(response);
+            var cheeps = await response.Content.ReadFromJsonAsync<List<Cheep>>();
+            UserInterface.PrintCheeps(cheeps);
+    }
+
+    private static async Task Cheep(string message)
+    {
+        Cheep cheep = new(Environment.UserName, message, DateTimeOffset.UtcNow.ToUnixTimeSeconds());
+        var response = await client.PostAsJsonAsync("cheep", cheep);
+        response.EnsureSuccessStatusCode();
+        Console.WriteLine($"Storing cheep: {cheep.Author} - {cheep.Message}");
     }
 }
