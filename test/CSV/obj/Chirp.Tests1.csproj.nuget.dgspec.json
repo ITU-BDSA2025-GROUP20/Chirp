@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\KianKorp\\Chirp\\Chirp\\chirp\\test\\csv\\Chirp.Tests1.csproj": {}
+    "C:\\Users\\pfran\\Desktop\\Chirp\\test\\csv\\Chirp.Tests1.csproj": {}
   },
   "projects": {
-    "C:\\KianKorp\\Chirp\\Chirp\\chirp\\src\\Chirp.CLI\\Chirp.CLI.csproj": {
+    "C:\\Users\\pfran\\Desktop\\Chirp\\src\\Chirp.CLI\\Chirp.CLI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\KianKorp\\Chirp\\Chirp\\chirp\\src\\Chirp.CLI\\Chirp.CLI.csproj",
+        "projectUniqueName": "C:\\Users\\pfran\\Desktop\\Chirp\\src\\Chirp.CLI\\Chirp.CLI.csproj",
         "projectName": "Chirp.CLI",
-        "projectPath": "C:\\KianKorp\\Chirp\\Chirp\\chirp\\src\\Chirp.CLI\\Chirp.CLI.csproj",
-        "packagesPath": "C:\\Users\\kianf\\.nuget\\packages\\",
-        "outputPath": "C:\\KianKorp\\Chirp\\Chirp\\chirp\\src\\Chirp.CLI\\obj\\",
+        "projectPath": "C:\\Users\\pfran\\Desktop\\Chirp\\src\\Chirp.CLI\\Chirp.CLI.csproj",
+        "packagesPath": "C:\\Users\\pfran\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\pfran\\Desktop\\Chirp\\src\\Chirp.CLI\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\kianf\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\pfran\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
@@ -37,7 +37,8 @@
           "enableAudit": "true",
           "auditLevel": "low",
           "auditMode": "direct"
-        }
+        },
+        "SdkAnalysisLevel": "9.0.300"
       },
       "frameworks": {
         "net8.0": {
@@ -68,21 +69,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.401/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.304/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\KianKorp\\Chirp\\Chirp\\chirp\\test\\csv\\Chirp.Tests1.csproj": {
+    "C:\\Users\\pfran\\Desktop\\Chirp\\test\\csv\\Chirp.Tests1.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\KianKorp\\Chirp\\Chirp\\chirp\\test\\csv\\Chirp.Tests1.csproj",
+        "projectUniqueName": "C:\\Users\\pfran\\Desktop\\Chirp\\test\\csv\\Chirp.Tests1.csproj",
         "projectName": "Chirp.Tests1",
-        "projectPath": "C:\\KianKorp\\Chirp\\Chirp\\chirp\\test\\csv\\Chirp.Tests1.csproj",
-        "packagesPath": "C:\\Users\\kianf\\.nuget\\packages\\",
-        "outputPath": "C:\\KianKorp\\Chirp\\Chirp\\chirp\\test\\csv\\obj\\",
+        "projectPath": "C:\\Users\\pfran\\Desktop\\Chirp\\test\\csv\\Chirp.Tests1.csproj",
+        "packagesPath": "C:\\Users\\pfran\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\pfran\\Desktop\\Chirp\\test\\csv\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\kianf\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\pfran\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
@@ -94,8 +95,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\KianKorp\\Chirp\\Chirp\\chirp\\src\\Chirp.CLI\\Chirp.CLI.csproj": {
-                "projectPath": "C:\\KianKorp\\Chirp\\Chirp\\chirp\\src\\Chirp.CLI\\Chirp.CLI.csproj"
+              "C:\\Users\\pfran\\Desktop\\Chirp\\src\\Chirp.CLI\\Chirp.CLI.csproj": {
+                "projectPath": "C:\\Users\\pfran\\Desktop\\Chirp\\src\\Chirp.CLI\\Chirp.CLI.csproj"
               }
             }
           }
@@ -109,7 +110,8 @@
           "enableAudit": "true",
           "auditLevel": "low",
           "auditMode": "direct"
-        }
+        },
+        "SdkAnalysisLevel": "9.0.300"
       },
       "frameworks": {
         "net8.0": {
@@ -152,7 +154,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.401/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.304/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
