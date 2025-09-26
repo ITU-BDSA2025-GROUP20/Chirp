@@ -5,9 +5,6 @@ using SimpleDB;
 
 public record Cheep(string Author, string Message, long Timestamp);
 
-class Program
-{
-
     public class Options
     {
         [Option('r', "read", Required = false, HelpText = "Read cheeps from the database.")]
@@ -19,7 +16,6 @@ class Program
 
     static void Main(string[] args)
     {
-        CSVDatabase<Cheep>.Initialize("chirp_cli_db.csv");
         Parser.Default.ParseArguments<Options>(args)
             .WithParsed<Options>(opts =>
             {
