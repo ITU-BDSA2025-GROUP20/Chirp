@@ -22,7 +22,7 @@ class Program
 {
     private static readonly HttpClient client = new HttpClient
     {
-        BaseAddress = new Uri("http://localhost:5175/")
+        BaseAddress = new Uri("http://bdsagroup20chirpremotedb.azurewebsites.net")
     };
     static async Task Main(string[] args)
     {
