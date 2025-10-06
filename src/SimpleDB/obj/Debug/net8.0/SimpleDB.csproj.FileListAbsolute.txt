@@ -31,3 +31,14 @@ C:\Users\gusta\Downloads\Desktop\Analysis\Project\Chirp\src\SimpleDB\obj\Debug\n
 C:\Users\gusta\Downloads\Desktop\Analysis\Project\Chirp\src\SimpleDB\obj\Debug\net8.0\refint\SimpleDB.dll
 C:\Users\gusta\Downloads\Desktop\Analysis\Project\Chirp\src\SimpleDB\obj\Debug\net8.0\SimpleDB.pdb
 C:\Users\gusta\Downloads\Desktop\Analysis\Project\Chirp\src\SimpleDB\obj\Debug\net8.0\ref\SimpleDB.dll
+C:\Users\oskar\Documents\Chirp\Chirp\src\SimpleDB\bin\Debug\net8.0\SimpleDB.deps.json
+C:\Users\oskar\Documents\Chirp\Chirp\src\SimpleDB\bin\Debug\net8.0\SimpleDB.dll
+C:\Users\oskar\Documents\Chirp\Chirp\src\SimpleDB\bin\Debug\net8.0\SimpleDB.pdb
+C:\Users\oskar\Documents\Chirp\Chirp\src\SimpleDB\obj\Debug\net8.0\SimpleDB.csproj.AssemblyReference.cache
+C:\Users\oskar\Documents\Chirp\Chirp\src\SimpleDB\obj\Debug\net8.0\SimpleDB.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\oskar\Documents\Chirp\Chirp\src\SimpleDB\obj\Debug\net8.0\SimpleDB.csproj.CoreCompileInputs.cache
+C:\Users\oskar\Documents\Chirp\Chirp\src\SimpleDB\obj\Debug\net8.0\SimpleDB.sourcelink.json
+C:\Users\oskar\Documents\Chirp\Chirp\src\SimpleDB\obj\Debug\net8.0\SimpleDB.dll
+C:\Users\oskar\Documents\Chirp\Chirp\src\SimpleDB\obj\Debug\net8.0\refint\SimpleDB.dll
+C:\Users\oskar\Documents\Chirp\Chirp\src\SimpleDB\obj\Debug\net8.0\SimpleDB.pdb
+C:\Users\oskar\Documents\Chirp\Chirp\src\SimpleDB\obj\Debug\net8.0\ref\SimpleDB.dll

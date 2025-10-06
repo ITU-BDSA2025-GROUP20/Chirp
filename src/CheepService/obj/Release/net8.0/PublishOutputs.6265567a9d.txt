@@ -1,0 +1,15 @@
+C:\Users\oskar\Documents\Chirp\Chirp\src\CheepService\bin\Release\net8.0\publish\CheepService.exe
+C:\Users\oskar\Documents\Chirp\Chirp\src\CheepService\bin\Release\net8.0\publish\appsettings.Development.json
+C:\Users\oskar\Documents\Chirp\Chirp\src\CheepService\bin\Release\net8.0\publish\appsettings.json
+C:\Users\oskar\Documents\Chirp\Chirp\src\CheepService\bin\Release\net8.0\publish\CheepService.dll
+C:\Users\oskar\Documents\Chirp\Chirp\src\CheepService\bin\Release\net8.0\publish\CheepService.deps.json
+C:\Users\oskar\Documents\Chirp\Chirp\src\CheepService\bin\Release\net8.0\publish\CheepService.runtimeconfig.json
+C:\Users\oskar\Documents\Chirp\Chirp\src\CheepService\bin\Release\net8.0\publish\CheepService.pdb
+C:\Users\oskar\Documents\Chirp\Chirp\src\CheepService\bin\Release\net8.0\publish\CsvHelper.dll
+C:\Users\oskar\Documents\Chirp\Chirp\src\CheepService\bin\Release\net8.0\publish\Microsoft.AspNetCore.OpenApi.dll
+C:\Users\oskar\Documents\Chirp\Chirp\src\CheepService\bin\Release\net8.0\publish\Microsoft.OpenApi.dll
+C:\Users\oskar\Documents\Chirp\Chirp\src\CheepService\bin\Release\net8.0\publish\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\oskar\Documents\Chirp\Chirp\src\CheepService\bin\Release\net8.0\publish\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\oskar\Documents\Chirp\Chirp\src\CheepService\bin\Release\net8.0\publish\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Users\oskar\Documents\Chirp\Chirp\src\CheepService\bin\Release\net8.0\publish\SimpleDB.dll
+C:\Users\oskar\Documents\Chirp\Chirp\src\CheepService\bin\Release\net8.0\publish\SimpleDB.pdb

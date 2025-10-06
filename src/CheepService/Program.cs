@@ -9,8 +9,10 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-CSVDatabase<Cheep>.Initialize("chirp_cli_db.csv");
+var csvFile = Path.Combine(AppContext.BaseDirectory, "chirp_cli_db.csv");
+CSVDatabase<Cheep>.Initialize(csvFile);
 var database = CSVDatabase<Cheep>.Instance;
+
 
 
 app.MapPost("/cheep", (Cheep cheep) =>
@@ -21,9 +23,18 @@ app.MapPost("/cheep", (Cheep cheep) =>
 
 app.MapGet("/cheeps", () =>
 {
-    var records = database.Read().ToList();
-    return Results.Ok(records);
+    try
+    {
+        var records = database.Read().ToList();
+        return Results.Ok(records);
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"Error reading cheeps: {ex}");
+        return Results.Problem(detail: ex.ToString());
+    }
 });
+
 
 
 if (app.Environment.IsDevelopment())

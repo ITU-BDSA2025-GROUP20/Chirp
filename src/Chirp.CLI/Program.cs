@@ -22,7 +22,7 @@ class Program
 {
     private static readonly HttpClient client = new HttpClient
     {
-        BaseAddress = new Uri("http://bdsagroup20chirpremotedb.azurewebsites.net")
+        BaseAddress = new Uri("https://bdsagroup20chirpremotedb.azurewebsites.net/")
     };
     static async Task Main(string[] args)
     {
@@ -59,7 +59,6 @@ class Program
     {
             var response = await client.GetAsync("cheeps");
             response.EnsureSuccessStatusCode();
-            Console.WriteLine(response);
             var cheeps = await response.Content.ReadFromJsonAsync<List<Cheep>>();
             UserInterface.PrintCheeps(cheeps);
     }
