@@ -86,6 +86,12 @@ jobs:
           7z d "${release_name}.zip" "*.pdb"
 
           rm -r "${release_name}"
+          
+      - name: Build CSVDB Service
+        run: dotnet build src/Chirp.CSVDB.Service/ --configuration Release
+
+      - name: Publish CSVDB Service
+        run: dotnet publish src/Chirp.CSVDB.Service/ -c Release -o ${{ env.DOTNET_ROOT }}/myapp
 
       - name: Populate GitHub Release
         uses: softprops/action-gh-release@v2
