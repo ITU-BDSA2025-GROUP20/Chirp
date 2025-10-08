@@ -88,10 +88,10 @@ jobs:
           rm -r "${release_name}"
           
       - name: Build CSVDB Service
-        run: dotnet build src/Chirp.CSVDB.Service/ --configuration Release
+        run: dotnet build src/CheepService/ --configuration Release
 
       - name: Publish CSVDB Service
-        run: dotnet publish src/Chirp.CSVDB.Service/ -c Release -o ${{ env.DOTNET_ROOT }}/myapp
+        run: dotnet publish src/CheepService/ -c Release -o ${{ env.DOTNET_ROOT }}/myapp
 
       - name: Populate GitHub Release
         uses: softprops/action-gh-release@v2
