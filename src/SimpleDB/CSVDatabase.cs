@@ -38,56 +38,52 @@ namespace SimpleDB
 
         public IEnumerable<T> Read(int? limit = null)
         {
-            // Ensure CSV exists with header
-            if (!File.Exists(csvPath))
+            // If file does not exist or is empty, return empty list
+            if (!File.Exists(csvPath) || new FileInfo(csvPath).Length == 0)
+                return Enumerable.Empty<T>();
+
+            try
             {
-                using var writer = new StreamWriter(csvPath);
+                using var reader = new StreamReader(csvPath);
                 var config = new CsvConfiguration(CultureInfo.InvariantCulture)
                 {
-                    HasHeaderRecord = true
+                    HasHeaderRecord = false, // no headers required
+                    MissingFieldFound = null,
+                    BadDataFound = null
                 };
-                using var csv = new CsvWriter(writer, config);
-                csv.WriteHeader<T>();
-                csv.NextRecord();
+
+                using var csv = new CsvReader(reader, config);
+                var records = csv.GetRecords<T>().ToList();
+
+                return limit.HasValue ? records.Take(limit.Value) : records;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error reading CSV: {ex.Message}");
                 return Enumerable.Empty<T>();
-            }
-
-            using var reader = new StreamReader(csvPath);
-            var configReader = new CsvConfiguration(CultureInfo.InvariantCulture)
-            {
-                HasHeaderRecord = true
-            };
-            using var csvReader = new CsvReader(reader, configReader);
-
-            var records = csvReader.GetRecords<T>().ToList();
-            if (limit.HasValue)
-            {
-                return records.Take(limit.Value);
-            }
-            else
-            {
-                return records;
             }
         }
 
         public void Store(T record)
         {
-            bool fileExists = File.Exists(csvPath);
-            using var writer = new StreamWriter(csvPath, append: true);
-            var config = new CsvConfiguration(CultureInfo.InvariantCulture)
+            try
             {
-                HasHeaderRecord = !fileExists // write header if file didn't exist
-            };
-            using var csv = new CsvWriter(writer, config);
+                bool fileExists = File.Exists(csvPath);
 
-            if (!fileExists)
-            {
-                csv.WriteHeader<T>();
+                using var writer = new StreamWriter(csvPath, append: true);
+                var config = new CsvConfiguration(CultureInfo.InvariantCulture)
+                {
+                    HasHeaderRecord = false // always write data only
+                };
+                using var csv = new CsvWriter(writer, config);
+
+                csv.WriteRecord(record);
                 csv.NextRecord();
             }
-
-            csv.WriteRecord(record);
-            csv.NextRecord();
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error writing CSV: {ex.Message}");
+            }
         }
     }
 }
