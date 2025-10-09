@@ -10,7 +10,7 @@ on:
       - "v[0-9]+.[0-9]+.[0-9]+"
 
 jobs:
-  build: 
+  build:
     name: Build
 
     runs-on: ubuntu-latest
@@ -22,6 +22,12 @@ jobs:
         uses: actions/setup-dotnet@v5
         with:
           dotnet-version: 9.0.305
+
+      - name: Build with dotnet
+        run: dotnet build src/CheepService/ --configuration Release
+
+      - name: dotnet publish
+        run: dotnet publish src/CheepService/ -c Release -o ${{env.DOTNET_ROOT}}/myapp
 
       - name: Restore dependencies
         run: dotnet restore
@@ -63,7 +69,15 @@ jobs:
 
     strategy:
       matrix:
-        os: ['linux-arm64', 'linux-x64', 'osx-arm64', 'osx-x64', 'win-arm64', 'win-x64']
+        os:
+          [
+            "linux-arm64",
+            "linux-x64",
+            "osx-arm64",
+            "osx-x64",
+            "win-arm64",
+            "win-x64",
+          ]
 
     runs-on: ubuntu-latest
     steps:
@@ -86,7 +100,7 @@ jobs:
           7z d "${release_name}.zip" "*.pdb"
 
           rm -r "${release_name}"
-          
+
       - name: Build CSVDB Service
         run: dotnet build src/CheepService/ --configuration Release
 
@@ -99,6 +113,5 @@ jobs:
           files: "Chirp-*"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
 #   Co-Authored-By: Co-Authored-By: Oliver Flinck Sheye <189235422+osheITU@users.noreply.github.com>
 
