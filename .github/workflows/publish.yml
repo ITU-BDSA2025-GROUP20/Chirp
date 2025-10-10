@@ -45,6 +45,24 @@ jobs:
 
       - name: Test
         run: dotnet test --no-build
+  deploy:
+    name: Deploy to Azure Web App
+    runs-on: ubuntu-latest
+    needs: release
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Download published app
+      # If you want to use the artifact from release, use upload/download artifact actions
+        run: echo "Using locally published folder"
+
+      - name: Deploy to Azure
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: ${{ secrets.AZURE_WEBAPP_NAME }}
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+          package: ${{env.DOTNET_ROOT}}/myapp
 
   prep-release:
     name: Prepare GitHub Release
