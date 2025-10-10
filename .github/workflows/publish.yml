@@ -87,6 +87,11 @@ jobs:
           7z d "${release_name}.zip" "*.pdb"
 
           rm -r "${release_name}"
+      - name: Build with dotnet
+        run: dotnet build src/CheepService/ --configuration Release
+
+      - name: dotnet publish
+        run: dotnet publish src/CheepService/ -c Release -o ${{env.DOTNET_ROOT}}/myapp
 
       - name: Populate GitHub Release
         uses: softprops/action-gh-release@v2
