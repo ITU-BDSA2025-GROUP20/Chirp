@@ -45,13 +45,20 @@ jobs:
 
       - name: Test
         run: dotnet test --no-build
+  
   deploy:
-    name: Deploy to Azure Web App
     runs-on: ubuntu-latest
-    needs: release
+    needs: build
+    permissions:
+      id-token: write #This is required for requesting the JWT
+      contents: read #This is required for actions/checkout
+
     steps:
-      - name: Checkout
-        uses: actions/checkout@v5
+      - name: Download artifact from build job
+        uses: actions/download-artifact@v4
+        with:
+          name: .net-app
+      
       - name: Login to Azure
         uses: azure/login@v2
         with:
@@ -59,11 +66,14 @@ jobs:
           tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_969FEE51D11748158290940945246D1B }}
           subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_DDDA483FD43C47148C69FF146B89DDA6 }}
 
-      - name: Deploy to Azure
-        uses: azure/webapps-deploy@v2
+      - name: Deploy to Azure Web App
+        id: deploy-to-webapp
+        uses: azure/webapps-deploy@v3
         with:
-          app-name: bdsagroup20chirpremotedb
-          package: ./path/to/your/artifact.zip
+          app-name: 'bdsagroup20chirpremotedb'
+          slot-name: 'Production'
+          package: .
+
 
   prep-release:
     name: Prepare GitHub Release
