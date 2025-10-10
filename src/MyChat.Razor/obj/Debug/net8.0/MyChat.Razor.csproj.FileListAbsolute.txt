@@ -1,0 +1,9 @@
+C:\KianKorp\Chirp\Chirp\Chirp\src\MyChat.Razor\obj\Debug\net8.0\MyChat.Razor.csproj.AssemblyReference.cache
+C:\KianKorp\Chirp\Chirp\Chirp\src\MyChat.Razor\obj\Debug\net8.0\MyChat.Razor.GeneratedMSBuildEditorConfig.editorconfig
+C:\KianKorp\Chirp\Chirp\Chirp\src\MyChat.Razor\obj\Debug\net8.0\MyChat.Razor.AssemblyInfoInputs.cache
+C:\KianKorp\Chirp\Chirp\Chirp\src\MyChat.Razor\obj\Debug\net8.0\MyChat.Razor.AssemblyInfo.cs
+C:\KianKorp\Chirp\Chirp\Chirp\src\MyChat.Razor\obj\Debug\net8.0\MyChat.Razor.csproj.CoreCompileInputs.cache
+C:\KianKorp\Chirp\Chirp\Chirp\src\MyChat.Razor\obj\Debug\net8.0\MyChat.Razor.MvcApplicationPartsAssemblyInfo.cache
+C:\KianKorp\Chirp\Chirp\Chirp\src\MyChat.Razor\obj\Debug\net8.0\MyChat.Razor.RazorAssemblyInfo.cache
+C:\KianKorp\Chirp\Chirp\Chirp\src\MyChat.Razor\obj\Debug\net8.0\MyChat.Razor.RazorAssemblyInfo.cs
+C:\KianKorp\Chirp\Chirp\Chirp\src\MyChat.Razor\obj\Debug\net8.0\MyChat.Razor.sourcelink.json

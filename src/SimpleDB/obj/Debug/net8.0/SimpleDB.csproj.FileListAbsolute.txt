@@ -53,3 +53,14 @@ C:\Users\pfran\Desktop\Chirp\src\SimpleDB\obj\Debug\net8.0\SimpleDB.dll
 C:\Users\pfran\Desktop\Chirp\src\SimpleDB\obj\Debug\net8.0\refint\SimpleDB.dll
 C:\Users\pfran\Desktop\Chirp\src\SimpleDB\obj\Debug\net8.0\SimpleDB.pdb
 C:\Users\pfran\Desktop\Chirp\src\SimpleDB\obj\Debug\net8.0\ref\SimpleDB.dll
+C:\KianKorp\Chirp\Chirp\chirp\src\SimpleDB\bin\Debug\net8.0\SimpleDB.deps.json
+C:\KianKorp\Chirp\Chirp\chirp\src\SimpleDB\bin\Debug\net8.0\SimpleDB.dll
+C:\KianKorp\Chirp\Chirp\chirp\src\SimpleDB\bin\Debug\net8.0\SimpleDB.pdb
+C:\KianKorp\Chirp\Chirp\chirp\src\SimpleDB\obj\Debug\net8.0\SimpleDB.csproj.AssemblyReference.cache
+C:\KianKorp\Chirp\Chirp\chirp\src\SimpleDB\obj\Debug\net8.0\SimpleDB.GeneratedMSBuildEditorConfig.editorconfig
+C:\KianKorp\Chirp\Chirp\chirp\src\SimpleDB\obj\Debug\net8.0\SimpleDB.csproj.CoreCompileInputs.cache
+C:\KianKorp\Chirp\Chirp\chirp\src\SimpleDB\obj\Debug\net8.0\SimpleDB.sourcelink.json
+C:\KianKorp\Chirp\Chirp\chirp\src\SimpleDB\obj\Debug\net8.0\SimpleDB.dll
+C:\KianKorp\Chirp\Chirp\chirp\src\SimpleDB\obj\Debug\net8.0\refint\SimpleDB.dll
+C:\KianKorp\Chirp\Chirp\chirp\src\SimpleDB\obj\Debug\net8.0\SimpleDB.pdb
+C:\KianKorp\Chirp\Chirp\chirp\src\SimpleDB\obj\Debug\net8.0\ref\SimpleDB.dll

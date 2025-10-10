@@ -7,7 +7,22 @@ using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Runtime.CompilerServices;
 
-public record Cheep(string Author, string Message, long Timestamp);
+public class Cheep
+{
+    public string Author { get; set; }
+    public string Message { get; set; }
+    public string Timestamp { get; set; }
+
+    public Cheep() { }
+
+    public Cheep(string author, string message, string timestamp)
+    {
+        Author = author;
+        Message = message;
+        Timestamp = timestamp;
+    }
+}
+
 
     public class Options
     {
@@ -22,7 +37,8 @@ class Program
 {
     private static readonly HttpClient client = new HttpClient
     {
-        BaseAddress = new Uri("https://bdsagroup20chirpremotedb.azurewebsites.net/")
+        //BaseAddress = new Uri("https://bdsagroup20chirpremotedb.azurewebsites.net/")
+        BaseAddress = new Uri("http://localhost:5273")
     };
     static async Task Main(string[] args)
     {

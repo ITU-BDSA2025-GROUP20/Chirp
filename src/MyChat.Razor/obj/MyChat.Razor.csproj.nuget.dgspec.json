@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\KianKorp\\Chirp\\Chirp\\chirp\\src\\Chirp.Razor\\Chirp.Razor.csproj": {}
+    "C:\\KianKorp\\Chirp\\Chirp\\Chirp\\src\\MyChat.Razor\\MyChat.Razor.csproj": {}
   },
   "projects": {
-    "C:\\KianKorp\\Chirp\\Chirp\\chirp\\src\\Chirp.Razor\\Chirp.Razor.csproj": {
+    "C:\\KianKorp\\Chirp\\Chirp\\Chirp\\src\\MyChat.Razor\\MyChat.Razor.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\KianKorp\\Chirp\\Chirp\\chirp\\src\\Chirp.Razor\\Chirp.Razor.csproj",
-        "projectName": "Chirp.Razor",
-        "projectPath": "C:\\KianKorp\\Chirp\\Chirp\\chirp\\src\\Chirp.Razor\\Chirp.Razor.csproj",
+        "projectUniqueName": "C:\\KianKorp\\Chirp\\Chirp\\Chirp\\src\\MyChat.Razor\\MyChat.Razor.csproj",
+        "projectName": "MyChat.Razor",
+        "projectPath": "C:\\KianKorp\\Chirp\\Chirp\\Chirp\\src\\MyChat.Razor\\MyChat.Razor.csproj",
         "packagesPath": "C:\\Users\\kianf\\.nuget\\packages\\",
-        "outputPath": "C:\\KianKorp\\Chirp\\Chirp\\chirp\\src\\Chirp.Razor\\obj\\",
+        "outputPath": "C:\\KianKorp\\Chirp\\Chirp\\Chirp\\src\\MyChat.Razor\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\kianf\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -42,6 +42,22 @@
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[9.0.9, )"
+            },
+            "Microsoft.EntityFrameworkCore.SQLite": {
+              "target": "Package",
+              "version": "[9.0.9, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[9.0.9, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
