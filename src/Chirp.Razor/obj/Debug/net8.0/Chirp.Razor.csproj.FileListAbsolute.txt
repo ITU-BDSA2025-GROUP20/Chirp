@@ -1,0 +1,8 @@
+C:\KianKorp\Chirp\Chirp\chirp\src\Chirp.Razor\obj\Debug\net8.0\Chirp.Razor.GeneratedMSBuildEditorConfig.editorconfig
+C:\KianKorp\Chirp\Chirp\chirp\src\Chirp.Razor\obj\Debug\net8.0\Chirp.Razor.AssemblyInfoInputs.cache
+C:\KianKorp\Chirp\Chirp\chirp\src\Chirp.Razor\obj\Debug\net8.0\Chirp.Razor.AssemblyInfo.cs
+C:\KianKorp\Chirp\Chirp\chirp\src\Chirp.Razor\obj\Debug\net8.0\Chirp.Razor.csproj.CoreCompileInputs.cache
+C:\KianKorp\Chirp\Chirp\chirp\src\Chirp.Razor\obj\Debug\net8.0\Chirp.Razor.MvcApplicationPartsAssemblyInfo.cache
+C:\KianKorp\Chirp\Chirp\chirp\src\Chirp.Razor\obj\Debug\net8.0\Chirp.Razor.RazorAssemblyInfo.cache
+C:\KianKorp\Chirp\Chirp\chirp\src\Chirp.Razor\obj\Debug\net8.0\Chirp.Razor.RazorAssemblyInfo.cs
+C:\KianKorp\Chirp\Chirp\chirp\src\Chirp.Razor\obj\Debug\net8.0\Chirp.Razor.sourcelink.json

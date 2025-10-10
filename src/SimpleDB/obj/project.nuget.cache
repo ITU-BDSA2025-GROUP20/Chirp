@@ -1,10 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "sSbHjyyKHj0=",
+  "dgSpecHash": "HPrU5ynOxDo=",
   "success": true,
-  "projectFilePath": "C:\\Users\\gusta\\Downloads\\Desktop\\Analysis\\Project\\Chirp\\src\\SimpleDB\\SimpleDB.csproj",
+  "projectFilePath": "C:\\KianKorp\\Chirp\\Chirp\\Chirp\\src\\SimpleDB\\SimpleDB.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\gusta\\.nuget\\packages\\csvhelper\\33.1.0\\csvhelper.33.1.0.nupkg.sha512"
+    "C:\\Users\\kianf\\.nuget\\packages\\csvhelper\\33.1.0\\csvhelper.33.1.0.nupkg.sha512"
   ],
   "logs": []
 }

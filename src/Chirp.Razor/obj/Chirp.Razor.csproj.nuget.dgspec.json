@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\KianKorp\\Chirp\\Chirp\\Chirp\\src\\SimpleDB\\SimpleDB.csproj": {}
+    "C:\\KianKorp\\Chirp\\Chirp\\chirp\\src\\Chirp.Razor\\Chirp.Razor.csproj": {}
   },
   "projects": {
-    "C:\\KianKorp\\Chirp\\Chirp\\Chirp\\src\\SimpleDB\\SimpleDB.csproj": {
+    "C:\\KianKorp\\Chirp\\Chirp\\chirp\\src\\Chirp.Razor\\Chirp.Razor.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\KianKorp\\Chirp\\Chirp\\Chirp\\src\\SimpleDB\\SimpleDB.csproj",
-        "projectName": "SimpleDB",
-        "projectPath": "C:\\KianKorp\\Chirp\\Chirp\\Chirp\\src\\SimpleDB\\SimpleDB.csproj",
+        "projectUniqueName": "C:\\KianKorp\\Chirp\\Chirp\\chirp\\src\\Chirp.Razor\\Chirp.Razor.csproj",
+        "projectName": "Chirp.Razor",
+        "projectPath": "C:\\KianKorp\\Chirp\\Chirp\\chirp\\src\\Chirp.Razor\\Chirp.Razor.csproj",
         "packagesPath": "C:\\Users\\kianf\\.nuget\\packages\\",
-        "outputPath": "C:\\KianKorp\\Chirp\\Chirp\\Chirp\\src\\SimpleDB\\obj\\",
+        "outputPath": "C:\\KianKorp\\Chirp\\Chirp\\chirp\\src\\Chirp.Razor\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\kianf\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -42,12 +42,6 @@
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
-          "dependencies": {
-            "CsvHelper": {
-              "target": "Package",
-              "version": "[33.1.0, )"
-            }
-          },
           "imports": [
             "net461",
             "net462",
@@ -60,6 +54,9 @@
           "assetTargetFallback": true,
           "warn": true,
           "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
