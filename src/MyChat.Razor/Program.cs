@@ -1,9 +1,15 @@
+
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Load database connection via configuration
 string? connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+builder.Services.AddRazorPages();
 builder.Services.AddDbContext<ChatDBContext>(options => options.UseSqlite(connectionString));
 
 var app = builder.Build();
