@@ -8,6 +8,6 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = SimpleDB
-build_property.ProjectDir = C:\Users\oskar\Documents\Chirp\Chirp\src\SimpleDB\
+build_property.ProjectDir = C:\Users\gusta\Downloads\Desktop\Analysis\Project\Chirp\src\SimpleDB\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 

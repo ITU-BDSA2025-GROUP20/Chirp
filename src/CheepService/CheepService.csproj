@@ -12,4 +12,8 @@
     <ProjectReference Include="..\SimpleDB\SimpleDB.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\SimpleDB\SimpleDB.csproj" />
+  </ItemGroup>
+
 </Project>
