@@ -9,23 +9,25 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = Chirp.Razor
 build_property.RootNamespace = Chirp.Razor
-build_property.ProjectDir = C:\Users\gusta\Downloads\Desktop\Analysis\Project\Chirp\src\Chirp.Razor\
+build_property.ProjectDir = C:\Users\pfran\Desktop\Chirp\src\Chirp.Razor\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.RazorLangVersion = 8.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = C:\Users\gusta\Downloads\Desktop\Analysis\Project\Chirp\src\Chirp.Razor
+build_property.MSBuildProjectDirectory = C:\Users\pfran\Desktop\Chirp\src\Chirp.Razor
 build_property._RazorSourceGeneratorDebug = 
+build_property.EffectiveAnalysisLevelStyle = 8.0
+build_property.EnableCodeStyleSeverity = 
 
-[C:/Users/gusta/Downloads/Desktop/Analysis/Project/Chirp/src/Chirp.Razor/Pages/Public.cshtml]
+[C:/Users/pfran/Desktop/Chirp/src/Chirp.Razor/Pages/Public.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHVibGljLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/gusta/Downloads/Desktop/Analysis/Project/Chirp/src/Chirp.Razor/Pages/Shared/_Layout.cshtml]
+[C:/Users/pfran/Desktop/Chirp/src/Chirp.Razor/Pages/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/gusta/Downloads/Desktop/Analysis/Project/Chirp/src/Chirp.Razor/Pages/UserTimeline.cshtml]
+[C:/Users/pfran/Desktop/Chirp/src/Chirp.Razor/Pages/UserTimeline.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVXNlclRpbWVsaW5lLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
