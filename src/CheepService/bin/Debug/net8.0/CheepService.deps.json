@@ -8,6 +8,7 @@
     ".NETCoreApp,Version=v8.0": {
       "CheepService/1.0.0": {
         "dependencies": {
+          "CsvHelper": "33.1.0",
           "Microsoft.AspNetCore.OpenApi": "8.0.19",
           "SimpleDB": "1.0.0",
           "Swashbuckle.AspNetCore": "6.6.2"
@@ -88,7 +89,7 @@
         },
         "runtime": {
           "SimpleDB.dll": {
-            "assemblyVersion": "0.0.0.0",
+            "assemblyVersion": "1.0.0",
             "fileVersion": "0.0.0.0"
           }
         }

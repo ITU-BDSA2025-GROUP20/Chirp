@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "x8vc+hPbNGo=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\gusta\\Downloads\\Desktop\\Analysis\\Project\\Chirp\\src\\Chirp.Razor\\Chirp.Razor.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\gusta\\.nuget\\packages\\csvhelper\\33.1.0\\csvhelper.33.1.0.nupkg.sha512"
+  ],
+  "logs": []
+}

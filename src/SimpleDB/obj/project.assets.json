@@ -51,19 +51,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\pfran\\.nuget\\packages\\": {}
+    "C:\\Users\\gusta\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\pfran\\Desktop\\Chirp\\src\\SimpleDB\\SimpleDB.csproj",
+      "projectUniqueName": "C:\\Users\\gusta\\Downloads\\Desktop\\Analysis\\Project\\Chirp\\src\\SimpleDB\\SimpleDB.csproj",
       "projectName": "SimpleDB",
-      "projectPath": "C:\\Users\\pfran\\Desktop\\Chirp\\src\\SimpleDB\\SimpleDB.csproj",
-      "packagesPath": "C:\\Users\\pfran\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\pfran\\Desktop\\Chirp\\src\\SimpleDB\\obj\\",
+      "projectPath": "C:\\Users\\gusta\\Downloads\\Desktop\\Analysis\\Project\\Chirp\\src\\SimpleDB\\SimpleDB.csproj",
+      "packagesPath": "C:\\Users\\gusta\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\gusta\\Downloads\\Desktop\\Analysis\\Project\\Chirp\\src\\SimpleDB\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\pfran\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\gusta\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
@@ -86,8 +86,7 @@
         "enableAudit": "true",
         "auditLevel": "low",
         "auditMode": "direct"
-      },
-      "SdkAnalysisLevel": "9.0.300"
+      }
     },
     "frameworks": {
       "net8.0": {
@@ -114,7 +113,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.304/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.414/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
