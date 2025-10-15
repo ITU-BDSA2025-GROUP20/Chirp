@@ -1,11 +1,1 @@
-{
-  "Version": 1,
-  "Hash": "Y5o+3lT2nHA6SX/fL2cAdTnY6Jr7XrnlPaVcJGi1pIY=",
-  "Source": "CheepService",
-  "BasePath": "_content/CheepService",
-  "Mode": "Default",
-  "ManifestType": "Build",
-  "ReferencedProjectsConfiguration": [],
-  "DiscoveryPatterns": [],
-  "Assets": []
-}
+{"Version":1,"Hash":"iE4L73vHHQ92Gv59v7bStNhO/12WoXqeHCBklm+7VFM=","Source":"CheepService","BasePath":"_content/CheepService","Mode":"Default","ManifestType":"Build","ReferencedProjectsConfiguration":[],"DiscoveryPatterns":[],"Assets":[],"Endpoints":[]}

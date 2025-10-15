@@ -87,7 +87,10 @@
           "CsvHelper": "33.1.0"
         },
         "runtime": {
-          "SimpleDB.dll": {}
+          "SimpleDB.dll": {
+            "assemblyVersion": "0.0.0.0",
+            "fileVersion": "0.0.0.0"
+          }
         }
       }
     }
