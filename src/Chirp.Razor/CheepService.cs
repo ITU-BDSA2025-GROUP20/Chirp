@@ -8,9 +8,9 @@ namespace Chirp.Razor.Services
 {
     public class CheepService
     {
-        private readonly ChirpDbContext _context;
+        private readonly CheepDbContext _context;
 
-        public CheepService(ChirpDbContext context)
+        public CheepService(CheepDbContext context)
         {
             _context = context;
         }

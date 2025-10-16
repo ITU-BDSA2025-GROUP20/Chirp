@@ -1,0 +1,77 @@
+{
+  "Version": 1,
+  "Hash": "Z8oxzOzEiSXCXapysQj3TvFdViL+24ikPkXfuG41uuM=",
+  "Source": "Chirp.Razor",
+  "BasePath": "_content/Chirp.Razor",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [
+    {
+      "Name": "Chirp.Razor\\wwwroot",
+      "Source": "Chirp.Razor",
+      "ContentRoot": "C:\\Users\\oskar\\Documents\\Chirp\\Chirp\\src\\chirp.razor\\wwwroot\\",
+      "BasePath": "_content/Chirp.Razor",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": [
+    {
+      "Identity": "C:\\Users\\oskar\\Documents\\Chirp\\Chirp\\src\\chirp.razor\\wwwroot\\css\\style.css",
+      "SourceId": "Chirp.Razor",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\oskar\\Documents\\Chirp\\Chirp\\src\\chirp.razor\\wwwroot\\",
+      "BasePath": "_content/Chirp.Razor",
+      "RelativePath": "css/style.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\style.css"
+    },
+    {
+      "Identity": "C:\\Users\\oskar\\Documents\\Chirp\\Chirp\\src\\chirp.razor\\wwwroot\\favicon\\favicon.ico",
+      "SourceId": "Chirp.Razor",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\oskar\\Documents\\Chirp\\Chirp\\src\\chirp.razor\\wwwroot\\",
+      "BasePath": "_content/Chirp.Razor",
+      "RelativePath": "favicon/favicon.ico",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\favicon\\favicon.ico"
+    },
+    {
+      "Identity": "C:\\Users\\oskar\\Documents\\Chirp\\Chirp\\src\\chirp.razor\\wwwroot\\images\\icon1.png",
+      "SourceId": "Chirp.Razor",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\oskar\\Documents\\Chirp\\Chirp\\src\\chirp.razor\\wwwroot\\",
+      "BasePath": "_content/Chirp.Razor",
+      "RelativePath": "images/icon1.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\icon1.png"
+    }
+  ]
+}

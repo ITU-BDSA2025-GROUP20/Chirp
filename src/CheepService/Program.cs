@@ -1,5 +1,5 @@
 using CheepService.Models;
-using CheepService.Models;
+using CheepService.Data;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
