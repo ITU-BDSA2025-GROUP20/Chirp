@@ -1,0 +1,15 @@
+C:\Users\pfran\Desktop\Chirp\src\CheepService\publish\CheepService.exe
+C:\Users\pfran\Desktop\Chirp\src\CheepService\publish\appsettings.Development.json
+C:\Users\pfran\Desktop\Chirp\src\CheepService\publish\appsettings.json
+C:\Users\pfran\Desktop\Chirp\src\CheepService\publish\CheepService.dll
+C:\Users\pfran\Desktop\Chirp\src\CheepService\publish\CheepService.deps.json
+C:\Users\pfran\Desktop\Chirp\src\CheepService\publish\CheepService.runtimeconfig.json
+C:\Users\pfran\Desktop\Chirp\src\CheepService\publish\CheepService.pdb
+C:\Users\pfran\Desktop\Chirp\src\CheepService\publish\CsvHelper.dll
+C:\Users\pfran\Desktop\Chirp\src\CheepService\publish\Microsoft.AspNetCore.OpenApi.dll
+C:\Users\pfran\Desktop\Chirp\src\CheepService\publish\Microsoft.OpenApi.dll
+C:\Users\pfran\Desktop\Chirp\src\CheepService\publish\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\pfran\Desktop\Chirp\src\CheepService\publish\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\pfran\Desktop\Chirp\src\CheepService\publish\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Users\pfran\Desktop\Chirp\src\CheepService\publish\SimpleDB.dll
+C:\Users\pfran\Desktop\Chirp\src\CheepService\publish\SimpleDB.pdb
