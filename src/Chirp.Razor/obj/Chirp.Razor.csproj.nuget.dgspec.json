@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\oskar\\Documents\\Chirp\\Chirp\\src\\chirp.razor\\Chirp.Razor.csproj": {}
+    "C:\\Users\\oskar\\Documents\\Chirp\\Chirp\\src\\Chirp.Razor\\Chirp.Razor.csproj": {}
   },
   "projects": {
-    "C:\\Users\\oskar\\Documents\\Chirp\\Chirp\\src\\chirp.razor\\Chirp.Razor.csproj": {
+    "C:\\Users\\oskar\\Documents\\Chirp\\Chirp\\src\\Chirp.Razor\\Chirp.Razor.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\oskar\\Documents\\Chirp\\Chirp\\src\\chirp.razor\\Chirp.Razor.csproj",
+        "projectUniqueName": "C:\\Users\\oskar\\Documents\\Chirp\\Chirp\\src\\Chirp.Razor\\Chirp.Razor.csproj",
         "projectName": "Chirp.Razor",
-        "projectPath": "C:\\Users\\oskar\\Documents\\Chirp\\Chirp\\src\\chirp.razor\\Chirp.Razor.csproj",
+        "projectPath": "C:\\Users\\oskar\\Documents\\Chirp\\Chirp\\src\\Chirp.Razor\\Chirp.Razor.csproj",
         "packagesPath": "C:\\Users\\oskar\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\oskar\\Documents\\Chirp\\Chirp\\src\\chirp.razor\\obj\\",
+        "outputPath": "C:\\Users\\oskar\\Documents\\Chirp\\Chirp\\src\\Chirp.Razor\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

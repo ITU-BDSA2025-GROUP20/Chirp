@@ -1,15 +1,15 @@
 {
   "Files": [
     {
-      "Id": "C:\\Users\\oskar\\Documents\\Chirp\\Chirp\\src\\chirp.razor\\wwwroot\\css\\style.css",
+      "Id": "C:\\Users\\oskar\\Documents\\Chirp\\Chirp\\src\\Chirp.Razor\\wwwroot\\css\\style.css",
       "PackagePath": "staticwebassets\\css\\style.css"
     },
     {
-      "Id": "C:\\Users\\oskar\\Documents\\Chirp\\Chirp\\src\\chirp.razor\\wwwroot\\favicon\\favicon.ico",
+      "Id": "C:\\Users\\oskar\\Documents\\Chirp\\Chirp\\src\\Chirp.Razor\\wwwroot\\favicon\\favicon.ico",
       "PackagePath": "staticwebassets\\favicon\\favicon.ico"
     },
     {
-      "Id": "C:\\Users\\oskar\\Documents\\Chirp\\Chirp\\src\\chirp.razor\\wwwroot\\images\\icon1.png",
+      "Id": "C:\\Users\\oskar\\Documents\\Chirp\\Chirp\\src\\Chirp.Razor\\wwwroot\\images\\icon1.png",
       "PackagePath": "staticwebassets\\images\\icon1.png"
     },
     {

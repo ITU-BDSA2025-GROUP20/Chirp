@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "rU1AMKDwuC0XaVZHnv+lGDijjpLJNFSmUGgADAasRBwTKnj9WGHuzAt2sFPsYEbYwJaSYeDPtgBuu1qJ/yrxwA==",
+  "dgSpecHash": "krZS6Yu/Or3buOi72lY4tVDAJLq+o4G8c1+JUEU519177wAOngkSK8xwRL2HLlPPGCGZmSzAVXWL/6BIGMmMug==",
   "success": true,
-  "projectFilePath": "C:\\Users\\oskar\\Documents\\Chirp\\Chirp\\src\\chirp.razor\\Chirp.Razor.csproj",
+  "projectFilePath": "C:\\Users\\oskar\\Documents\\Chirp\\Chirp\\src\\Chirp.Razor\\Chirp.Razor.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\oskar\\.nuget\\packages\\csvhelper\\33.1.0\\csvhelper.33.1.0.nupkg.sha512",
     "C:\\Users\\oskar\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
