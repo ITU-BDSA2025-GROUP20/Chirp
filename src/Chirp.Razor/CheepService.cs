@@ -17,31 +17,31 @@ namespace Chirp.Razor.Services
 
         public List<CheepViewModel> GetCheeps()
         {
-            var cheeps = _context.Cheeps
+            return _context.Cheeps
+                .Include(c => c.Author)
                 .OrderByDescending(c => c.Timestamp)
+                .Select(c => new CheepViewModel(
+                    c.Author.Name,
+                    c.Message,
+                    c.Timestamp.ToString("MM/dd/yy H:mm:ss")
+                ))
                 .ToList();
-                
-            return cheeps.Select(c => new CheepViewModel(
-                c.Author, 
-                c.Message, 
-                c.Timestamp.ToString("MM/dd/yy H:mm:ss")
-            )).ToList();
         }
 
-        public List<CheepViewModel> GetCheepsFromAuthor(string author)
+        public List<CheepViewModel> GetCheepsFromAuthor(string authorName)
         {
-            var cheeps = _context.Cheeps
-                .Where(c => c.Author == author)
+            return _context.Cheeps
+                .Include(c => c.Author)
+                .Where(c => c.Author.Name == authorName)
                 .OrderByDescending(c => c.Timestamp)
+                .Select(c => new CheepViewModel(
+                    c.Author.Name,
+                    c.Message,
+                    c.Timestamp.ToString("MM/dd/yy H:mm:ss")
+                ))
                 .ToList();
-                
-            return cheeps.Select(c => new CheepViewModel(
-                c.Author, 
-                c.Message, 
-                c.Timestamp.ToString("MM/dd/yy H:mm:ss")
-            )).ToList();
         }
     }
-    
+
     public record CheepViewModel(string Author, string Message, string Timestamp);
 }

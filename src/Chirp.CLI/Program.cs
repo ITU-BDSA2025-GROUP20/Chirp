@@ -44,9 +44,9 @@ class Program
         {
             await ReadCheeps();
         }
-        else if (opts.Cheep != null)
+        else if (!string.IsNullOrWhiteSpace(opts.Cheep))
         {
-            await Cheep(opts.Cheep);
+            await PostCheep(opts.Cheep);
         }
         else
         {
@@ -60,6 +60,11 @@ class Program
             var response = await client.GetAsync("cheeps");
             response.EnsureSuccessStatusCode();
             var cheeps = await response.Content.ReadFromJsonAsync<List<Cheep>>();
+            if (cheeps == null || cheeps.Count == 0)
+            {
+                Console.WriteLine("No cheeps found.");
+                return;
+            }
             UserInterface.PrintCheeps(cheeps);
     }
 

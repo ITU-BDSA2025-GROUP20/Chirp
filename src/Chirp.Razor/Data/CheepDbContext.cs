@@ -10,8 +10,7 @@ namespace Chirp.Razor.Data
         {
         }
 
-        public DbSet<CheepViewModel> Cheeps { get; set; } = null!;
-        public DbSet<UserModel> Users { get; set; }
-        public DbSet<MessageModel> Messages { get; set; }
+        public DbSet<Cheep> Cheeps { get; set; } = null!;
+        public DbSet<Author> Users { get; set; }
     }
 }

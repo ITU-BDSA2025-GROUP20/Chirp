@@ -1,7 +1,7 @@
 namespace Chirp.Razor.Models
 {
     
-    public class CheepViewModel
+    public class Cheep
     {
         public int Id { get; set; }
         public string Message { get; set; } = string.Empty;
