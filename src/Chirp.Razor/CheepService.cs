@@ -10,16 +10,25 @@ namespace Chirp.Razor.Services
     {
         private readonly CheepDbContext _context;
 
-        public CheepService(CheepDbContext context)
+        public CheepService(ICheepRepository repository)
         {
-            _context = context;
+            _repository = repository;
         }
 
         public List<CheepViewModel> GetCheeps()
         {
-            return _context.Cheeps
-                .Include(c => c.Author)
-                .OrderByDescending(c => c.Timestamp)
+            return _repository.GetAllCheepsAsync()
+                .Select(c => new CheepViewModel(
+                    c.Author.Name,
+                    c.Message,
+                    c.Timestamp.ToString("MM/dd/yy H:mm:ss")
+                ))
+                .ToList();
+        }
+
+        public List<CheepViewModel> GetCheepsFromAuthor(string authorName)
+        {
+            return _repository.GetCheepsFromAuthorAsync(authorName)
                 .Select(c => new CheepViewModel(
                     c.Author.Name,
                     c.Message,

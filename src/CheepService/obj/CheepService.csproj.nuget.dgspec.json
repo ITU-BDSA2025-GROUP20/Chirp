@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\pfran\\Desktop\\Chirp\\src\\CheepService\\CheepService.csproj": {}
+    "c:\\Users\\pfran\\Desktop\\Chirp\\src\\CheepService\\CheepService.csproj": {}
   },
   "projects": {
-    "C:\\Users\\pfran\\Desktop\\Chirp\\src\\CheepService\\CheepService.csproj": {
+    "c:\\Users\\pfran\\Desktop\\Chirp\\src\\CheepService\\CheepService.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\pfran\\Desktop\\Chirp\\src\\CheepService\\CheepService.csproj",
+        "projectUniqueName": "c:\\Users\\pfran\\Desktop\\Chirp\\src\\CheepService\\CheepService.csproj",
         "projectName": "CheepService",
-        "projectPath": "C:\\Users\\pfran\\Desktop\\Chirp\\src\\CheepService\\CheepService.csproj",
+        "projectPath": "c:\\Users\\pfran\\Desktop\\Chirp\\src\\CheepService\\CheepService.csproj",
         "packagesPath": "C:\\Users\\pfran\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\pfran\\Desktop\\Chirp\\src\\CheepService\\obj\\",
+        "outputPath": "c:\\Users\\pfran\\Desktop\\Chirp\\src\\CheepService\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\pfran\\AppData\\Roaming\\NuGet\\NuGet.Config"

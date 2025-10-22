@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "6G+6RmtpRNE=",
+  "dgSpecHash": "CNZg3xqFYOE=",
   "success": true,
-  "projectFilePath": "C:\\Users\\pfran\\Desktop\\Chirp\\src\\CheepService\\CheepService.csproj",
+  "projectFilePath": "c:\\Users\\pfran\\Desktop\\Chirp\\src\\CheepService\\CheepService.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\pfran\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",
     "C:\\Users\\pfran\\.nuget\\packages\\azure.identity\\1.10.3\\azure.identity.1.10.3.nupkg.sha512",
