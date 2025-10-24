@@ -168,3 +168,6 @@ C:\Users\oskar\Documents\Chirp\Chirp\src\chirp.razor\obj\Debug\net8.0\refint\Chi
 C:\Users\oskar\Documents\Chirp\Chirp\src\chirp.razor\obj\Debug\net8.0\Chirp.Razor.pdb
 C:\Users\oskar\Documents\Chirp\Chirp\src\chirp.razor\obj\Debug\net8.0\Chirp.Razor.genruntimeconfig.cache
 C:\Users\oskar\Documents\Chirp\Chirp\src\chirp.razor\obj\Debug\net8.0\ref\Chirp.Razor.dll
+C:\Users\pfran\Desktop\Chirp\src\Chirp.Razor\obj\Debug\net8.0\Chirp.Razor.dll
+C:\Users\pfran\Desktop\Chirp\src\Chirp.Razor\obj\Debug\net8.0\refint\Chirp.Razor.dll
+C:\Users\pfran\Desktop\Chirp\src\Chirp.Razor\obj\Debug\net8.0\Chirp.Razor.pdb

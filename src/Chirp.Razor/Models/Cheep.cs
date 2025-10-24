@@ -3,9 +3,11 @@ namespace Chirp.Razor.Models
     
     public class Cheep
     {
-        public int Id { get; set; }
-        public string Message { get; set; } = string.Empty;
+        public int CheepId { get; set; }
+        public string Text { get; set; } = string.Empty;
+
+        public int AuthorId { get; set; }
         public Author Author { get; set; }
-        public DateTime Timestamp { get; set; }
+        public DateTime TimeStamp { get; set; }
     }
 }

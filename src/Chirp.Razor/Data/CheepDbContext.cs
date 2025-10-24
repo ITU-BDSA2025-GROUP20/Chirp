@@ -11,6 +11,6 @@ namespace Chirp.Razor.Data
         }
 
         public DbSet<Cheep> Cheeps { get; set; } = null!;
-        public DbSet<Author> Users { get; set; }
+        public DbSet<Author> Authors { get; set; } = null!;
     }
 }

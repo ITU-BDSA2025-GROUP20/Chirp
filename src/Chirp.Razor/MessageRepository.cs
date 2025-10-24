@@ -15,13 +15,13 @@ namespace Chirp.Razor
 
         public async Task<List<MessageDTO>> ReadMessages(string userName)
         {
-            var query = _dbContext.Messages
-                .Where(m => m.User.Name == userName)
+            var query = _dbContext.Cheeps
+                .Where(m => m.Author.Name == userName)
                 .Select(m => new MessageDTO
                 {
-                    Id = m.MessageId,
+                    Id = m.CheepId,
                     Text = m.Text,
-                    UserName = m.User.Name,
+                    UserName = m.Author.Name,
                     CreatedAt = m.CreatedAt
                 });
 
@@ -30,25 +30,25 @@ namespace Chirp.Razor
 
         public async Task<int> CreateMessage(MessageDTO message)
         {
-            var newMessage = new Message
+            var newMessage = new Text
             {
                 Text = message.Text,
                 CreatedAt = message.CreatedAt,
-                UserId = _dbContext.Users
+                AuthorId = _dbContext.Authors
                     .Where(u => u.Name == message.UserName)
-                    .Select(u => u.UserId)
+                    .Select(u => u.AuthorId)
                     .FirstOrDefault()
             };
 
-            var result = await _dbContext.Messages.AddAsync(newMessage);
+            var result = await _dbContext.Cheeps.AddAsync(newMessage);
             await _dbContext.SaveChangesAsync();
 
-            return result.Entity.MessageId;
+            return result.Entity.CheepId;
         }
 
         public async Task UpdateMessage(MessageDTO message)
         {
-            var existing = await _dbContext.Messages.FindAsync(message.Id);
+            var existing = await _dbContext.Cheeps.FindAsync(message.Id);
             if (existing != null)
             {
                 existing.Text = message.Text;
