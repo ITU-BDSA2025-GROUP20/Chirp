@@ -1,33 +1,39 @@
 {
   "format": 1,
   "restore": {
-    "c:\\Users\\pfran\\Desktop\\Chirp\\src\\Chirp.Razor\\Chirp.Razor.csproj": {}
+    "C:\\Users\\oskar\\Documents\\Chirp\\Chirp\\src\\Chirp.Razor\\Chirp.Razor.csproj": {}
   },
   "projects": {
-    "c:\\Users\\pfran\\Desktop\\Chirp\\src\\Chirp.Razor\\Chirp.Razor.csproj": {
+    "C:\\Users\\oskar\\Documents\\Chirp\\Chirp\\src\\Chirp.Razor\\Chirp.Razor.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\Users\\pfran\\Desktop\\Chirp\\src\\Chirp.Razor\\Chirp.Razor.csproj",
+        "projectUniqueName": "C:\\Users\\oskar\\Documents\\Chirp\\Chirp\\src\\Chirp.Razor\\Chirp.Razor.csproj",
         "projectName": "Chirp.Razor",
-        "projectPath": "c:\\Users\\pfran\\Desktop\\Chirp\\src\\Chirp.Razor\\Chirp.Razor.csproj",
-        "packagesPath": "C:\\Users\\pfran\\.nuget\\packages\\",
-        "outputPath": "c:\\Users\\pfran\\Desktop\\Chirp\\src\\Chirp.Razor\\obj\\",
+        "projectPath": "C:\\Users\\oskar\\Documents\\Chirp\\Chirp\\src\\Chirp.Razor\\Chirp.Razor.csproj",
+        "packagesPath": "C:\\Users\\oskar\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\oskar\\Documents\\Chirp\\Chirp\\src\\Chirp.Razor\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\pfran\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\oskar\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "c:\\Users\\pfran\\Desktop\\Chirp\\src\\SimpleDB\\SimpleDB.csproj": {
-                "projectPath": "c:\\Users\\pfran\\Desktop\\Chirp\\src\\SimpleDB\\SimpleDB.csproj"
+              "C:\\Users\\oskar\\Documents\\Chirp\\Chirp\\src\\SimpleDB\\SimpleDB.csproj": {
+                "projectPath": "C:\\Users\\oskar\\Documents\\Chirp\\Chirp\\src\\SimpleDB\\SimpleDB.csproj"
               }
             }
           }
@@ -41,8 +47,7 @@
           "enableAudit": "true",
           "auditLevel": "low",
           "auditMode": "direct"
-        },
-        "SdkAnalysisLevel": "9.0.300"
+        }
       },
       "frameworks": {
         "net8.0": {
@@ -78,26 +83,32 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.304/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.204/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "c:\\Users\\pfran\\Desktop\\Chirp\\src\\SimpleDB\\SimpleDB.csproj": {
+    "C:\\Users\\oskar\\Documents\\Chirp\\Chirp\\src\\SimpleDB\\SimpleDB.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\Users\\pfran\\Desktop\\Chirp\\src\\SimpleDB\\SimpleDB.csproj",
+        "projectUniqueName": "C:\\Users\\oskar\\Documents\\Chirp\\Chirp\\src\\SimpleDB\\SimpleDB.csproj",
         "projectName": "SimpleDB",
-        "projectPath": "c:\\Users\\pfran\\Desktop\\Chirp\\src\\SimpleDB\\SimpleDB.csproj",
-        "packagesPath": "C:\\Users\\pfran\\.nuget\\packages\\",
-        "outputPath": "c:\\Users\\pfran\\Desktop\\Chirp\\src\\SimpleDB\\obj\\",
+        "projectPath": "C:\\Users\\oskar\\Documents\\Chirp\\Chirp\\src\\SimpleDB\\SimpleDB.csproj",
+        "packagesPath": "C:\\Users\\oskar\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\oskar\\Documents\\Chirp\\Chirp\\src\\SimpleDB\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\pfran\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\oskar\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -115,8 +126,7 @@
           "enableAudit": "true",
           "auditLevel": "low",
           "auditMode": "direct"
-        },
-        "SdkAnalysisLevel": "9.0.300"
+        }
       },
       "frameworks": {
         "net8.0": {
@@ -143,7 +153,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.304/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.204/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

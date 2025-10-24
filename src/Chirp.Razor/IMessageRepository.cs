@@ -1,10 +1,9 @@
-namespace Chirp.Razor;
-
-interface IMessageRepository
+namespace Chirp.Razor
 {
-    public class CreateMessage();
-
-    public class ReadMessage();
-
-    public class UpdateMessage();
+    public interface IMessageRepository
+    {
+        Task<List<MessageDTO>> ReadMessages(string userName);
+        Task<int> CreateMessage(MessageDTO message);
+        Task UpdateMessage(MessageDTO message);
+    }
 }

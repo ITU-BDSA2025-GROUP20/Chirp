@@ -1,8 +1,10 @@
 using System;
+using Chirp.Razor.Data;
+using Chirp.Razor.Models;
 
 public static class DbInitializer
 {
-    public static void SeedDatabase(ChirpDBContext chirpContext)
+    public static void SeedDatabase(CheepDbContext chirpContext)
     {
         if (!(chirpContext.Authors.Any() && chirpContext.Cheeps.Any()))
         {
