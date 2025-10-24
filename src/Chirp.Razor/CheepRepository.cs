@@ -1,6 +1,8 @@
 using System.Linq;
 using System;
+using Microsoft.EntityFrameworkCore;
 using Chirp.Razor.Data;
+using Chirp.Razor.Models;
 
 
 namespace Chirp.Razor;
@@ -14,14 +16,25 @@ public class CheepRepository : ICheepRepository
         _dbcontext = dbcontext;
     }
 
-    public IEnumerable<CheepViewModel> GetAll()
+    public async Task<IEnumerable<Cheep>> GetAllCheepsAsync()
     {
-        return _dbcontext.Cheeps;
+        return await _dbcontext.Cheeps
+            .Include(c => c.Author)
+            .OrderByDescending(c => c.Timestamp)
+            .ToListAsync();
     }
 
-    public StoreCheep(CheepViewModel cheep) {
-        _dbcontext.Cheeps.Add(cheep);
-        
+    public async Task StoreCheepAsync(Cheep cheep)
+    {
+        await _dbcontext.Cheeps.AddAsync(cheep);
+        await _dbcontext.SaveChangesAsync();
+    }
+    
+    public async Task<Cheep> GetCheepByIdAsync(int id)
+    {
+        return await _dbcontext.Cheeps
+            .Include(c => c.Author)
+            .FirstOrDefaultAsync(c => c.Id == id);
     }
 
 }
