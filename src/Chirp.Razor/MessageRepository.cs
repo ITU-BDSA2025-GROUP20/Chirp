@@ -1,24 +1,25 @@
-
-public class MessageRepository : IMessageRepository{
-
-public async Task<int> CreateMessage(MessageDTO message)
+public class MessageRepository : IMessageRepository
 {
-    Message newMessage = new() { Text = message.Text, ...};
-    var queryResult = await _dbContext.Messages.AddAsync(newMessage); // does not write to the database!
+    private readonly ChatDBContext _dbContext;
 
-    await _dbContext.SaveChangesAsync(); // persist the changes in the database
-    return queryResult.Entity.CheepId;
-}
+    public MessageRepository(ChatDBContext dbContext)
+    {
+        _dbContext = dbContext;
+    }
 
-public async Task<List<MessageDTO>> ReadMessages(string userName)
+    public async Task<List<MessageDTO>> ReadMessages(string userName)
 {
-  // Formulate the query - will be translated to SQL by EF Core
-  var query = _dbContext.Messages.Select(message => new { message.User, message.Text });
-  // Execute the query
-  var result = await query.ToListAsync();
+    var query = _dbContext.Messages
+        .Where(m => m.User.Name == userName)
+        .Select(m => new MessageDTO
+        {
+            Id = m.MessageId,
+            Text = m.Text,
+            UserName = m.User.Name,
+            CreatedAt = m.CreatedAt
+        });
 
-  // ...
+    return await query.ToListAsync();
 }
-
 
 }

@@ -17,6 +17,7 @@ using (var scope = app.Services.CreateScope())
     var services = scope.ServiceProvider;
     var context = services.GetRequiredService<CheepDbContext>();
     context.Database.EnsureCreated();
+    SeedDatabase.Initialize(context);
 }
 
 app.MapPost("/cheep", async (Cheep cheep, CheepDbContext context) =>
