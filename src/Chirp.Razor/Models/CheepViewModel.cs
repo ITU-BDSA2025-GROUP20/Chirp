@@ -5,7 +5,7 @@ namespace Chirp.Razor.Models
     {
         public int Id { get; set; }
         public string Message { get; set; } = string.Empty;
-        public Author Author { get; set; }
-        public DateTime Timestamp { get; set; }
+        public string AuthorName { get; set; } = string.Empty;
+        public string Timestamp { get; set; } = string.Empty;
     }
 }

@@ -19,9 +19,9 @@ namespace Chirp.Razor.Services
         {
         var cheeps = await _repository.GetAllCheepsAsync();
         return cheeps.Select(c => new CheepViewModel(
-            c.Author.Name,
-            c.Message,
-            c.Timestamp.ToString("MM/dd/yy H:mm:ss")
+            AuthorName=c.Author.Name,
+            Message=c.Message,
+            Timestamp=c.Timestamp.ToString("MM/dd/yy H:mm:ss")
             ))
             .ToList();
     }
@@ -30,14 +30,14 @@ namespace Chirp.Razor.Services
     {
         var cheeps = await _repository.GetCheepsFromAuthorAsync(authorName);
         return cheeps.Select(c => new CheepViewModel(
-            c.Author.Name,
-            c.Message,
-            c.Timestamp.ToString("MM/dd/yy H:mm:ss")
+            AuthorName=c.Author.Name,
+            Message=c.Message,
+            Timestamp=c.Timestamp.ToString("MM/dd/yy H:mm:ss")
         ))
             .ToList();
     }
 
 }
 
-public record CheepViewModel(string Author, string Message, string Timestamp);
+public record CheepViewModel(string AuthorName, string Message, string Timestamp);
 }
