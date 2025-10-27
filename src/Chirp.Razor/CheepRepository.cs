@@ -20,7 +20,7 @@ public class CheepRepository : ICheepRepository
     {
         return await _dbcontext.Cheeps
             .Include(c => c.Author)
-            .OrderByDescending(c => c.Timestamp)
+            .OrderByDescending(c => c.TimeStamp)
             .ToListAsync();
     }
 
@@ -29,12 +29,20 @@ public class CheepRepository : ICheepRepository
         await _dbcontext.Cheeps.AddAsync(cheep);
         await _dbcontext.SaveChangesAsync();
     }
-    
+
     public async Task<Cheep> GetCheepByIdAsync(int id)
     {
         return await _dbcontext.Cheeps
             .Include(c => c.Author)
-            .FirstOrDefaultAsync(c => c.Id == id);
+            .FirstOrDefaultAsync(c => c.CheepId == id);
+    }
+    public async Task<IEnumerable<Cheep>> GetAllCheepsFromAuthorAsync(string authorName)
+    {
+        return await _dbcontext.Cheeps
+            .Include(c => c.Author)
+            .Where(c => c.Author.Name == authorName)
+            .OrderByDescending(c => c.TimeStamp)
+            .ToListAsync();
     }
 
 }

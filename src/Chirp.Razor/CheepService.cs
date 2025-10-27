@@ -19,25 +19,25 @@ namespace Chirp.Razor.Services
         {
         var cheeps = await _repository.GetAllCheepsAsync();
         return cheeps.Select(c => new CheepViewModel(
-            AuthorName=c.Author.Name,
-            Message=c.Message,
-            Timestamp=c.Timestamp.ToString("MM/dd/yy H:mm:ss")
+            c.Author.Name,
+            c.Text,
+            c.TimeStamp.ToString("MM/dd/yy H:mm:ss")
             ))
             .ToList();
     }
 
     public async Task<List<CheepViewModel>> GetCheepsFromAuthor(string authorName)
     {
-        var cheeps = await _repository.GetCheepsFromAuthorAsync(authorName);
+        var cheeps = await _repository.GetAllCheepsFromAuthorAsync(authorName);
         return cheeps.Select(c => new CheepViewModel(
-            AuthorName=c.Author.Name,
-            Message=c.Message,
-            Timestamp=c.Timestamp.ToString("MM/dd/yy H:mm:ss")
+            c.Author.Name,
+            c.Text,
+            c.TimeStamp.ToString("MM/dd/yy H:mm:ss")
         ))
             .ToList();
     }
 
 }
 
-public record CheepViewModel(string AuthorName, string Message, string Timestamp);
+public record CheepViewModel(string AuthorName, string Text, string TimeStamp);
 }

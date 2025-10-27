@@ -9,4 +9,6 @@ public interface ICheepRepository
     Task StoreCheepAsync(Cheep cheep);
     Task<Cheep> GetCheepByIdAsync(int id);
 
+    Task<IEnumerable<Cheep>> GetAllCheepsFromAuthorAsync(string authorName);
+
 }

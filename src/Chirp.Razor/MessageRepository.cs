@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using System;
 using Chirp.Razor.Data;
+using Chirp.Razor.Models;
 
 namespace Chirp.Razor
 {
@@ -21,8 +22,8 @@ namespace Chirp.Razor
                 {
                     Id = m.CheepId,
                     Text = m.Text,
-                    UserName = m.Author.Name,
-                    CreatedAt = m.CreatedAt
+                    AuthorName = m.Author.Name,
+                    TimeStamp = m.TimeStamp
                 });
 
             return await query.ToListAsync();
@@ -30,12 +31,12 @@ namespace Chirp.Razor
 
         public async Task<int> CreateMessage(MessageDTO message)
         {
-            var newMessage = new Text
+            var newMessage = new Cheep
             {
                 Text = message.Text,
-                CreatedAt = message.CreatedAt,
+                TimeStamp = message.TimeStamp,
                 AuthorId = _dbContext.Authors
-                    .Where(u => u.Name == message.UserName)
+                    .Where(u => u.Name == message.AuthorName)
                     .Select(u => u.AuthorId)
                     .FirstOrDefault()
             };
