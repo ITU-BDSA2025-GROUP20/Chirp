@@ -1,33 +1,48 @@
-using SimpleDB;
-using System;
-
-
+using CheepService.Models;
+using CheepService.Data;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
-// Add services to the container.
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddScoped<ICheepRepository, CheepRepository>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddDbContext<CheepDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 var app = builder.Build();
 
-var csvFile = Path.Combine(AppContext.BaseDirectory, "chirp_cli_db.csv");
-CSVDatabase<Cheep>.Initialize(csvFile);
-var database = CSVDatabase<Cheep>.Instance;
-
-
-
-app.MapPost("/cheep", (Cheep cheep) =>
+// Initialize database
+using (var scope = app.Services.CreateScope())
 {
-    database.Store(cheep);
-    return Results.Created($"/cheep/{cheep.Timestamp}", cheep);
+    var services = scope.ServiceProvider;
+    var context = services.GetRequiredService<CheepDbContext>();
+    context.Database.EnsureCreated();
+    SeedDatabase.Initialize(context);
+}
+
+app.MapPost("/cheep", async (Cheep cheep, CheepDbContext context) =>
+{
+    cheep.Timestamp = DateTime.UtcNow;
+    context.Cheeps.Add(cheep);
+    await context.SaveChangesAsync();
+    return Results.Created($"/cheep/{cheep.Id}", cheep);
 });
 
-app.MapGet("/cheeps", () =>
+app.MapGet("/cheeps", (CheepDbContext context) =>
 {
     try
     {
-        var records = database.Read().ToList();
+        var records = context.Cheeps
+            .OrderByDescending(c => c.Timestamp)
+            .ToList()
+            .Select(c => new 
+            {
+                c.Author, 
+                c.Message, 
+                Timestamp = ((DateTimeOffset)c.Timestamp.ToUniversalTime()).ToUnixTimeSeconds()
+            })
+            .ToList();
+            
         return Results.Ok(records);
     }
     catch (Exception ex)
@@ -36,8 +51,6 @@ app.MapGet("/cheeps", () =>
         return Results.Problem(detail: ex.ToString());
     }
 });
-
-
 
 if (app.Environment.IsDevelopment())
 {

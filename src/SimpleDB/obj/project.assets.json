@@ -56,11 +56,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\pfran\\Desktop\\Chirp\\src\\SimpleDB\\SimpleDB.csproj",
+      "projectUniqueName": "c:\\Users\\pfran\\Desktop\\Chirp\\src\\SimpleDB\\SimpleDB.csproj",
       "projectName": "SimpleDB",
-      "projectPath": "C:\\Users\\pfran\\Desktop\\Chirp\\src\\SimpleDB\\SimpleDB.csproj",
+      "projectPath": "c:\\Users\\pfran\\Desktop\\Chirp\\src\\SimpleDB\\SimpleDB.csproj",
       "packagesPath": "C:\\Users\\pfran\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\pfran\\Desktop\\Chirp\\src\\SimpleDB\\obj\\",
+      "outputPath": "c:\\Users\\pfran\\Desktop\\Chirp\\src\\SimpleDB\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\pfran\\AppData\\Roaming\\NuGet\\NuGet.Config"
