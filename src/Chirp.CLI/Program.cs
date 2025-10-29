@@ -68,7 +68,7 @@ class Program
             UserInterface.PrintCheeps(cheeps);
     }
 
-    private static async Task Cheep(string message)
+    private static async Task PostCheep(string message)
     {
         Cheep cheep = new(Environment.UserName, message, DateTimeOffset.UtcNow.ToUnixTimeSeconds());
         var response = await client.PostAsJsonAsync("cheep", cheep);

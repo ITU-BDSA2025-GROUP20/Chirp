@@ -1,6 +1,0 @@
-@CheepService_HostAddress = http://localhost:5175
-
-GET {{CheepService_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###
