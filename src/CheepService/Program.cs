@@ -1,5 +1,5 @@
-using CheepService.Models;
-using CheepService.Data;
+using Chirp.Razor.Models;
+using Chirp.Razor.Data;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
