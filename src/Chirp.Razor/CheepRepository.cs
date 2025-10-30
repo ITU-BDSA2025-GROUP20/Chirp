@@ -30,7 +30,7 @@ public class CheepRepository : ICheepRepository
         await _dbcontext.SaveChangesAsync();
     }
 
-    public async Task<Cheep> GetCheepByIdAsync(int id)
+    public async Task<Cheep?> GetCheepByIdAsync(int id)
     {
         return await _dbcontext.Cheeps
             .Include(c => c.Author)
