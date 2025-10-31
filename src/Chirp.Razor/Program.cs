@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-=======
-
->>>>>>> SQLite-implementation
 using System;
 using Chirp.Razor.Services;
 using Chirp.Razor.Data;
