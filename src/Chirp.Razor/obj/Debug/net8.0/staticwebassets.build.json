@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "TDGoQzJ629dZ8obHGkrRXjQi2NaNLV9VP/NOC3Io788=",
+  "Hash": "XpvxX4s8ftXnA8g484FFIq6R5kGl0sqLYGJs4RAd9lo=",
   "Source": "Chirp.Razor",
   "BasePath": "_content/Chirp.Razor",
   "Mode": "Default",
@@ -10,17 +10,17 @@
     {
       "Name": "Chirp.Razor\\wwwroot",
       "Source": "Chirp.Razor",
-      "ContentRoot": "C:\\Users\\oskar\\Documents\\Chirp\\Chirp\\src\\Chirp.Razor\\wwwroot\\",
+      "ContentRoot": "C:\\KianKorp\\Chirp\\Chirp\\src\\chirp.razor\\wwwroot\\",
       "BasePath": "_content/Chirp.Razor",
       "Pattern": "**"
     }
   ],
   "Assets": [
     {
-      "Identity": "C:\\Users\\oskar\\Documents\\Chirp\\Chirp\\src\\Chirp.Razor\\wwwroot\\css\\style.css",
+      "Identity": "C:\\KianKorp\\Chirp\\Chirp\\src\\chirp.razor\\wwwroot\\css\\style.css",
       "SourceId": "Chirp.Razor",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\oskar\\Documents\\Chirp\\Chirp\\src\\Chirp.Razor\\wwwroot\\",
+      "ContentRoot": "C:\\KianKorp\\Chirp\\Chirp\\src\\chirp.razor\\wwwroot\\",
       "BasePath": "_content/Chirp.Razor",
       "RelativePath": "css/style.css",
       "AssetKind": "All",
@@ -36,10 +36,10 @@
       "OriginalItemSpec": "wwwroot\\css\\style.css"
     },
     {
-      "Identity": "C:\\Users\\oskar\\Documents\\Chirp\\Chirp\\src\\Chirp.Razor\\wwwroot\\favicon\\favicon.ico",
+      "Identity": "C:\\KianKorp\\Chirp\\Chirp\\src\\chirp.razor\\wwwroot\\favicon\\favicon.ico",
       "SourceId": "Chirp.Razor",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\oskar\\Documents\\Chirp\\Chirp\\src\\Chirp.Razor\\wwwroot\\",
+      "ContentRoot": "C:\\KianKorp\\Chirp\\Chirp\\src\\chirp.razor\\wwwroot\\",
       "BasePath": "_content/Chirp.Razor",
       "RelativePath": "favicon/favicon.ico",
       "AssetKind": "All",
@@ -55,10 +55,10 @@
       "OriginalItemSpec": "wwwroot\\favicon\\favicon.ico"
     },
     {
-      "Identity": "C:\\Users\\oskar\\Documents\\Chirp\\Chirp\\src\\Chirp.Razor\\wwwroot\\images\\icon1.png",
+      "Identity": "C:\\KianKorp\\Chirp\\Chirp\\src\\chirp.razor\\wwwroot\\images\\icon1.png",
       "SourceId": "Chirp.Razor",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\oskar\\Documents\\Chirp\\Chirp\\src\\Chirp.Razor\\wwwroot\\",
+      "ContentRoot": "C:\\KianKorp\\Chirp\\Chirp\\src\\chirp.razor\\wwwroot\\",
       "BasePath": "_content/Chirp.Razor",
       "RelativePath": "images/icon1.png",
       "AssetKind": "All",
