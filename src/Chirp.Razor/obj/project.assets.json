@@ -3186,11 +3186,16 @@
     ]
   },
   "packageFolders": {
+<<<<<<< HEAD
     "C:\\Users\\kianf\\.nuget\\packages\\": {}
+=======
+    "C:\\Users\\pfran\\.nuget\\packages\\": {}
+>>>>>>> SQLite-implementation
   },
   "project": {
     "version": "1.0.0",
     "restore": {
+<<<<<<< HEAD
       "projectUniqueName": "C:\\KianKorp\\Chirp\\Chirp\\src\\chirp.razor\\Chirp.Razor.csproj",
       "projectName": "Chirp.Razor",
       "projectPath": "C:\\KianKorp\\Chirp\\Chirp\\src\\chirp.razor\\Chirp.Razor.csproj",
@@ -3199,6 +3204,16 @@
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\kianf\\AppData\\Roaming\\NuGet\\NuGet.Config"
+=======
+      "projectUniqueName": "C:\\Users\\pfran\\Desktop\\Chirp\\src\\Chirp.Razor\\Chirp.Razor.csproj",
+      "projectName": "Chirp.Razor",
+      "projectPath": "C:\\Users\\pfran\\Desktop\\Chirp\\src\\Chirp.Razor\\Chirp.Razor.csproj",
+      "packagesPath": "C:\\Users\\pfran\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\pfran\\Desktop\\Chirp\\src\\Chirp.Razor\\obj\\",
+      "projectStyle": "PackageReference",
+      "configFilePaths": [
+        "C:\\Users\\pfran\\AppData\\Roaming\\NuGet\\NuGet.Config"
+>>>>>>> SQLite-implementation
       ],
       "originalTargetFrameworks": [
         "net8.0"
@@ -3221,7 +3236,8 @@
         "enableAudit": "true",
         "auditLevel": "low",
         "auditMode": "direct"
-      }
+      },
+      "SdkAnalysisLevel": "9.0.300"
     },
     "frameworks": {
       "net8.0": {
@@ -3257,7 +3273,11 @@
             "privateAssets": "all"
           }
         },
+<<<<<<< HEAD
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.401/PortableRuntimeIdentifierGraph.json"
+=======
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.304/PortableRuntimeIdentifierGraph.json"
+>>>>>>> SQLite-implementation
       }
     }
   }
