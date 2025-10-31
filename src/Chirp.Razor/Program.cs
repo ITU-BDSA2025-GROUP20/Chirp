@@ -1,4 +1,4 @@
-using SimpleDB;
+
 using System;
 using Chirp.Razor.Services;
 using Chirp.Razor.Data;
@@ -17,7 +17,6 @@ builder.Services.AddDbContext<CheepDbContext>(options => options.UseSqlite(conne
 
 // Add services to the container.
 builder.Services.AddRazorPages();
-builder.Services.AddSingleton<CheepService>();
 
 
 var app = builder.Build();

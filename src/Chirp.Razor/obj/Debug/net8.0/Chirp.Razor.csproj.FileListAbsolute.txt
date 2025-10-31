@@ -167,7 +167,6 @@ C:\Users\pfran\Desktop\Chirp\src\Chirp.Razor\bin\Debug\net8.0\Chirp.Razor.deps.j
 C:\Users\pfran\Desktop\Chirp\src\Chirp.Razor\bin\Debug\net8.0\Chirp.Razor.runtimeconfig.json
 C:\Users\pfran\Desktop\Chirp\src\Chirp.Razor\bin\Debug\net8.0\Chirp.Razor.dll
 C:\Users\pfran\Desktop\Chirp\src\Chirp.Razor\bin\Debug\net8.0\Chirp.Razor.pdb
-C:\Users\pfran\Desktop\Chirp\src\Chirp.Razor\bin\Debug\net8.0\CsvHelper.dll
 C:\Users\pfran\Desktop\Chirp\src\Chirp.Razor\bin\Debug\net8.0\Humanizer.dll
 C:\Users\pfran\Desktop\Chirp\src\Chirp.Razor\bin\Debug\net8.0\Microsoft.Bcl.AsyncInterfaces.dll
 C:\Users\pfran\Desktop\Chirp\src\Chirp.Razor\bin\Debug\net8.0\Microsoft.Build.Locator.dll
@@ -294,8 +293,6 @@ C:\Users\pfran\Desktop\Chirp\src\Chirp.Razor\bin\Debug\net8.0\runtimes\win-arm64
 C:\Users\pfran\Desktop\Chirp\src\Chirp.Razor\bin\Debug\net8.0\runtimes\win-x64\native\e_sqlite3.dll
 C:\Users\pfran\Desktop\Chirp\src\Chirp.Razor\bin\Debug\net8.0\runtimes\win-x86\native\e_sqlite3.dll
 C:\Users\pfran\Desktop\Chirp\src\Chirp.Razor\bin\Debug\net8.0\runtimes\browser\lib\net8.0\System.Text.Encodings.Web.dll
-C:\Users\pfran\Desktop\Chirp\src\Chirp.Razor\bin\Debug\net8.0\SimpleDB.dll
-C:\Users\pfran\Desktop\Chirp\src\Chirp.Razor\bin\Debug\net8.0\SimpleDB.pdb
 C:\Users\pfran\Desktop\Chirp\src\Chirp.Razor\obj\Debug\net8.0\Chirp.Razor.csproj.AssemblyReference.cache
 C:\Users\pfran\Desktop\Chirp\src\Chirp.Razor\obj\Debug\net8.0\rpswa.dswa.cache.json
 C:\Users\pfran\Desktop\Chirp\src\Chirp.Razor\obj\Debug\net8.0\Chirp.Razor.GeneratedMSBuildEditorConfig.editorconfig
