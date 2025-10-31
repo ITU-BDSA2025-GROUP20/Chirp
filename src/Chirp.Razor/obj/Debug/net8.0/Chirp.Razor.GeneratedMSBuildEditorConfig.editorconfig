@@ -28,14 +28,14 @@ build_property._RazorSourceGeneratorDebug =
 build_property.EffectiveAnalysisLevelStyle = 8.0
 build_property.EnableCodeStyleSeverity = 
 
-[C:/Users/pfran/Desktop/Chirp/src/Chirp.Razor/Pages/Public.cshtml]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHVibGljLmNzaHRtbA==
+[C:/Users/pfran/Desktop/Chirp/src/Chirp.Razor/Chirp.Web/Pages/Public.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Q2hpcnAuV2ViXFBhZ2VzXFB1YmxpYy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/pfran/Desktop/Chirp/src/Chirp.Razor/Pages/Shared/_Layout.cshtml]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hhcmVkXF9MYXlvdXQuY3NodG1s
+[C:/Users/pfran/Desktop/Chirp/src/Chirp.Razor/Chirp.Web/Pages/Shared/_Layout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Q2hpcnAuV2ViXFBhZ2VzXFNoYXJlZFxfTGF5b3V0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/pfran/Desktop/Chirp/src/Chirp.Razor/Pages/UserTimeline.cshtml]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVXNlclRpbWVsaW5lLmNzaHRtbA==
+[C:/Users/pfran/Desktop/Chirp/src/Chirp.Razor/Chirp.Web/Pages/UserTimeline.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Q2hpcnAuV2ViXFBhZ2VzXFVzZXJUaW1lbGluZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 

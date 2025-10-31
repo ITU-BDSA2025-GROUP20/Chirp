@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace Chirp.Razor.Models
+namespace Chirp.Infrastructure.Models
 {
     
     public class Author

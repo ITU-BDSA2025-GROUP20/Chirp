@@ -1,11 +1,12 @@
 using System.Linq;
 using System;
 using Microsoft.EntityFrameworkCore;
-using Chirp.Razor.Data;
-using Chirp.Razor.Models;
+using Chirp.Infrastructure.Data;
+using Chirp.Infrastructure.Models;
+using Chirp.Core;
 
 
-namespace Chirp.Razor;
+namespace Chirp.Infrastructure;
 
 public class CheepRepository : ICheepRepository
 {

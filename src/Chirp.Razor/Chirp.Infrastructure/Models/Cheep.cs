@@ -1,14 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace Chirp.Models
-{
-    public class Cheep
-    {
-        [StringLength(140)]
-        public string Content { get; set; }
-    }
-}
-namespace Chirp.Razor.Models
+namespace Chirp.Infrastructure.Models
 {
 
     public class Cheep
