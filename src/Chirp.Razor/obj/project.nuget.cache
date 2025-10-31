@@ -1,10 +1,9 @@
 {
   "version": 2,
-  "dgSpecHash": "krZS6Yu/Or3buOi72lY4tVDAJLq+o4G8c1+JUEU519177wAOngkSK8xwRL2HLlPPGCGZmSzAVXWL/6BIGMmMug==",
+  "dgSpecHash": "sBaUDqUzNpKYZAvPooRNxyaj0d268dY+nJ7T8hnYFrBNTo/y5RDMVyCpkmVkhKH37QguMxZWJ+lWO1mIVZF4yw==",
   "success": true,
   "projectFilePath": "C:\\Users\\oskar\\Documents\\Chirp\\Chirp\\src\\Chirp.Razor\\Chirp.Razor.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\oskar\\.nuget\\packages\\csvhelper\\33.1.0\\csvhelper.33.1.0.nupkg.sha512",
     "C:\\Users\\oskar\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\oskar\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\7.0.0\\microsoft.bcl.asyncinterfaces.7.0.0.nupkg.sha512",
     "C:\\Users\\oskar\\.nuget\\packages\\microsoft.build.framework\\17.8.3\\microsoft.build.framework.17.8.3.nupkg.sha512",

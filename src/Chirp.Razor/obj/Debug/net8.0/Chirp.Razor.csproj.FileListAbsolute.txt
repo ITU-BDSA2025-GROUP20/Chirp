@@ -6,7 +6,6 @@ C:\Users\oskar\Documents\Chirp\Chirp\src\chirp.razor\bin\Debug\net8.0\Chirp.Razo
 C:\Users\oskar\Documents\Chirp\Chirp\src\chirp.razor\bin\Debug\net8.0\Chirp.Razor.runtimeconfig.json
 C:\Users\oskar\Documents\Chirp\Chirp\src\chirp.razor\bin\Debug\net8.0\Chirp.Razor.dll
 C:\Users\oskar\Documents\Chirp\Chirp\src\chirp.razor\bin\Debug\net8.0\Chirp.Razor.pdb
-C:\Users\oskar\Documents\Chirp\Chirp\src\chirp.razor\bin\Debug\net8.0\CsvHelper.dll
 C:\Users\oskar\Documents\Chirp\Chirp\src\chirp.razor\bin\Debug\net8.0\Humanizer.dll
 C:\Users\oskar\Documents\Chirp\Chirp\src\chirp.razor\bin\Debug\net8.0\Microsoft.Bcl.AsyncInterfaces.dll
 C:\Users\oskar\Documents\Chirp\Chirp\src\chirp.razor\bin\Debug\net8.0\Microsoft.Build.Locator.dll
@@ -133,8 +132,6 @@ C:\Users\oskar\Documents\Chirp\Chirp\src\chirp.razor\bin\Debug\net8.0\runtimes\w
 C:\Users\oskar\Documents\Chirp\Chirp\src\chirp.razor\bin\Debug\net8.0\runtimes\win-x64\native\e_sqlite3.dll
 C:\Users\oskar\Documents\Chirp\Chirp\src\chirp.razor\bin\Debug\net8.0\runtimes\win-x86\native\e_sqlite3.dll
 C:\Users\oskar\Documents\Chirp\Chirp\src\chirp.razor\bin\Debug\net8.0\runtimes\browser\lib\net8.0\System.Text.Encodings.Web.dll
-C:\Users\oskar\Documents\Chirp\Chirp\src\chirp.razor\bin\Debug\net8.0\SimpleDB.dll
-C:\Users\oskar\Documents\Chirp\Chirp\src\chirp.razor\bin\Debug\net8.0\SimpleDB.pdb
 C:\Users\oskar\Documents\Chirp\Chirp\src\chirp.razor\obj\Debug\net8.0\Chirp.Razor.csproj.AssemblyReference.cache
 C:\Users\oskar\Documents\Chirp\Chirp\src\chirp.razor\obj\Debug\net8.0\Chirp.Razor.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\oskar\Documents\Chirp\Chirp\src\chirp.razor\obj\Debug\net8.0\Chirp.Razor.AssemblyInfoInputs.cache
