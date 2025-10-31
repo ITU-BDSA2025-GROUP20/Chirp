@@ -23,6 +23,9 @@ using var scope = app.Services.CreateScope();
 var db = scope.ServiceProvider.GetRequiredService<CheepDbContext>();
 await DbInitializer.SeedDatabaseAsync(db);
 
+var service = scope.ServiceProvider.GetRequiredService<CheepService>();
+await service.TestSeedAsync();
+
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {

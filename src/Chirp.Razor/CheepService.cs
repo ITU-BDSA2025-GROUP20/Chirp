@@ -36,6 +36,18 @@ namespace Chirp.Razor.Services
         ))
             .ToList();
     }
+    public async Task TestSeedAsync()
+{
+    var cheeps = await _repository.GetAllCheepsAsync(); // returns IEnumerable<Cheep>
+    var cheepList = cheeps.ToList(); // convert to list for Count property
+    Console.WriteLine($"Total cheeps: {cheepList.Count}");
+    
+    foreach (var cheep in cheepList)
+    {
+        // Access the entity's Author property
+        Console.WriteLine($"{cheep.Author.Name}: {cheep.Text} ({cheep.TimeStamp})");
+    }
+}
 
 }
 
