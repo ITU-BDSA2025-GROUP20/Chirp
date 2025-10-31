@@ -4,7 +4,7 @@ using Chirp.Razor.Models;
 
 public static class DbInitializer
 {
-    public static void SeedDatabase(CheepDbContext chirpContext)
+    public static async Task SeedDatabaseAsync(CheepDbContext chirpContext)
     {
         if (!(chirpContext.Authors.Any() && chirpContext.Cheeps.Any()))
         {
