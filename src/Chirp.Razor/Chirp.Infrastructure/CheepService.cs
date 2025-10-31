@@ -1,10 +1,11 @@
-using Chirp.Razor.Data;
-using Chirp.Razor.Models;
+using Chirp.Infrastructure.Data;
+using Chirp.Infrastructure.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
+using Chirp.Core;
 
-namespace Chirp.Razor.Services
+namespace Chirp.Infrastructure.Services
 {
     public class CheepService
 {

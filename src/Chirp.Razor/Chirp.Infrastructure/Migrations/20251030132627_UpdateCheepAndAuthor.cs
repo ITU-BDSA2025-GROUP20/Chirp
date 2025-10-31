@@ -2,10 +2,10 @@
 
 #nullable disable
 
-namespace Chirp.Razor.Migrations
+namespace Chirp.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class UsersEMail : Migration
+    public partial class UpdateCheepAndAuthor : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

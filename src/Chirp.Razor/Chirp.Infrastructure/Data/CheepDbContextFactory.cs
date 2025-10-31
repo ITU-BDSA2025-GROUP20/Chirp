@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
 
-namespace Chirp.Razor.Data
+namespace Chirp.Infrastructure.Data
 {
     public class CheepDbContextFactory : IDesignTimeDbContextFactory<CheepDbContext>
     {

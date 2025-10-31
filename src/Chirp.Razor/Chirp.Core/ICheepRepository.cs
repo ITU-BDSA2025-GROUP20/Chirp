@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Chirp.Razor.Models;
+using Chirp.Infrastructure.Models;
 
-
+namespace Chirp.Core;
 public interface ICheepRepository
 {
     Task<IEnumerable<Cheep>> GetAllCheepsAsync();

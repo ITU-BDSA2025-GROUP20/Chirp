@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
-using Chirp.Razor.Models;
+using Chirp.Infrastructure.Models;
 
-namespace Chirp.Razor.Data
+namespace Chirp.Infrastructure.Data
 {
     public class CheepDbContext : DbContext
     {
