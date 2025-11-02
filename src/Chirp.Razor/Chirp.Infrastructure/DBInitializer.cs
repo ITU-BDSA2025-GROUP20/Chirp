@@ -1,12 +1,16 @@
 using System;
 using Chirp.Infrastructure.Data;
 using Chirp.Infrastructure.Models;
+using Microsoft.EntityFrameworkCore;
+
 
 public static class DbInitializer
 {
     public static async Task SeedDatabaseAsync(CheepDbContext chirpContext)
     {
-        if (!(chirpContext.Authors.Any() && chirpContext.Cheeps.Any()))
+        await chirpContext.Database.ExecuteSqlRawAsync("SET IDENTITY_INSERT Authors ON;");
+
+        if (!(await chirpContext.Authors.AnyAsync() && await chirpContext.Cheeps.AnyAsync()))
         {
             var a1 = new Author() { AuthorId = 1, Name = "Roger Histand", Email = "Roger+Histand@hotmail.com", Cheeps = new List<Cheep>() };
             var a2 = new Author() { AuthorId = 2, Name = "Luanna Muro", Email = "Luanna-Muro@ku.dk", Cheeps = new List<Cheep>() };
@@ -697,7 +701,7 @@ public static class DbInitializer
 
             chirpContext.Authors.AddRange(authors);
             chirpContext.Cheeps.AddRange(cheeps);
-            chirpContext.SaveChanges();
+            await chirpContext.SaveChangesAsync();
         }
     }
 }

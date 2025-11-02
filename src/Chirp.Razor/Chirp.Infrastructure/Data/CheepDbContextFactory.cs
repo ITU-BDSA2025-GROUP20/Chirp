@@ -17,7 +17,7 @@ namespace Chirp.Infrastructure.Data
             var connectionString = config.GetConnectionString("DefaultConnection");
 
             var optionsBuilder = new DbContextOptionsBuilder<CheepDbContext>();
-            optionsBuilder.UseSqlite(connectionString);
+            optionsBuilder.UseSqlServer(connectionString);
 
             return new CheepDbContext(optionsBuilder.Options);
         }

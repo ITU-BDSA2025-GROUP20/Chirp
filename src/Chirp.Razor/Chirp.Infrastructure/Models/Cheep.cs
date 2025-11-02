@@ -5,7 +5,7 @@ namespace Chirp.Infrastructure.Models
 
     public class Cheep
     {
-        public int CheepId { get; set; }
+        public int CheepId { get; set; } 
 
         [StringLength(160)]
         public string Text { get; set; } = string.Empty;
