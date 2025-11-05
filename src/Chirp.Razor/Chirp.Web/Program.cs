@@ -11,8 +11,16 @@ builder.Services.AddScoped<CheepService>();
 builder.Services.AddScoped<IMessageRepository, MessageRepository>();
 builder.Services.AddScoped<ICheepRepository, CheepRepository>();
 
+var passwordBuilder = new ConfigurationBuilder()
+    .AddJsonFile("appsettings.json")
+    .AddEnvironmentVariables();
+var configuration = passwordBuilder.Build();
 
-string? connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+string? connectionString = configuration.GetConnectionString("DefaultConnection")
+    .Replace("{DB_PASSWORD}", Environment.GetEnvironmentVariable("DB_PASSWORD"));
+
+    Console.WriteLine(connectionString);
+
 builder.Services.AddDbContext<CheepDbContext>(options =>
     options.UseSqlServer(connectionString));
 
