@@ -1,7 +1,7 @@
 using System;
+using Chirp.Core;
 using Chirp.Infrastructure.Services;
 using Chirp.Infrastructure.Data;
-using Chirp.Core;
 using Chirp.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,9 +11,18 @@ builder.Services.AddScoped<CheepService>();
 builder.Services.AddScoped<IMessageRepository, MessageRepository>();
 builder.Services.AddScoped<ICheepRepository, CheepRepository>();
 
+var passwordBuilder = new ConfigurationBuilder()
+    .AddJsonFile("appsettings.json")
+    .AddEnvironmentVariables();
+var configuration = passwordBuilder.Build();
 
-string? connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-builder.Services.AddDbContext<CheepDbContext>(options => options.UseSqlite(connectionString));
+string? connectionString = configuration.GetConnectionString("DefaultConnection")
+    .Replace("{DB_PASSWORD}", Environment.GetEnvironmentVariable("DB_PASSWORD"));
+
+    Console.WriteLine(connectionString);
+
+builder.Services.AddDbContext<CheepDbContext>(options =>
+    options.UseSqlServer(connectionString));
 
 // Add services to the container.
 builder.Services.AddRazorPages();
@@ -22,10 +31,16 @@ builder.Services.AddRazorPages();
 var app = builder.Build();
 using var scope = app.Services.CreateScope();
 var db = scope.ServiceProvider.GetRequiredService<CheepDbContext>();
-await DbInitializer.SeedDatabaseAsync(db);
-
-var service = scope.ServiceProvider.GetRequiredService<CheepService>();
-await service.TestSeedAsync();
+try
+{
+    await DbInitializer.SeedDatabaseAsync(db);
+    Console.WriteLine("Database connection successful.");
+}
+catch (Exception ex)
+{
+    Console.WriteLine("Database connection failed: " + ex.Message);
+    Console.WriteLine(ex.StackTrace);
+}
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
