@@ -33,6 +33,8 @@ using var scope = app.Services.CreateScope();
 var db = scope.ServiceProvider.GetRequiredService<CheepDbContext>();
 try
 {
+    await db.Database.EnsureCreatedAsync();
+
     await DbInitializer.SeedDatabaseAsync(db);
     Console.WriteLine("Database connection successful.");
 }
@@ -59,4 +61,18 @@ app.UseAuthorization();
 
 app.MapRazorPages();
 
+app.MapGet("/test-db", async (CheepDbContext db) =>
+{
+    try
+    {
+        // Try to read 5 authors from the database
+        var authors = await db.Authors.Take(5).ToListAsync();
+        return Results.Ok(new { success = true, count = authors.Count, authors });
+    }
+    catch (Exception ex)
+    {
+        // Return the exception message if something fails
+        return Results.Problem(ex.Message);
+    }
+});
 app.Run();
