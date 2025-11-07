@@ -29,7 +29,7 @@ jobs:
       - name: Build
         run: dotnet build --no-restore
       - name: dotnet publish
-        run: dotnet publish src/CheepService/ -c Release -o ${{env.DOTNET_ROOT}}/myapp
+        run: dotnet publish src/Chirp.Razor/ -c Release -o ${{env.DOTNET_ROOT}}/myapp
 
       - name: Upload Web API Artifact
         uses: actions/upload-artifact@v4
