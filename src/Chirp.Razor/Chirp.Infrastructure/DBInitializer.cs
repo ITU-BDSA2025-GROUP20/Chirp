@@ -711,7 +711,7 @@ public static class DbInitializer
             chirpContext.Cheeps.AddRange(cheeps);
             await chirpContext.SaveChangesAsync();
             await chirpContext.Database.ExecuteSqlRawAsync("SET IDENTITY_INSERT Cheeps OFF;");
-
+            Console.WriteLine("Cheeps added.");
 
             await transaction.CommitAsync();
         }
