@@ -24,9 +24,6 @@ string? connectionString = configuration.GetConnectionString("DefaultConnection"
 builder.Services.AddDbContext<CheepDbContext>(options =>
     options.UseSqlServer(connectionString));
 
-// Add services to the container.
-builder.Services.AddRazorPages();
-
 
 var app = builder.Build();
 using var scope = app.Services.CreateScope();

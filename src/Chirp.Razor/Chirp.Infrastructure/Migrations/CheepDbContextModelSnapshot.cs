@@ -40,7 +40,7 @@ namespace Chirp.Razor.Migrations
 
                     b.HasKey("AuthorId");
 
-                    b.ToTable("Authors");
+                    b.ToTable("Authors", (string)null);
                 });
 
             modelBuilder.Entity("Chirp.Infrastructure.Models.Cheep", b =>
@@ -66,7 +66,7 @@ namespace Chirp.Razor.Migrations
 
                     b.HasIndex("AuthorId");
 
-                    b.ToTable("Cheeps");
+                    b.ToTable("Cheeps", (string)null);
                 });
 
             modelBuilder.Entity("Chirp.Infrastructure.Models.Cheep", b =>
