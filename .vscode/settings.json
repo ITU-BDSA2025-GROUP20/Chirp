@@ -1,0 +1,5 @@
+{
+    "appService.preDeployTask": "publish-release",
+    "appService.deploySubpath": "test\\bin\\Release\\net8.0\\publish",
+    "appService.defaultWebAppToDeploy": "/subscriptions/6d31bc30-6434-463f-bf6c-2e24482e0472/resourceGroups/bdsagroup20chirpremotedb_group/providers/Microsoft.Web/sites/bdsagroup20chirpremotedb"
+}

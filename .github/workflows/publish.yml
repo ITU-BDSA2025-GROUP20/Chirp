@@ -29,7 +29,7 @@ jobs:
       - name: Build
         run: dotnet build --no-restore
       - name: dotnet publish
-        run: dotnet publish src/CheepService/ -c Release -o ${{env.DOTNET_ROOT}}/myapp
+        run: dotnet publish src/Chirp.Razor/ -c Release -o ${{env.DOTNET_ROOT}}/myapp
 
       - name: Upload Web API Artifact
         uses: actions/upload-artifact@v4
@@ -91,17 +91,17 @@ jobs:
         run: |
           release_name="Chirp-${{ github.ref_name }}-${{ matrix.os }}"
 
-          dotnet publish "src/Chirp.CLI/Chirp.CLI.csproj" -r "${{ matrix.os }}" -o "${release_name}" --sc false -p:PublishSingleFile=True
+          dotnet publish "src/Chirp.Razor/Chirp.Razor.csproj" -r "${{ matrix.os }}" -o "${release_name}" --sc false -p:PublishSingleFile=True
 
           7z a "${release_name}.zip" "${release_name}/."
           7z d "${release_name}.zip" "*.pdb"
 
           rm -r "${release_name}"
       - name: Build with dotnet
-        run: dotnet build src/CheepService/ --configuration Release
+        run: dotnet build src/Chirp.Razor/ --configuration Release
 
       - name: dotnet publish
-        run: dotnet publish src/CheepService/ -c Release -o ${{env.DOTNET_ROOT}}/myapp
+        run: dotnet publish src/Chirp.Razor/ -c Release -o ${{env.DOTNET_ROOT}}/myapp
 
       - name: Populate GitHub Release
         uses: softprops/action-gh-release@v2

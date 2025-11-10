@@ -6,7 +6,7 @@ namespace Chirp.Infrastructure.Models
     public class Author
     {
         [Required]
-        public int AuthorId { get; set; }
+        public int AuthorId { get; set; } 
         [Required]
         public string Name { get; set; } = string.Empty;
         [Required]
