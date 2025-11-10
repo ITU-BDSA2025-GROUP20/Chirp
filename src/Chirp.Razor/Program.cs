@@ -8,7 +8,10 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddRazorPages();  // ← ONLY ONCE
+builder.Services.AddRazorPages(options =>
+{
+    options.RootDirectory = "/Chirp.Web/Pages";
+});
 
 builder.Services.AddScoped<CheepService>();
 builder.Services.AddScoped<IMessageRepository, MessageRepository>();
