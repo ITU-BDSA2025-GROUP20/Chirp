@@ -15,9 +15,6 @@ builder.Services.AddScoped<ICheepRepository, CheepRepository>();
 string? connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<CheepDbContext>(options => options.UseSqlite(connectionString));
 
-// Add services to the container.
-builder.Services.AddRazorPages();
-
 
 var app = builder.Build();
 using var scope = app.Services.CreateScope();
