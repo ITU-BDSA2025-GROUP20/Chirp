@@ -17,10 +17,6 @@ builder.Services.AddScoped<ICheepRepository, CheepRepository>();
 string? connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<CheepDbContext>(options => options.UseSqlite(connectionString));
 
-<<<<<<< HEAD:src/Chirp.Razor/Program.cs
-=======
-
->>>>>>> efd2ecee36ab90fffb5019f8258aea553535817a:src/Chirp.Razor/Chirp.Web/Program.cs
 var app = builder.Build();
 
 // Seed database
