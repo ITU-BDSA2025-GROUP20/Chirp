@@ -5,10 +5,8 @@ using Chirp.Infrastructure.Data;
 using Chirp.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
-using bdsagroup20chirpremotedb.Data;
 
 var builder = WebApplication.CreateBuilder(args);
-var connectionStringdb = builder.Configuration.GetConnectionString("CheepDbContextConnection") ?? throw new InvalidOperationException("Connection string 'CheepDbContextConnection' not found.");
 
 // Add services to the container.
 builder.Services.AddRazorPages(options =>
@@ -32,8 +30,6 @@ string? connectionString = configuration.GetConnectionString("DefaultConnection"
 
 builder.Services.AddDbContext<CheepDbContext>(options =>
     options.UseSqlServer(connectionString));
-
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<CheepDbContext>();
 
 builder.Services.Configure<IdentityOptions>(options =>
 {
@@ -95,6 +91,7 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapRazorPages();
