@@ -22,4 +22,6 @@ namespace Chirp.Infrastructure.Data
             return new CheepDbContext(optionsBuilder.Options);
         }
     }
+
+    
 }

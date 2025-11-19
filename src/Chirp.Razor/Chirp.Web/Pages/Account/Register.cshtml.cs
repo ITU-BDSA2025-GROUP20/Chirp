@@ -19,7 +19,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 
-namespace Chirp.Razor.Areas.Identity.Pages.Account
+namespace Chirp.Web.Pages.Account
 {
     public class RegisterModel : PageModel
     {

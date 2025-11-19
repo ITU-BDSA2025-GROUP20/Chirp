@@ -23,7 +23,7 @@ var passwordBuilder = new ConfigurationBuilder()
     .AddEnvironmentVariables();
 var configuration = passwordBuilder.Build();
 
-string? connectionString = configuration.GetConnectionString("DefaultConnection")
+string? connectionString = configuration.GetConnectionString("DefaultConnection")!
     .Replace("{DB_PASSWORD}", Environment.GetEnvironmentVariable("DB_PASSWORD"));
 
     Console.WriteLine(connectionString);

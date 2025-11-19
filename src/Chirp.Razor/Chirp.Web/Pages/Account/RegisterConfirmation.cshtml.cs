@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 
-namespace Chirp.Razor.Areas.Identity.Pages.Account
+namespace Chirp.Web.Pages.Account
 {
     [AllowAnonymous]
     public class RegisterConfirmationModel : PageModel
