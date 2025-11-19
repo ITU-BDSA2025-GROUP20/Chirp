@@ -5,7 +5,6 @@ using Chirp.Infrastructure.Data;
 using Chirp.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
-using bdsagroup20chirpremotedb.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionStringdb = builder.Configuration.GetConnectionString("CheepDbContextConnection") ?? throw new InvalidOperationException("Connection string 'CheepDbContextConnection' not found.");
