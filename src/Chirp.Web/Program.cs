@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Identity;
 
 public static async Task Main(string[] args){
     var builder = WebApplication.CreateBuilder(args);
-    var connectionStringdb = builder.Configuration.GetConnectionString("CheepDbContextConnection") ?? throw new InvalidOperationException("Connection string 'CheepDbContextConnection' not found.");
+    //var connectionStringdb = builder.Configuration.GetConnectionString("CheepDbContextConnection") ?? throw new InvalidOperationException("Connection string 'CheepDbContextConnection' not found.");
 
     // Add services to the container.
     builder.Services.AddRazorPages(options =>
@@ -25,13 +25,14 @@ public static async Task Main(string[] args){
         .AddEnvironmentVariables();
     var configuration = passwordBuilder.Build();
 
-    string? connectionString = configuration.GetConnectionString("DefaultConnection")
-        .Replace("{DB_PASSWORD}", Environment.GetEnvironmentVariable("DB_PASSWORD"));
+    string? connectionString = configuration.GetConnectionString("DefaultConnection");
+
 
         Console.WriteLine(connectionString);
 
+
     builder.Services.AddDbContext<CheepDbContext>(options =>
-        options.UseSqlServer(connectionString));
+        options.UseSqlite(connectionString));
 
     builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<CheepDbContext>();
 
