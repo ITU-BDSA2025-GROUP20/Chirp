@@ -1,6 +1,6 @@
 using System;
-using Chirp.Infrastructure.Data;
-using Chirp.Infrastructure.Models;
+using Infrastructure.Data;
+using Infrastructure.Models;
 using Microsoft.EntityFrameworkCore;
 
 

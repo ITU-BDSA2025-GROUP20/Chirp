@@ -1,4 +1,4 @@
-namespace Chirp.Core;
+namespace Core;
 public class MessageDTO
 {
     public int Id { get; set; }           

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace Chirp.Razor.Migrations
+namespace Razor.Migrations
 {
     /// <inheritdoc />
     public partial class InitialCreate : Migration

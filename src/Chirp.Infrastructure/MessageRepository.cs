@@ -1,10 +1,10 @@
 using Microsoft.EntityFrameworkCore;
 using System;
-using Chirp.Infrastructure.Data;
-using Chirp.Infrastructure.Models;
-using Chirp.Core;
+using Infrastructure.Data;
+using Infrastructure.Models;
+using Core;
 
-namespace Chirp.Infrastructure
+namespace Infrastructure
 {
     public class MessageRepository : IMessageRepository
     {

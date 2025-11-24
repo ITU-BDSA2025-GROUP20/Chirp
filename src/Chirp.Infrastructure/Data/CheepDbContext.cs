@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Chirp.Infrastructure.Models;
+using Infrastructure.Models;
 
-namespace Chirp.Infrastructure.Data
+namespace Infrastructure.Data
 {
     public class CheepDbContext : IdentityDbContext<IdentityUser>
     {

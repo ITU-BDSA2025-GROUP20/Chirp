@@ -1,12 +1,12 @@
-using Chirp.Infrastructure.Data;
-using Chirp.Infrastructure.Models;
+using Infrastructure.Data;
+using Infrastructure.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Chirp.Core;
+using Core;
 
-namespace Chirp.Infrastructure.Services
+namespace Infrastructure.Services
 {
     public class CheepService
     {
