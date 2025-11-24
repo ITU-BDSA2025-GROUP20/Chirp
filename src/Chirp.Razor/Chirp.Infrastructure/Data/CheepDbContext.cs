@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Chirp.Infrastructure.Models;
 
@@ -13,5 +14,13 @@ namespace Chirp.Infrastructure.Data
 
         public DbSet<Cheep> Cheeps { get; set; } = null!;
         public DbSet<Author> Authors { get; set; } = null!;
+    
+
+    protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+
+            // custom Identity + Cheep model config (if needed)
+        }
     }
 }
