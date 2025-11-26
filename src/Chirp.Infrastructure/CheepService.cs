@@ -33,7 +33,7 @@ namespace Infrastructure.Services
                 .ToList();
 
             return pagedCheeps.Select(c => new CheepViewModel(
-                    c.Author.Name,
+                    c.AuthorName,
                     c.Text,
                     c.TimeStamp.ToString("MM/dd/yy H:mm:ss")
                 ))
@@ -56,7 +56,7 @@ namespace Infrastructure.Services
                 .ToList();
 
             return pagedCheeps.Select(c => new CheepViewModel(
-                    c.Author.Name,
+                    c.AuthorName,
                     c.Text,
                     c.TimeStamp.ToString("MM/dd/yy H:mm:ss")
                 ))
@@ -72,7 +72,7 @@ namespace Infrastructure.Services
 
             foreach (var cheep in cheepList)
             {
-                Console.WriteLine($"{cheep.Author.Name}: {cheep.Text} ({cheep.TimeStamp})");
+                Console.WriteLine($"{cheep.AuthorName}: {cheep.Text} ({cheep.TimeStamp})");
             }
         }
     }

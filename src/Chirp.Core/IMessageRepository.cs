@@ -1,3 +1,5 @@
+using System.Threading.Tasks;
+using System.Collections.Generic;
 namespace Core
 {
     public interface IMessageRepository
