@@ -451,3 +451,5 @@ FodyWeavers.xsd
 
 obj/
 bin/
+!appsettings.Development.json
+secrets.json
