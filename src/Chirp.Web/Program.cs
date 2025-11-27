@@ -63,20 +63,50 @@ builder.Services.ConfigureApplicationCookie(options =>
     options.SlidingExpiration = true;
 });
 
-var app = builder.Build();
+var app = builder.Build();  
 
 // Seed database
 using var scope = app.Services.CreateScope();
-var db = scope.ServiceProvider.GetRequiredService<CheepDbContext>();
+
+var db = scope.ServiceProvider.GetRequiredService<CheepDbContext>();    
+//await db.Database.MigrateAsync();
+
+var userManager = scope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
+
 try
 {
     await db.Database.EnsureCreatedAsync();
     await DbInitializer.SeedDatabaseAsync(db);
     Console.WriteLine("Database connection successful.");
+
+    // Set passwords for Helge
+    var helge = await userManager.FindByEmailAsync("ropf@itu.dk");
+    if (helge == null)
+    {
+        helge = new IdentityUser
+        {
+        UserName = "ropf@itu.dk",
+        Email = "ropf@itu.dk",
+        EmailConfirmed = true
+        };
+        await userManager.CreateAsync(helge, "LetM31n!");
+    }
+
+    var adrian = await userManager.FindByEmailAsync("adho@itu.dk");
+    if (adrian == null)
+    {
+        adrian = new IdentityUser
+        {
+        UserName = "adho@itu.dk",
+        Email = "adho@itu.dk",
+        EmailConfirmed = true
+        };
+        await userManager.CreateAsync(adrian, "M32Want_Access");
+    }
 }
 catch (Exception ex)
 {
-    Console.WriteLine("Database connection failed: " + ex.Message);
+    Console.WriteLine("Database setup failed: " + ex.Message);
     Console.WriteLine(ex.StackTrace);
 }
 
@@ -94,18 +124,4 @@ app.UseAuthorization();
 
 app.MapRazorPages();
 
-app.MapGet("/test-db", async (CheepDbContext db) =>
-{
-    try
-    {
-        // Try to read 5 authors from the database
-        var authors = await db.Authors.Take(5).ToListAsync();
-        return Results.Ok(new { success = true, count = authors.Count, authors });
-    }
-    catch (Exception ex)
-    {
-        // Return the exception message if something fails
-        return Results.Problem(ex.Message);
-    }
-});
 app.Run();

@@ -8,17 +8,13 @@ public static class DbInitializer
 {
     public static async Task SeedDatabaseAsync(CheepDbContext chirpContext)
     {
-        await chirpContext.Database.EnsureCreatedAsync();
+        await chirpContext.Database.MigrateAsync();
 
         // Only seed if empty
         if (await chirpContext.Authors.AnyAsync() && await chirpContext.Cheeps.AnyAsync())
             return;
 
-        // Use a transaction to safely toggle IDENTITY_INSERT
-        await using var transaction = await chirpContext.Database.BeginTransactionAsync();
 
-        // Enable IDENTITY_INSERT for Authors
-        await chirpContext.Database.ExecuteSqlRawAsync("SET IDENTITY_INSERT Authors ON;");
 
         var authors = new List<Author>();
         if (!(await chirpContext.Authors.AnyAsync() && await chirpContext.Cheeps.AnyAsync()))
@@ -40,8 +36,7 @@ public static class DbInitializer
             chirpContext.Authors.AddRange(authors);
             await chirpContext.SaveChangesAsync();
 
-            await chirpContext.Database.ExecuteSqlRawAsync("SET IDENTITY_INSERT Authors OFF;");
-            await chirpContext.Database.ExecuteSqlRawAsync("SET IDENTITY_INSERT Cheeps ON;");
+           
             var cheeps = new List<Cheep>();
             var c1 = new Cheep() { CheepId = 1, AuthorId = a10.AuthorId, Author = a10, Text = "They were married in Chicago, with old Smith, and was expected aboard every day; meantime, the two went past me.", TimeStamp = DateTime.Parse("2023-08-01 13:14:37") };
             var c2 = new Cheep() { CheepId = 2, AuthorId = a10.AuthorId, Author = a10, Text = "And then, as he listened to all that''s left o'' twenty-one people.", TimeStamp = DateTime.Parse("2023-08-01 13:15:21") };
@@ -710,10 +705,8 @@ public static class DbInitializer
 
             chirpContext.Cheeps.AddRange(cheeps);
             await chirpContext.SaveChangesAsync();
-            await chirpContext.Database.ExecuteSqlRawAsync("SET IDENTITY_INSERT Cheeps OFF;");
             Console.WriteLine("Cheeps added.");
 
-            await transaction.CommitAsync();
         }
     }
 }

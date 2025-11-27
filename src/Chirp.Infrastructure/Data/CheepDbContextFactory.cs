@@ -17,7 +17,7 @@ namespace Infrastructure.Data
             var connectionString = config.GetConnectionString("DefaultConnection");
 
             var optionsBuilder = new DbContextOptionsBuilder<CheepDbContext>();
-            optionsBuilder.UseSqlServer(connectionString);
+            optionsBuilder.UseSqlite(connectionString);
 
             return new CheepDbContext(optionsBuilder.Options);
         }
