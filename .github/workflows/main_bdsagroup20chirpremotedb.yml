@@ -34,6 +34,23 @@ jobs:
         with:
           name: .net-app
           path: ${{env.DOTNET_ROOT}}/myapp
+  
+  test:
+    name: Test
+    needs: build
+
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: 9.0.305
+
+      - name: Test
+        run: dotnet test --no-build
 
   deploy:
     runs-on: ubuntu-latest
@@ -64,4 +81,5 @@ jobs:
           package: .
 
           
+
 
