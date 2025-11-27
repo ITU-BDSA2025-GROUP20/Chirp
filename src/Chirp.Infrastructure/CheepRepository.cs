@@ -65,11 +65,25 @@ public class CheepRepository : ICheepRepository
 
     public async Task StoreCheepAsync(MessageDTO message)
     {
-        // Map DTO → entity
+        var author = await _dbcontext.Authors
+            .FirstOrDefaultAsync(a => a.Name == message.AuthorName);
+
+        if (author == null)
+        {
+            // Optionally: create author if not exists (depends on your design)
+            author = new Author
+            {
+                Name = message.AuthorName,
+                Email = $"{message.AuthorName}@example.com" // or fetch from Identity
+            };
+            _dbcontext.Authors.Add(author);
+            await _dbcontext.SaveChangesAsync();
+        }
+
         var cheepEntity = new Cheep
         {
             Text = message.Text,
-            AuthorId = 0, // or map properly based on your Author logic
+            AuthorId = author.AuthorId,
             TimeStamp = DateTime.UtcNow
         };
 
