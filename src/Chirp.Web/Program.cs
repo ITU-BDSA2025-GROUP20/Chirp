@@ -10,10 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 //var connectionStringdb = builder.Configuration.GetConnectionString("CheepDbContextConnection") ?? throw new InvalidOperationException("Connection string 'CheepDbContextConnection' not found.");
 
 // Add services to the container.
-builder.Services.AddRazorPages(options =>
-{
-    options.RootDirectory = "/Chirp.Web/Pages";
-});
+builder.Services.AddRazorPages();
 
 builder.Services.AddScoped<CheepService>();
 builder.Services.AddScoped<IMessageRepository, MessageRepository>();
