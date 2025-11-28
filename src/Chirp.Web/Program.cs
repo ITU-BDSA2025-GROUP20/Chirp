@@ -69,13 +69,16 @@ var app = builder.Build();
 using var scope = app.Services.CreateScope();
 
 var db = scope.ServiceProvider.GetRequiredService<CheepDbContext>();    
-//await db.Database.MigrateAsync();
 
 var userManager = scope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
 
+var config = scope.ServiceProvider.GetRequiredService<IConfiguration>();
+var helgePassword = config["SeedUsers:HelgePassword"];
+var adrianPassword = config["SeedUsers:AdrianPassword"];
+
 try
 {
-    await db.Database.EnsureCreatedAsync();
+    await db.Database.MigrateAsync();
     await DbInitializer.SeedDatabaseAsync(db);
     Console.WriteLine("Database connection successful.");
 
@@ -89,7 +92,7 @@ try
         Email = "ropf@itu.dk",
         EmailConfirmed = true
         };
-        await userManager.CreateAsync(helge, "LetM31n!");
+        await userManager.CreateAsync(helge, helgePassword);
     }
 
     var adrian = await userManager.FindByEmailAsync("adho@itu.dk");
@@ -101,7 +104,7 @@ try
         Email = "adho@itu.dk",
         EmailConfirmed = true
         };
-        await userManager.CreateAsync(adrian, "M32Want_Access");
+        await userManager.CreateAsync(adrian, adrianPassword);
     }
 }
 catch (Exception ex)
