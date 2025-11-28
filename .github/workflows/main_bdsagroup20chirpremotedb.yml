@@ -78,9 +78,10 @@ jobs:
         with:
           app-name: 'bdsagroup20chirpremotedb'
           slot-name: 'Production'
-          package: ${{env.DOTNET_ROOT}}/myapp
+          package: src/Chirp.Web/bin/Release/net8.0
 
           
+
 
 
 
