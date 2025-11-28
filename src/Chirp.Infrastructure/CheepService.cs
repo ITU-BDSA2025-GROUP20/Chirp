@@ -35,7 +35,7 @@ namespace Infrastructure.Services
             return pagedCheeps.Select(c => new CheepViewModel(
                     c.AuthorName,
                     c.Text,
-                    c.TimeStamp.ToString("MM/dd/yy H:mm:ss")
+                    c.TimeStamp.ToString("MM/dd/yy H:mm:ss", System.Globalization.CultureInfo.InvariantCulture)
                 ))
                 .ToList();
         }
@@ -58,7 +58,7 @@ namespace Infrastructure.Services
             return pagedCheeps.Select(c => new CheepViewModel(
                     c.AuthorName,
                     c.Text,
-                    c.TimeStamp.ToString("MM/dd/yy H:mm:ss")
+                    c.TimeStamp.ToString("MM/dd/yy H:mm:ss", System.Globalization.CultureInfo.InvariantCulture)
                 ))
                 .ToList();
         }

@@ -27,7 +27,8 @@ public class CheepRepository : ICheepRepository
         {
             Id = c.CheepId,
             Text = c.Text,
-            AuthorName = c.Author.Name
+            AuthorName = c.Author.Name,
+            TimeStamp = c.TimeStamp
         }).ToList();
     }
 
@@ -59,7 +60,8 @@ public class CheepRepository : ICheepRepository
         {
             Id = c.CheepId,
             Text = c.Text,
-            AuthorName = c.Author.Name
+            AuthorName = c.Author.Name,
+            TimeStamp = c.TimeStamp
         }).ToList();
     }
 

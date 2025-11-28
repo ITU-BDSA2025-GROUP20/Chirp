@@ -4,6 +4,7 @@ using Infrastructure.Services;
 using Infrastructure.Data;
 using Infrastructure;
 using Core;
+using System.ComponentModel.DataAnnotations;
 
 namespace Web.Pages;
 
@@ -16,6 +17,8 @@ public class UserTimelineModel : PageModel
     public string Author { get; set; } = string.Empty;
 
     [BindProperty]
+    [StringLength(160, ErrorMessage = "Cheeps cannot be longer than 160 characters.")]
+    [Required(ErrorMessage = "You must write something to cheep!")]
     public string Text { get; set; } = string.Empty;
 
     public UserTimelineModel(CheepService service, ICheepRepository cheepRepository)
