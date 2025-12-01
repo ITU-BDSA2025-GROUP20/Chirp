@@ -15,9 +15,9 @@
             <h3>What's on your mind, @User.Identity!.Name?</h3>
             <form method="post">
                 <textarea asp-for="Text" 
-                          rows="4" 
-                          placeholder="Write your cheep here (max 160 characters)..." 
-                          style="width: 100%; max-width: 680px; font-family: inherit;"></textarea>
+                        rows="4" 
+                        placeholder="Write your cheep here (max 160 characters)..." 
+                        style="width: 100%; max-width: 680px; font-family: inherit;"></textarea>
                 <br /><br />
                 <input type="submit" value="Share" style="float: right;" />
                 <span asp-validation-for="Text" class="text-danger"></span>
@@ -43,7 +43,24 @@
             {
                 <li>
                     <p>
-                        <strong><a href="/@cheep.AuthorName">@cheep.AuthorName</a></strong>
+                        <strong>
+                            <a href="/@cheep.AuthorName">@cheep.AuthorName</a>
+
+                            @if (User.Identity?.IsAuthenticated == true && 
+                                User.Identity.Name is not null && 
+                                User.Identity.Name != cheep.AuthorName)
+                            {
+                                var isFollowing = await Model.IsFollowingAsync(cheep.AuthorName);
+                                if (isFollowing)
+                                {
+                                    <a href="?handler=Unfollow&followee=@cheep.AuthorName" class="text-danger">unfollow</a>
+                                }
+                                else
+                                {
+                                    <a href="?handler=Follow&followee=@cheep.AuthorName">follow</a>
+                                }
+                            }
+                        </strong>
                         @cheep.Text
                         <small>— @cheep.TimeStamp</small>
                     </p>

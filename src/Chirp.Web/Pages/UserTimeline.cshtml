@@ -43,7 +43,24 @@
             {
                 <li>
                     <p>
-                        <strong><a href="/@cheep.AuthorName">@cheep.AuthorName</a></strong>
+                        <strong>
+                            <a href="/@cheep.AuthorName">@cheep.AuthorName</a>
+
+                            @if (User.Identity?.IsAuthenticated == true && 
+                                User.Identity.Name is not null && 
+                                User.Identity.Name != cheep.AuthorName)
+                            {
+                                var isFollowing = await Model.IsFollowingAsync(cheep.AuthorName);
+                                if (isFollowing)
+                                {
+                                    <a href="?handler=Unfollow&followee=@cheep.AuthorName" class="text-danger">unfollow</a>
+                                }
+                                else
+                                {
+                                    <a href="?handler=Follow&followee=@cheep.AuthorName">follow</a>
+                                }
+                            }
+                        </strong>
                         @cheep.Text
                         <small>— @cheep.TimeStamp</small>
                     </p>

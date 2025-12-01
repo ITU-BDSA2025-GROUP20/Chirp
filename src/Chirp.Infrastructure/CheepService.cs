@@ -47,7 +47,7 @@ namespace Infrastructure.Services
             int pageNumber = page ?? 1;
             if (pageNumber < 1) pageNumber = 1;
 
-            var cheeps = await _repository.GetAllCheepsFromAuthorAsync(authorName);
+            var cheeps = await _repository.GetAllCheepsFromAuthorAsync(authorName); // Only their own
 
             var pagedCheeps = cheeps
                 .OrderByDescending(c => c.TimeStamp)
@@ -75,7 +75,28 @@ namespace Infrastructure.Services
                 Console.WriteLine($"{cheep.AuthorName}: {cheep.Text} ({cheep.TimeStamp})");
             }
         }
+        public async Task<List<CheepViewModel>> GetPrivateTimeline(string username, int? page = 1)
+        {
+            int pageNumber = page ?? 1;
+            if (pageNumber < 1) pageNumber = 1;
+
+            var cheeps = await _repository.GetTimelineForUserAsync(username);
+
+            var pagedCheeps = cheeps
+                .Skip((pageNumber - 1) * PageSize)
+                .Take(PageSize)
+                .ToList();
+
+            return pagedCheeps.Select(c => new CheepViewModel(
+                    c.AuthorName,
+                    c.Text,
+                    c.TimeStamp.ToString("MM/dd/yy H:mm:ss", System.Globalization.CultureInfo.InvariantCulture)
+                ))
+                .ToList();
+        }
     }
+
+    
 
     public record CheepViewModel(string AuthorName, string Text, string TimeStamp);
 }
