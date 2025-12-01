@@ -1,0 +1,35 @@
+@page
+@model Chirp.Web.Pages.AboutMeModel
+@{
+    ViewData["Title"] = $"About {Model.UserName}";
+}
+
+<h2>About @Model.UserName</h2>
+
+@if (Model.Cheeps.Any())
+{
+    <p><strong>@Model.UserName</strong> has posted @Model.Cheeps.Count cheep(s):</p>
+
+    <ul id="messagelist" class="cheeps">
+        @foreach (var cheep in Model.Cheeps)
+        {
+            <li>
+                <p>
+                    <strong>
+                        <a href="/@cheep.AuthorName">@cheep.AuthorName</a>
+                    </strong>
+                    @cheep.Text
+                    <small>&mdash; @cheep.TimeStamp</small>
+                </p>
+            </li>
+        }
+    </ul>
+}
+else
+{
+    <p>@Model.UserName has not posted any cheeps yet.</p>
+}
+
+<p>
+    <a href="/@Model.UserName">View @Model.UserName's full timeline →</a>
+</p>

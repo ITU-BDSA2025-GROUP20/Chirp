@@ -20,6 +20,11 @@ namespace Infrastructure.Data
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+            builder.Entity<Cheep>(entity =>
+            {
+            entity.Property(e => e.TimeStamp)
+            .HasColumnType("TEXT");
+            });
 
             builder.Entity<Follow>()
                 .HasKey(f => new { f.FollowerId, f.FolloweeId });

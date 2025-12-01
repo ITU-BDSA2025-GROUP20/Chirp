@@ -48,11 +48,11 @@ public class CheepRepository : ICheepRepository
         };
     }
 
-    public async Task<IEnumerable<MessageDTO>> GetAllCheepsFromAuthorAsync(string authorName)
+    public async Task<IEnumerable<MessageDTO>> GetAllCheepsFromAuthorAsync(string authorIdentity)
     {
         var cheeps = await _dbcontext.Cheeps
             .Include(c => c.Author)
-            .Where(c => c.Author.Name == authorName)
+            .Where(c => c.Author.Email == authorIdentity)
             .OrderByDescending(c => c.TimeStamp)
             .ToListAsync();
 

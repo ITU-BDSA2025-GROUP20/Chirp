@@ -24,16 +24,16 @@ jobs:
           dotnet-version: '8.x'
 
       - name: Build with dotnet
-        run: dotnet build src/Chirp.Razor/ --configuration Release
+        run: dotnet build src/Chirp.Web/ --configuration Release
 
       - name: dotnet publish
-        run: dotnet publish src/Chirp.Razor/ -c Release -o ${{env.DOTNET_ROOT}}/myapp
+        run: dotnet publish src/Chirp.Web/ -c Release -o ./publish
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
           name: .net-app
-          path: ${{env.DOTNET_ROOT}}/myapp
+          path: ./publish
   
   test:
     name: Test
@@ -47,7 +47,7 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@v5
         with:
-          dotnet-version: 9.0.305
+          dotnet-version: 8.0
 
       - name: Test
         run: dotnet test --no-build
@@ -64,6 +64,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: .net-app
+          path: ./publish
       
       - name: Login to Azure
         uses: azure/login@v2
@@ -78,8 +79,17 @@ jobs:
         with:
           app-name: 'bdsagroup20chirpremotedb'
           slot-name: 'Production'
-          package: .
+          package: ./publish
 
           
+
+
+
+
+
+
+
+
+
 
 
