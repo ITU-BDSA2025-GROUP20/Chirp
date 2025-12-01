@@ -15,6 +15,8 @@ namespace Infrastructure.Data
         public DbSet<Cheep> Cheeps { get; set; } = null!;
         public DbSet<Author> Authors { get; set; } = null!;
 
+        public DbSet<Follow> Follows { get; set; } = null!;
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
@@ -24,6 +26,22 @@ namespace Infrastructure.Data
             .HasColumnType("TEXT");
             });
 
+            builder.Entity<Follow>()
+                .HasKey(f => new { f.FollowerId, f.FolloweeId });
+
+            builder.Entity<Follow>()
+                .HasOne(f => f.Follower)
+                .WithMany(a => a.Following)
+                .HasForeignKey(f => f.FollowerId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            builder.Entity<Follow>()
+                .HasOne(f => f.Followee)
+                .WithMany(a => a.Followers)
+                .HasForeignKey(f => f.FolloweeId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
+
+    
 }

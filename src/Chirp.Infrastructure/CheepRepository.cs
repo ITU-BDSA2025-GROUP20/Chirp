@@ -67,15 +67,109 @@ public class CheepRepository : ICheepRepository
 
     public async Task StoreCheepAsync(MessageDTO message)
     {
-        // Map DTO → entity
+        var author = await _dbcontext.Authors
+            .FirstOrDefaultAsync(a => a.Name == message.AuthorName);
+
+        if (author == null)
+        {
+            // Optionally: create author if not exists (depends on your design)
+            author = new Author
+            {
+                Name = message.AuthorName,
+                Email = $"{message.AuthorName}@example.com" // or fetch from Identity
+            };
+            _dbcontext.Authors.Add(author);
+            await _dbcontext.SaveChangesAsync();
+        }
+
         var cheepEntity = new Cheep
         {
             Text = message.Text,
-            AuthorId = 0, // or map properly based on your Author logic
+            AuthorId = author.AuthorId,
             TimeStamp = DateTime.UtcNow
         };
 
         _dbcontext.Cheeps.Add(cheepEntity);
         await _dbcontext.SaveChangesAsync();
+    }
+
+    public async Task FollowUserAsync(string followerName, string followeeName)
+    {
+        if (followerName == followeeName) return;
+
+        var follower = await _dbcontext.Authors.FirstOrDefaultAsync(a => a.Name == followerName);
+        var followee = await _dbcontext.Authors.FirstOrDefaultAsync(a => a.Name == followeeName);
+
+        if (follower == null || followee == null) return;
+
+        var existing = await _dbcontext.Follows
+            .AnyAsync(f => f.FollowerId == follower.AuthorId && f.FolloweeId == followee.AuthorId);
+
+        if (!existing)
+        {
+            _dbcontext.Follows.Add(new Follow
+            {
+                FollowerId = follower.AuthorId,
+                FolloweeId = followee.AuthorId
+            });
+            await _dbcontext.SaveChangesAsync();
+        }
+    }
+
+    public async Task UnfollowUserAsync(string followerName, string followeeName)
+    {
+        var follower = await _dbcontext.Authors.FirstOrDefaultAsync(a => a.Name == followerName);
+        var followee = await _dbcontext.Authors.FirstOrDefaultAsync(a => a.Name == followeeName);
+
+        if (follower == null || followee == null) return;
+
+        var follow = await _dbcontext.Follows
+            .FirstOrDefaultAsync(f => f.FollowerId == follower.AuthorId && f.FolloweeId == followee.AuthorId);
+
+        if (follow != null)
+        {
+            _dbcontext.Follows.Remove(follow);
+            await _dbcontext.SaveChangesAsync();
+        }
+    }
+
+    public async Task<bool> IsFollowingAsync(string followerName, string followeeName)
+    {
+        var follower = await _dbcontext.Authors.FirstOrDefaultAsync(a => a.Name == followerName);
+        var followee = await _dbcontext.Authors.FirstOrDefaultAsync(a => a.Name == followeeName);
+
+        if (follower == null || followee == null) return false;
+
+        return await _dbcontext.Follows
+            .AnyAsync(f => f.FollowerId == follower.AuthorId && f.FolloweeId == followee.AuthorId);
+    }
+
+    public async Task<IEnumerable<MessageDTO>> GetTimelineForUserAsync(string username)
+    {
+        var author = await _dbcontext.Authors
+            .Include(a => a.Following)
+            .ThenInclude(f => f.Followee)
+            .ThenInclude(f => f.Cheeps)
+            .FirstOrDefaultAsync(a => a.Name == username);
+
+        if (author == null) return Enumerable.Empty<MessageDTO>();
+
+        var followedAuthorIds = author.Following.Select(f => f.Followee.AuthorId).ToList();
+        followedAuthorIds.Add(author.AuthorId); // Include own cheeps
+
+        var cheeps = await _dbcontext.Cheeps
+            .Include(c => c.Author)
+            .Where(c => followedAuthorIds.Contains(c.AuthorId))
+            .OrderByDescending(c => c.TimeStamp)
+            .Select(c => new MessageDTO
+            {
+                Id = c.CheepId,
+                Text = c.Text,
+                AuthorName = c.Author.Name,
+                TimeStamp = c.TimeStamp
+            })
+            .ToListAsync();
+
+        return cheeps;
     }
 }

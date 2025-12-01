@@ -12,5 +12,7 @@ namespace Infrastructure.Models
         [Required]
         public string Email { get; set; } = string.Empty;
         public ICollection<Cheep> Cheeps { get; set;} = new List<Cheep>(); 
+        public ICollection<Follow> Following { get; set; } = new List<Follow>();
+        public ICollection<Follow> Followers { get; set; } = new List<Follow>();
     }
 }
