@@ -1,35 +1,66 @@
 @page
 @model Chirp.Web.Pages.AboutMeModel
 @{
-    ViewData["Title"] = $"About {Model.UserName}";
+    ViewData["Title"] = $"About {Model.DisplayName ?? Model.UserName}";
 }
 
-<h2>About @Model.UserName</h2>
+<div style="max-width: 700px; margin: 2rem auto; padding: 1rem;">
+    <h2>About Me</h2>
 
-@if (Model.Cheeps.Any())
-{
-    <p><strong>@Model.UserName</strong> has posted @Model.Cheeps.Count cheep(s):</p>
+    <div style="background:#f8f9fa; padding:1.5rem; border-radius:8px; margin-bottom:2rem;">
+        <p><strong>Name:</strong> @Model.DisplayName</p>
+        <p><strong>Username:</strong> @Model.UserName</p>
+        <p><strong>Email:</strong> <a href="mailto:@Model.Email">@Model.Email</a></p>
+    </div>
 
-    <ul id="messagelist" class="cheeps">
-        @foreach (var cheep in Model.Cheeps)
-        {
-            <li>
-                <p>
-                    <strong>
-                        <a href="/@cheep.AuthorName">@cheep.AuthorName</a>
-                    </strong>
-                    @cheep.Text
-                    <small>&mdash; @cheep.TimeStamp</small>
-                </p>
-            </li>
-        }
-    </ul>
-}
-else
-{
-    <p>@Model.UserName has not posted any cheeps yet.</p>
-}
+    <h3>My Cheeps (@Model.Cheeps.Count)</h3>
+    @if (Model.Cheeps.Any())
+    {
+        <ul id="messagelist" class="cheeps" style="list-style:none; padding:0;">
+            @foreach (var cheep in Model.Cheeps)
+            {
+                <li style="background:#fff; padding:1rem; margin-bottom:1rem; border:1px solid #ddd; border-radius:6px;">
+                    <p style="margin:0;">
+                        <strong><a href="/@cheep.AuthorName">@cheep.AuthorName</a></strong>
+                        @cheep.Text
+                        <br />
+                        <small style="color:#666;">— @cheep.TimeStamp</small>
+                    </p>
+                </li>
+            }
+        </ul>
+    }
+    else
+    {
+        <p><em>No cheeps yet.</em></p>
+    }
 
-<p>
-    <a href="/@Model.UserName">View @Model.UserName's full timeline →</a>
-</p>
+    <hr style="margin:2rem 0;" />
+
+    <h3>Following (@Model.Following.Count)</h3>
+    @if (Model.Following.Any())
+    {
+        <ul style="list-style:none; padding:0;">
+            @foreach (var name in Model.Following)
+            {
+                <li style="padding:0.5rem 0; display:flex; justify-content:space-between; align-items:center;">
+                    <strong><a href="/@name">@name</a></strong>
+                    <form method="post" asp-page-handler="Unfollow" style="margin:0;">
+                        <input type="hidden" name="followee" value="@name" />
+                        <button type="submit" class="btn btn-sm btn-outline-danger">Unfollow</button>
+                    </form>
+                </li>
+            }
+        </ul>
+    }
+    else
+    {
+        <p><em>Not following anyone yet.</em></p>
+    }
+
+    <hr style="margin:2rem 0;" />
+
+    <p>
+        <a href="/@Model.UserName" class="btn btn-primary">View My Full Timeline</a>
+    </p>
+</div>
