@@ -93,4 +93,41 @@ public class CheepServiceTests : IDisposable
     }
 
     public void Dispose() => _context.Dispose();
+
+    [Fact]
+    public async Task GetPrivateTimeline_IncludesFollowedUsersCheeps()
+    {
+        // Arrange
+        await _repository.FollowUserAsync("tester", "tester2");
+
+        // Add extra author + cheeps
+        var author2 = new Author { Name = "tester2", Email = "t2@example.com" };
+        _context.Authors.Add(author2);
+        await _context.SaveChangesAsync();
+
+        _context.Cheeps.Add(new Cheep
+        {
+            AuthorId = author2.AuthorId,
+            Text = "Hello from tester2",
+            TimeStamp = DateTime.UtcNow
+        });
+        await _context.SaveChangesAsync();
+
+        // Act
+        var result = await _service.GetPrivateTimeline("tester");
+
+        // Assert
+        Assert.Contains(result, c => c.Text == "Hello from tester2");
+    }
+
+    [Fact]
+    public async Task GetPrivateTimeline_PaginatesCorrectly()
+    {
+        // tester has 40 cheeps from seed
+        var page1 = await _service.GetPrivateTimeline("tester", 1);
+        var page2 = await _service.GetPrivateTimeline("tester", 2);
+
+        Assert.Equal(32, page1.Count);
+        Assert.Equal(8, page2.Count);
+    }
 }

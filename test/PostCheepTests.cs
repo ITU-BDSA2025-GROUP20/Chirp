@@ -50,6 +50,7 @@ public class PostCheepTests : IAsyncLifetime
 
         _pageModel = new PublicModel(service, repository)
         {
+            CheepRepository = repository,
             PageContext = pageContext,
             TempData = new TempDataDictionary(_httpContext, Mock.Of<ITempDataProvider>())
         };
