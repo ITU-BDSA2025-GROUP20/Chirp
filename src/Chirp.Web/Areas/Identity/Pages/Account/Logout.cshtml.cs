@@ -9,6 +9,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Authentication;
+
 
 namespace Areas.Identity.Pages.Account
 {
@@ -24,19 +26,12 @@ namespace Areas.Identity.Pages.Account
         }
 
         public async Task<IActionResult> OnPost(string returnUrl = null)
-        {
+        {   
+            await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
             await _signInManager.SignOutAsync();
             _logger.LogInformation("User logged out.");
-            if (returnUrl != null)
-            {
-                return LocalRedirect(returnUrl);
-            }
-            else
-            {
-                // This needs to be a redirect so that the browser performs a new
-                // request and the identity for the user gets updated.
-                return RedirectToPage();
-            }
+
+            return returnUrl != null ? LocalRedirect(returnUrl) : RedirectToPage("/Public");
         }
     }
 }
