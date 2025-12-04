@@ -28,7 +28,19 @@ public class UserTimelineModel : PageModel
 
     public async Task<IActionResult> OnGetAsync(string author)
     {
-        Cheeps = await _service.GetCheepsFromAuthor(author);
+        Author = author;
+
+        if (User.Identity?.IsAuthenticated == true && User.Identity.Name == author)
+        {
+            // My own timeline → show private timeline (me + people I follow)
+            Cheeps = await _service.GetPrivateTimeline(author);
+        }
+        else
+        {
+            // Someone else's timeline → only their cheeps
+            Cheeps = await _service.GetCheepsFromAuthor(author);
+        }
+
         return Page();
     }
 
