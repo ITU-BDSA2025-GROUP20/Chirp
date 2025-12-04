@@ -13,5 +13,6 @@ public interface ICheepRepository
     Task UnfollowUserAsync(string followerName, string followeeName);
     Task<bool> IsFollowingAsync(string followerName, string followeeName);
     Task<IEnumerable<MessageDTO>> GetTimelineForUserAsync(string username);
+    Task<IReadOnlyList<string>> GetFollowingNamesAsync(string followerName);
 
 }

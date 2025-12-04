@@ -172,4 +172,19 @@ public class CheepRepository : ICheepRepository
 
         return cheeps;
     }
+
+    public async Task<IReadOnlyList<string>> GetFollowingNamesAsync(string followerName)
+{
+    var author = await _dbcontext.Authors
+        .Include(a => a.Following)
+        .ThenInclude(f => f.Followee)
+        .FirstOrDefaultAsync(a => a.Name == followerName);
+
+    if (author == null) return Array.Empty<string>();
+
+    return author.Following
+        .Select(f => f.Followee.Name)
+        .OrderBy(n => n)
+        .ToList();
+}
 }
