@@ -97,14 +97,12 @@ public class CheepServiceTests : IDisposable
     [Fact]
     public async Task GetPrivateTimeline_IncludesFollowedUsersCheeps()
     {
-        // Arrange
-        await _repository.FollowUserAsync("tester", "tester2");
-
-        // Add extra author + cheeps
+        // Arrange - Create tester2 FIRST
         var author2 = new Author { Name = "tester2", Email = "t2@example.com" };
         _context.Authors.Add(author2);
         await _context.SaveChangesAsync();
 
+        // Now create a cheep from tester2
         _context.Cheeps.Add(new Cheep
         {
             AuthorId = author2.AuthorId,
@@ -113,11 +111,15 @@ public class CheepServiceTests : IDisposable
         });
         await _context.SaveChangesAsync();
 
+        // NOW make tester follow tester2
+        await _repository.FollowUserAsync("tester", "tester2");
+
         // Act
         var result = await _service.GetPrivateTimeline("tester");
 
         // Assert
         Assert.Contains(result, c => c.Text == "Hello from tester2");
+        Assert.Contains(result, c => c.AuthorName == "tester2");
     }
 
     [Fact]
