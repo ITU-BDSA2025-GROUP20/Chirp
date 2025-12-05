@@ -118,6 +118,20 @@ namespace Areas.Identity.Pages.Account
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
                 var result = await _userManager.CreateAsync(user, Input.Password);
 
+                if (!result.Succeeded)
+                    {
+                      Console.WriteLine("Registration failed:");
+                     foreach (var error in result.Errors)
+                        {
+                        Console.WriteLine($"{error.Code} - {error.Description}");
+                         ModelState.AddModelError(string.Empty, error.Description);
+                         }
+                        return Page();
+                    }
+                else
+                        {
+                        Console.WriteLine($"Registration succeeded for {Input.Email}");
+                        }
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");

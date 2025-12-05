@@ -29,7 +29,6 @@ namespace Areas.Identity.Pages.Account
         {   
             await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
             await HttpContext.SignOutAsync(IdentityConstants.ApplicationScheme);
-            await HttpContext.SignOutAsync("Cookies");
             await HttpContext.SignOutAsync();
             
 
