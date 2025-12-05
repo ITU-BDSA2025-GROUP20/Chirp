@@ -29,14 +29,12 @@ namespace Areas.Identity.Pages.Account
         {   
             await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
             await HttpContext.SignOutAsync(IdentityConstants.ApplicationScheme);
-            await HttpContext.SignOutAsync();
-
+            
 
             await _signInManager.SignOutAsync();
             _logger.LogInformation("User logged out.");
 
-            return Redirect("/.auth/logout?post_logout_redirect_uri=/Public");
-
+            return returnUrl != null ? LocalRedirect(returnUrl) : RedirectToPage("/Public");
         }
     }
 }
