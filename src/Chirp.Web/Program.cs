@@ -54,7 +54,7 @@ builder.Services.Configure<IdentityOptions>(options =>
     options.User.RequireUniqueEmail = false;
 });
 
-builder.Services.AddAuthentication(options =>
+/*builder.Services.AddAuthentication(options =>
     {
         options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
         options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
@@ -66,7 +66,7 @@ builder.Services.AddAuthentication(options =>
         o.ClientId = builder.Configuration["authentication:github:clientId"];
         o.ClientSecret = builder.Configuration["authentication:github:clientSecret"];
         o.CallbackPath = "/signin-github";
-    });
+    });*/
 
 builder.Services.ConfigureApplicationCookie(options =>
 {
