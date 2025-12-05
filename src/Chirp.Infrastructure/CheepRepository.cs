@@ -28,7 +28,8 @@ public class CheepRepository : ICheepRepository
             Id = c.CheepId,
             Text = c.Text,
             AuthorName = c.Author.Name,
-            TimeStamp = c.TimeStamp
+            TimeStamp = c.TimeStamp,
+            ImageUrl = c.ImageUrl
         }).ToList();
     }
 
@@ -61,7 +62,8 @@ public class CheepRepository : ICheepRepository
             Id = c.CheepId,
             Text = c.Text,
             AuthorName = c.Author.Name,
-            TimeStamp = c.TimeStamp
+            TimeStamp = c.TimeStamp,
+            ImageUrl = c.ImageUrl
         }).ToList();
     }
 
@@ -72,11 +74,10 @@ public class CheepRepository : ICheepRepository
 
         if (author == null)
         {
-            // Optionally: create author if not exists (depends on your design)
             author = new Author
             {
                 Name = message.AuthorName,
-                Email = $"{message.AuthorName}@example.com" // or fetch from Identity
+                Email = $"{message.AuthorName}@example.com"
             };
             _dbcontext.Authors.Add(author);
             await _dbcontext.SaveChangesAsync();
@@ -86,7 +87,8 @@ public class CheepRepository : ICheepRepository
         {
             Text = message.Text,
             AuthorId = author.AuthorId,
-            TimeStamp = DateTime.UtcNow
+            TimeStamp = message.TimeStamp,
+            ImageUrl = message.ImageUrl // Save the image URL
         };
 
         _dbcontext.Cheeps.Add(cheepEntity);
@@ -166,7 +168,8 @@ public class CheepRepository : ICheepRepository
                 Id = c.CheepId,
                 Text = c.Text,
                 AuthorName = c.Author.Name,
-                TimeStamp = c.TimeStamp
+                TimeStamp = c.TimeStamp,
+                ImageUrl = c.ImageUrl
             })
             .ToListAsync();
 

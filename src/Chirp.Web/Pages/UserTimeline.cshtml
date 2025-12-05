@@ -8,31 +8,43 @@
 <div>
     <h2>@Model.Author's Timeline</h2>
 
-    @* ------------------- CHEEP INPUT BOX (only for logged-in users) ------------------- *@
-    @if (User.Identity?.IsAuthenticated ?? false)
+    @* ------------------- CHEEP INPUT BOX (only if viewing own timeline) ------------------- *@
+    @if (User.Identity?.IsAuthenticated == true && User.Identity.Name == Model.Author)
     {
         <div class="cheepbox">
             <h3>What's on your mind, @User.Identity!.Name?</h3>
-            <form method="post">
-                <textarea asp-for="Text" 
-                          rows="4" 
-                          placeholder="Write your cheep here (max 160 characters)..." 
-                          style="width: 100%; max-width: 680px; font-family: inherit;"></textarea>
-                <br /><br />
-                <input type="submit" value="Share" style="float: right;" />
-                <span asp-validation-for="Text" class="text-danger"></span>
-            </form>
-        </div>
 
-        @if (!ModelState.IsValid)
-        {
-            <div class="error">
-                @foreach (var error in ModelState["Text"]!.Errors)
-                {
-                    <p>@error.ErrorMessage</p>
-                }
-            </div>
-        }
+            <form method="post" enctype="multipart/form-data">
+                @* Hidden field to preserve author on postback *@
+                <input type="hidden" name="author" value="@Model.Author" />
+
+                <textarea asp-for="Text"
+                          rows="4"
+                          placeholder="Write your cheep (max 160 characters) — or just share a GIF!"
+                          style="width: 100%; max-width: 680px; font-family: inherit; resize: vertical;"></textarea>
+                <span asp-validation-for="Text" class="text-danger"></span>
+
+                <div style="margin: 12px 0;">
+                    <label for="Upload" style="display: block; margin-bottom: 6px; font-weight: 500;">
+                        Attach image or GIF <em>(optional)</em>
+                    </label>
+                    <input type="file" asp-for="Upload" accept="image/jpeg,image/jpg,image/png,image/gif" />
+                    <span asp-validation-for="Upload" class="text-danger"></span>
+                </div>
+
+                <input type="submit" value="Share" class="btn btn-primary" style="float: right;" />
+            </form>
+
+            @if (!ModelState.IsValid && ModelState.ContainsKey(string.Empty))
+            {
+                <div class="text-danger mt-2">
+                    @foreach (var error in ModelState[string.Empty].Errors)
+                    {
+                        <div>@error.ErrorMessage</div>
+                    }
+                </div>
+            }
+        </div>
     }
 
     @* ------------------- LIST OF CHEEPS ------------------- *@
@@ -42,28 +54,49 @@
             @foreach (var cheep in Model.Cheeps)
             {
                 <li>
-                    <p>
-                        <strong>
-                            <a href="/@cheep.AuthorName">@cheep.AuthorName</a>
+                    <div class="cheep-content">
+                        <p>
+                            <strong>
+                                <a href="/@cheep.AuthorName">@cheep.AuthorName</a>
 
-                            @if (User.Identity?.IsAuthenticated == true && 
-                                User.Identity.Name is not null && 
-                                User.Identity.Name != cheep.AuthorName)
+                                @if (User.Identity?.IsAuthenticated == true &&
+                                     User.Identity.Name is not null &&
+                                     User.Identity.Name != cheep.AuthorName)
+                                {
+                                    var isFollowing = await Model.IsFollowingAsync(cheep.AuthorName);
+                                    if (isFollowing)
+                                    {
+                                        <a href="?handler=Unfollow&followee=@cheep.AuthorName"
+                                           class="text-danger"
+                                           style="margin-left: 8px; font-size: 0.9em;">unfollow</a>
+                                    }
+                                    else
+                                    {
+                                        <a href="?handler=Follow&followee=@cheep.AuthorName"
+                                           style="margin-left: 8px; font-size: 0.9em;">follow</a>
+                                    }
+                                }
+                            </strong>
+
+                            @if (!string.IsNullOrWhiteSpace(cheep.Text))
                             {
-                                var isFollowing = await Model.IsFollowingAsync(cheep.AuthorName);
-                                if (isFollowing)
-                                {
-                                    <a href="?handler=Unfollow&followee=@cheep.AuthorName" class="text-danger">unfollow</a>
-                                }
-                                else
-                                {
-                                    <a href="?handler=Follow&followee=@cheep.AuthorName">follow</a>
-                                }
+                                <br />
+                                <span class="cheep-text">@cheep.Text</span>
                             }
-                        </strong>
-                        @cheep.Text
-                        <small>— @cheep.TimeStamp</small>
-                    </p>
+
+                            <small class="text-muted">— @cheep.TimeStamp</small>
+                        </p>
+
+                        @if (!string.IsNullOrEmpty(cheep.ImageUrl))
+                        {
+                            <div class="cheep-image">
+                                <img src="@cheep.ImageUrl"
+                                     alt="Cheep media"
+                                     loading="lazy"
+                                     style="max-width: 100%; height: auto; border-radius: 12px; margin-top: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);" />
+                            </div>
+                        }
+                    </div>
                 </li>
             }
         </ul>

@@ -53,20 +53,19 @@ builder.Services.Configure<IdentityOptions>(options =>
     "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
     options.User.RequireUniqueEmail = false;
 });
-
-builder.Services.AddAuthentication(options =>
+/* builder.Services.AddAuthentication(options =>
     {
         options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
         options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
         options.DefaultChallengeScheme = "GitHub";
     })
-    .AddCookie()
+    .AddCookie();
     .AddGitHub(o =>
     {
         o.ClientId = builder.Configuration["authentication:github:clientId"];
         o.ClientSecret = builder.Configuration["authentication:github:clientSecret"];
         o.CallbackPath = "/signin-github";
-    });
+    }); */
 
 builder.Services.ConfigureApplicationCookie(options =>
 {
@@ -108,7 +107,7 @@ try
         Email = "ropf@itu.dk",
         EmailConfirmed = true
         };
-        await userManager.CreateAsync(helge, helgePassword);
+        await userManager.CreateAsync(helge, "LetM31n!");
     }
 
     var adrian = await userManager.FindByEmailAsync("adho@itu.dk");
