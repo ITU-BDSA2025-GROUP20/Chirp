@@ -35,7 +35,8 @@ namespace Areas.Identity.Pages.Account
             await _signInManager.SignOutAsync();
             _logger.LogInformation("User logged out.");
 
-            return returnUrl != null ? LocalRedirect(returnUrl) : RedirectToPage("/Public");
+            return Redirect("/.auth/logout?post_logout_redirect_uri=/Public");
+
         }
     }
 }
