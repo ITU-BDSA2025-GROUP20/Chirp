@@ -7,11 +7,12 @@
     <IsPackable>false</IsPackable>
     <IsTestProject>true</IsTestProject>
 
-    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
-    <PreserveCompilationContext>true</PreserveCompilationContext>
-    <GenerateRuntimeConfigurationFiles>true</GenerateRuntimeConfigurationFiles>
-
-    <_WebProjectOutputDir>${ProjectDir}..\src\Chirp.Web\bin\$(Configuration)\net8.0</_WebProjectOutputDir>
+    <CollectCoverage>true</CollectCoverage>
+    <CoverletOutputFormat>opencover</CoverletOutputFormat>
+    <CoverletOutput>../coverage/</CoverletOutput>
+    <Include>[Chirp.*]*</Include>
+    <Exclude>[*.Tests]*,[*.Tests.*]*</Exclude>
+    <ExcludeByFile>**/*Designer.cs,**/Program.cs,**/Startup.cs</ExcludeByFile>
 
     <CollectCoverage>true</CollectCoverage>
     <CoverletOutputFormat>opencover</CoverletOutputFormat>

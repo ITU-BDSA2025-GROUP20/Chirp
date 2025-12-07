@@ -1,4 +1,4 @@
-// File: CheepService_IntegrationTests.cs
+// File: E2ETest.cs
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -11,15 +11,15 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Xunit;
 
-namespace Chirp.Tests.Integration;
+namespace E2ETest;
 
-public class CheepService_IntegrationTests : IDisposable
+public class E2ETest : IDisposable
 {
     private readonly CheepDbContext _context;
     private readonly CheepRepository _repository;
     private readonly CheepService _service;
 
-    public CheepService_IntegrationTests()
+    public E2ETest()
     {
         var options = new DbContextOptionsBuilder<CheepDbContext>()
             .UseInMemoryDatabase(databaseName: $"ChirpTest_{Guid.NewGuid()}")
