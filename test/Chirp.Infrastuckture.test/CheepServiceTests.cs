@@ -1,4 +1,4 @@
-// test/Unit/CheepServiceTests.cs
+// test/Chirp.Infrastuckture.test/CheepServiceTests.cs
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -13,7 +13,7 @@ using Microsoft.AspNetCore.Mvc;
 using Moq;
 using Xunit;
 
-namespace Tests;
+namespace Tests.Infrastructure;
 
 public class CheepServiceTests : IDisposable
 {

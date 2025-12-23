@@ -1,10 +1,12 @@
-// test/Unit/PostCheepTests.cs
+// test/Chirp.Web.test/PostCheepTests.cs
+using System;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Core;
 using Infrastructure;
 using Infrastructure.Data;
 using Infrastructure.Models;
+using Infrastructure.Services;  // <-- ADD THIS LINE
 using Web.Pages;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -16,7 +18,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Moq;
 using Xunit;
 
-namespace Web.Tests;
+namespace Tests.Web;
 
 public class PostCheepTests : IAsyncLifetime
 {
@@ -33,7 +35,7 @@ public class PostCheepTests : IAsyncLifetime
         _context = new CheepDbContext(options);
 
         var repository = new CheepRepository(_context);
-        var service = new Infrastructure.Services.CheepService(repository);
+        var service = new CheepService(repository);  // <-- REMOVED "Infrastructure.Services."
 
         var serviceCollection = new ServiceCollection();
         serviceCollection.AddSingleton<ITempDataProvider, SessionStateTempDataProvider>();

@@ -1,4 +1,4 @@
-// test/Pages/LoginModelTests.cs
+// test/Chirp.Web.test/LoginModelTests.cs
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -14,7 +14,7 @@ using Microsoft.Extensions.Logging;
 using Moq;
 using Xunit;
 
-namespace Tests.Pages
+namespace Tests.Web
 {
     public class LoginModelTests
     {

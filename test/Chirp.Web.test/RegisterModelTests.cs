@@ -1,4 +1,4 @@
-// test/Pages/RegisterModelTests.cs
+// test/Chirp.Web.test/RegisterModelTests.cs
 using System;
 using System.Collections.Generic;
 using System.Security.Claims;
@@ -19,7 +19,7 @@ using Moq;
 using Xunit;
 using Areas.Identity.Pages.Account;
 
-namespace Tests.Pages
+namespace Tests.Web
 {
     public class RegisterModelTests
     {

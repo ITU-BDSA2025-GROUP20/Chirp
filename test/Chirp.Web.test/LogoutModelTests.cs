@@ -1,4 +1,5 @@
-// test/Pages/LogoutModelTests.cs
+// test/Chirp.Web.test/LogoutModelTests.cs
+using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -10,7 +11,7 @@ using Moq;
 using Xunit;
 using Areas.Identity.Pages.Account;
 
-namespace Tests.Pages
+namespace Tests.Web
 {
     public class LogoutModelTests
     {

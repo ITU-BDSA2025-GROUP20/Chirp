@@ -1,4 +1,4 @@
-// test/Pages/UserTimelineModelTests.cs
+// test/Chirp.Web.test/UserTimeLine.cs
 using System;
 using System.Collections.Generic;
 using System.Security.Claims;
@@ -12,7 +12,7 @@ using Moq;
 using Web.Pages;
 using Xunit;
 
-namespace Tests.Pages;
+namespace Tests.Web;
 
 public class UserTimelineModelTests
 {

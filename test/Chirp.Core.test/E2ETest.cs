@@ -1,4 +1,4 @@
-// File: E2ETest.cs
+// test/Chirp.Core.test/E2ETest.cs
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Xunit;
 
-namespace E2ETest;
+namespace Tests.Core;
 
 public class E2ETest : IDisposable
 {

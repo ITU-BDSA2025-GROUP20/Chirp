@@ -1,4 +1,5 @@
-// test/Pages/PublicModelTests.cs
+// test/Chirp.Web.test/PublicModelTests.cs
+using System;
 using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -12,7 +13,7 @@ using Moq;
 using Web.Pages;
 using Xunit;
 
-namespace Tests.Pages;
+namespace Tests.Web;
 
 public class PublicModelTests
 {
