@@ -60,7 +60,6 @@ builder.Services.AddAuthentication()
         o.ClientId = builder.Configuration["authentication:github:clientId"];
         o.ClientSecret = builder.Configuration["authentication:github:clientSecret"];
         o.CallbackPath = "/signin-github";
-        o.AuthorizationEndpoint += "?prompt=login"; 
     });
 
 

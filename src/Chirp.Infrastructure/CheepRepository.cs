@@ -48,11 +48,11 @@ public class CheepRepository : ICheepRepository
         };
     }
 
-    public async Task<IEnumerable<MessageDTO>> GetAllCheepsFromAuthorAsync(string authorIdentity)
+    public async Task<IEnumerable<MessageDTO>> GetAllCheepsFromAuthorAsync(string authorName)
     {
         var cheeps = await _dbcontext.Cheeps
             .Include(c => c.Author)
-            .Where(c => c.Author.Email == authorIdentity)
+            .Where(c => c.Author.Name == authorName)  // ← Changed from .Email to .Name
             .OrderByDescending(c => c.TimeStamp)
             .ToListAsync();
 
@@ -94,27 +94,42 @@ public class CheepRepository : ICheepRepository
     }
 
     public async Task FollowUserAsync(string followerName, string followeeName)
+{
+    if (followerName == followeeName) return;
+
+    var follower = await _dbcontext.Authors.FirstOrDefaultAsync(a => a.Name == followerName);
+    if (follower == null)
     {
-        if (followerName == followeeName) return;
-
-        var follower = await _dbcontext.Authors.FirstOrDefaultAsync(a => a.Name == followerName);
-        var followee = await _dbcontext.Authors.FirstOrDefaultAsync(a => a.Name == followeeName);
-
-        if (follower == null || followee == null) return;
-
-        var existing = await _dbcontext.Follows
-            .AnyAsync(f => f.FollowerId == follower.AuthorId && f.FolloweeId == followee.AuthorId);
-
-        if (!existing)
+        follower = new Author
         {
-            _dbcontext.Follows.Add(new Follow
-            {
-                FollowerId = follower.AuthorId,
-                FolloweeId = followee.AuthorId
-            });
-            await _dbcontext.SaveChangesAsync();
-        }
+            Name = followerName,
+            Email = $"{followerName}@example.com" // or leave empty if not needed
+        };
+        _dbcontext.Authors.Add(follower);
+        await _dbcontext.SaveChangesAsync(); // Need to save to get AuthorId
     }
+
+    var followee = await _dbcontext.Authors.FirstOrDefaultAsync(a => a.Name == followeeName);
+    if (followee == null)
+    {
+        // Optionally create followee too, or just skip/return
+        // Most cases: followee already exists because they have cheeps
+        return;
+    }
+
+    var existing = await _dbcontext.Follows
+        .AnyAsync(f => f.FollowerId == follower.AuthorId && f.FolloweeId == followee.AuthorId);
+
+    if (!existing)
+    {
+        _dbcontext.Follows.Add(new Follow
+        {
+            FollowerId = follower.AuthorId,
+            FolloweeId = followee.AuthorId
+        });
+        await _dbcontext.SaveChangesAsync();
+    }
+}
 
     public async Task UnfollowUserAsync(string followerName, string followeeName)
     {

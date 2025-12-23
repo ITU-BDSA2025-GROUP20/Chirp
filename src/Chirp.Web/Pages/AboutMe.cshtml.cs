@@ -16,6 +16,7 @@ namespace Chirp.Web.Pages
 
         public required string UserName { get; set; }
         public string? DisplayName { get; set; }
+        public string? AuthorName { get; set; }
         public string? Email { get; set; }
         public List<CheepViewModel> Cheeps { get; set; } = new();
         public List<string> Following { get; set; } = new();
@@ -32,15 +33,10 @@ namespace Chirp.Web.Pages
             {
                 return RedirectToPage("/Public");
             }
+            AuthorName = User.Identity!.Name!;
+            Cheeps = await _service.GetCheepsFromAuthor(AuthorName, page);
 
-            UserName = User.Identity!.Name!;
-
-            var author = await GetAuthorByNameAsync(UserName);
-
-            Cheeps = await _service.GetCheepsFromAuthor(UserName, page);
-
-            Following = (await CheepRepository.GetFollowingNamesAsync(UserName)).ToList();
-
+            Following = (await CheepRepository.GetFollowingNamesAsync(AuthorName)).ToList();
             return Page();
         }
 
@@ -53,6 +49,28 @@ namespace Chirp.Web.Pages
 
         return await db.Authors
             .FirstOrDefaultAsync(a => a.Name == name);
+    }
+        public async Task<IActionResult> OnPostUnfollowAsync(string followee)
+    {
+        if (!User.Identity?.IsAuthenticated ?? true)
+            return Forbid();
+
+        if (User.Identity?.Name is not { } currentUser)
+            return Forbid();
+
+        if (string.IsNullOrEmpty(followee) || followee == currentUser)
+            return BadRequest();
+
+        await CheepRepository.UnfollowUserAsync(currentUser, followee);
+    
+        return RedirectToPage();
+    }
+        public async Task<bool> IsFollowingAsync(string followeeName)
+    {
+        if (User.Identity?.IsAuthenticated != true || User.Identity.Name is not { } currentUser)
+            return false;
+
+        return await CheepRepository.IsFollowingAsync(currentUser, followeeName);
     }
     }
 }
