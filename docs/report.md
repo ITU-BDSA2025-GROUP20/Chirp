@@ -15,6 +15,21 @@ Illustrate server-client application
 
 User activities
 
+We illustrate two main user journeys to show how functionality differs based on authentication status.
+
+**Unauthenticated (public) user:**
+1. Arrives at the landing page (public timeline) → sees the global timeline of the most recent public cheeps.
+2. Can navigate to any author's profile page (`/@username`) → reads that author's cheeps.
+3. Cannot post cheeps, follow authors, or access personalized features.
+
+**Authenticated user:**
+1. Logs in via GitHub OAuth (using ASP.NET Core Identity) at login.
+2. After login → redirected to public timeline showing latest cheeps.
+3. From there they can acces my timeline to see own and followed authors cheeps.
+4. Can submit new cheeps via the form on the timeline page.
+5. Can follow/unfollow other authors from any timeline or from about me page.
+6. Can view list of authors they follow from about me page.
+
 Sequence of functionality/calls through Chirp!
 
 
