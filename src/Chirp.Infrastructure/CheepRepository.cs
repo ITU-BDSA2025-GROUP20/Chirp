@@ -50,20 +50,21 @@ public class CheepRepository : ICheepRepository
 
     public async Task<IEnumerable<MessageDTO>> GetAllCheepsFromAuthorAsync(string authorName)
     {
-        var cheeps = await _dbcontext.Cheeps
+     var cheeps = await _dbcontext.Cheeps
             .Include(c => c.Author)
             .Where(c => c.Author.Name == authorName)  // ← Changed from .Email to .Name
             .OrderByDescending(c => c.TimeStamp)
-            .ToListAsync();
+           .ToListAsync();
 
-        return cheeps.Select(c => new MessageDTO
+     return cheeps.Select(c => new MessageDTO
         {
-            Id = c.CheepId,
-            Text = c.Text,
-            AuthorName = c.Author.Name,
-            TimeStamp = c.TimeStamp
+          Id = c.CheepId,
+          Text = c.Text,
+          AuthorName = c.Author.Name,
+          TimeStamp = c.TimeStamp
         }).ToList();
     }
+
 
     public async Task StoreCheepAsync(MessageDTO message)
     {
@@ -72,11 +73,10 @@ public class CheepRepository : ICheepRepository
 
         if (author == null)
         {
-            // Optionally: create author if not exists (depends on your design)
             author = new Author
             {
                 Name = message.AuthorName,
-                Email = $"{message.AuthorName}@example.com" // or fetch from Identity
+                Email = $"{message.AuthorName}@example.com"
             };
             _dbcontext.Authors.Add(author);
             await _dbcontext.SaveChangesAsync();

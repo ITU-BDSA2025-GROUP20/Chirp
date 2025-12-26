@@ -1,3 +1,4 @@
+// test/Chirp.Infrastuckture.test/CheepRepositoryTests.cs
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -8,7 +9,7 @@ using Infrastructure.Models;
 using Microsoft.EntityFrameworkCore;
 using Xunit;
 
-namespace Tests;
+namespace Tests.Infrastructure;
 
 public class CheepRepositoryTests : IDisposable
 {
@@ -86,4 +87,84 @@ public class CheepRepositoryTests : IDisposable
     }
 
     public void Dispose() => _context.Dispose();
+
+    [Fact]
+    public async Task FollowUserAsync_AddsFollowRelation()
+    {
+        // Act
+        await _repository.FollowUserAsync("alice", "bob");
+
+        // Assert
+        var follow = await _context.Follows
+          .SingleOrDefaultAsync(f => f.FollowerId == 1 && f.FolloweeId == 2);
+
+        Assert.NotNull(follow);
+    }
+
+    [Fact]
+    public async Task FollowUserAsync_DoesNotDuplicateFollow()
+    {
+        // Arrange
+        _context.Follows.Add(new Follow { FollowerId = 1, FolloweeId = 2 });
+        await _context.SaveChangesAsync();
+
+         // Act
+        await _repository.FollowUserAsync("alice", "bob");
+
+        // Assert — still only 1 follow row
+        var count = await _context.Follows
+         .CountAsync(f => f.FollowerId == 1 && f.FolloweeId == 2);
+
+        Assert.Equal(1, count);
+    }
+
+    [Fact]
+    public async Task UnfollowUserAsync_RemovesFollowRelation()
+    {
+        // Arrange
+        _context.Follows.Add(new Follow { FollowerId = 1, FolloweeId = 2 });
+        await _context.SaveChangesAsync();
+
+        // Act
+        await _repository.UnfollowUserAsync("alice", "bob");
+
+        // Assert
+        var follow = await _context.Follows
+            .SingleOrDefaultAsync(f => f.FollowerId == 1 && f.FolloweeId == 2);
+
+        Assert.Null(follow);
+    }
+
+    [Fact]
+    public async Task IsFollowingAsync_ReturnsCorrectValues()
+    {
+        // Arrange
+        _context.Follows.Add(new Follow { FollowerId = 1, FolloweeId = 2 });
+        await _context.SaveChangesAsync();
+
+        // Act
+        var aliceFollowsBob = await _repository.IsFollowingAsync("alice", "bob");
+        var bobFollowsAlice = await _repository.IsFollowingAsync("bob", "alice");
+
+        // Assert
+        Assert.True(aliceFollowsBob);
+        Assert.False(bobFollowsAlice);
+    }
+
+    [Fact]
+    public async Task GetTimelineForUserAsync_ReturnsOwnAndFollowedCheeps()
+    {
+        // Arrange
+        await _repository.FollowUserAsync("alice", "bob");
+
+        // Act
+        var timeline = (await _repository.GetTimelineForUserAsync("alice")).ToList();
+
+        // alice has 2 cheeps, bob has 1 → total 3
+        Assert.Equal(3, timeline.Count);
+
+        // Should be ordered newest first
+        Assert.Equal("Third!", timeline[0].Text);
+    }
+
 }
