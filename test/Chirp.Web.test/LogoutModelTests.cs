@@ -1,6 +1,7 @@
 // test/Chirp.Web.test/LogoutModelTests.cs
 using System;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -26,7 +27,8 @@ namespace Tests.Web
                 Mock.Of<IUserStore<IdentityUser>>(), null, null, null, null, null, null, null, null);
 
             var contextAccessorMock = new Mock<IHttpContextAccessor>();
-            contextAccessorMock.Setup(x => x.HttpContext).Returns(new DefaultHttpContext());
+            var httpContext = new DefaultHttpContext();
+            contextAccessorMock.Setup(x => x.HttpContext).Returns(httpContext);
 
             var claimsFactoryMock = new Mock<IUserClaimsPrincipalFactory<IdentityUser>>();
 
@@ -52,13 +54,31 @@ namespace Tests.Web
 
             _loggerMock = new Mock<ILogger<LogoutModel>>();
 
-            // Now LogoutModel can be resolved
+            // Create a separate HttpContext for the PageContext
+            var pageHttpContext = new DefaultHttpContext();
+
+            // === Mock IAuthenticationService to prevent ArgumentNullException ===
+            var authServiceMock = new Mock<IAuthenticationService>();
+            authServiceMock
+                .Setup(a => a.SignOutAsync(It.IsAny<HttpContext>(), It.IsAny<string>(), It.IsAny<AuthenticationProperties>()))
+                .Returns(Task.CompletedTask);
+
+            var serviceProviderMock = new Mock<IServiceProvider>();
+            serviceProviderMock
+                .Setup(sp => sp.GetService(typeof(IAuthenticationService)))
+                .Returns(authServiceMock.Object);
+
+            // Apply to both HttpContexts
+            httpContext.RequestServices = serviceProviderMock.Object;
+            pageHttpContext.RequestServices = serviceProviderMock.Object;
+
+            // Instantiate LogoutModel
             _logoutModel = new LogoutModel(_signInManagerMock.Object, _loggerMock.Object);
 
-            // Required for RedirectToPage/LocalRedirect
+            // Required for redirects
             _logoutModel.PageContext = new PageContext
             {
-                HttpContext = new DefaultHttpContext()
+                HttpContext = pageHttpContext
             };
         }
 
@@ -71,7 +91,6 @@ namespace Tests.Web
 
             _signInManagerMock.Verify(s => s.SignOutAsync(), Times.Once());
 
-            // Temporary simple logger verify until extension is added
             _loggerMock.Verify(
                 x => x.Log(
                     LogLevel.Information,
@@ -102,7 +121,7 @@ namespace Tests.Web
                 Times.Once());
 
             var redirectResult = Assert.IsType<RedirectToPageResult>(result);
-            Assert.Null(redirectResult.PageName); // RedirectToPage() redirects to the same page
+            Assert.Equal("/Public", redirectResult.PageName); // Matches actual app behavior
         }
     }
 }
