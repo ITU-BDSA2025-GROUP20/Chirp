@@ -1,14 +1,21 @@
 Design and Architecture of Chirp!
 
 Domain model
-Insert UML class diagram.
+
 
 
 Architecture - In the small
 Make illustration of the Onion and what resides inside it.
 
-For the Chirp! program we have implemented the Onion-Architecture structure. The structure is built up in layers: Core, Infrastructure and Web. The Core layer being completely independent of the other layers. The Infrastructure layer does not depend on the web application layer either. 
-The layers use Data Transfer Objects (DTO's) to communicate and transfer data from the center of the onion and outwards.
+For the Chirp! program we have implemented the Onion-Architecture structure. The structure is built up in layers: Core, Infrastructure and Web. 
+
+The Core layer forms the center of the Onion and is independent of all other layers. it contains the service interfaces that define the behavior of the application. This layer does not depend on any of the other layers.
+
+The Infrastructure layer surrounds the Core and provides implementations of the behavior defined in the Core layer. This includes repository implementations, database and external services, such as CheepService.cs. The Infrastructure layer depends on the Core layer, but does not depend on the Web layer.
+
+The Web layer is the outer layer of our Onion. it is resposible for handling HTTP requests and returning responses to the client. All the request/response logic can be found here. It depends on the Core layer and uses the Infrastructure layer through dependency injection.
+
+The layers use Data Transfer Objects (DTO's) to communicate and transfer data from the center of the onion and outwards. Ensuring that entities are not exposed outside the Core layer. 
 
 Achitecture of the deployed application
 Illustrate server-client application
