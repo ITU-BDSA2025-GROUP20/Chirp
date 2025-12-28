@@ -1,6 +1,7 @@
 // test/Chirp.Web.test/RegisterModelTests.cs
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
@@ -12,6 +13,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Abstractions;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Routing;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -76,62 +78,70 @@ namespace Tests.Web
                 passwordHasher,
                 null, null, null, null, null, null);
 
-            // Enable email support
-            var supportsEmailProp = typeof(UserManager<IdentityUser>)
-                .GetProperty("SupportsUserEmail", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
-            supportsEmailProp?.SetValue(userManager, true);
+            var tokenProvider = new Mock<IUserTwoFactorTokenProvider<IdentityUser>>();
+            tokenProvider.Setup(x => x.CanGenerateTwoFactorTokenAsync(userManager, It.IsAny<IdentityUser>()))
+                         .ReturnsAsync(true);
+            tokenProvider.Setup(x => x.GenerateAsync(It.IsAny<string>(), userManager, It.IsAny<IdentityUser>()))
+                         .ReturnsAsync("fake-token");
 
-            // Register default token provider
-            var tokenProviderMock = new Mock<IUserTwoFactorTokenProvider<IdentityUser>>();
-            tokenProviderMock.Setup(x => x.GenerateAsync(It.IsAny<string>(), userManager, It.IsAny<IdentityUser>()))
-                .ReturnsAsync("raw-token");
+            userManager.RegisterTokenProvider("Default", tokenProvider.Object);
 
-            var tokenProvidersField = typeof(UserManager<IdentityUser>)
-                .GetField("_tokenProviders", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
-            var tokenProvidersDict = (Dictionary<string, IUserTwoFactorTokenProvider<IdentityUser>>)tokenProvidersField!.GetValue(userManager)!;
-            tokenProvidersDict["Default"] = tokenProviderMock.Object;
-
-            // Create dependencies for SignInManager
-            var httpContext = new DefaultHttpContext();
             var httpContextAccessor = new Mock<IHttpContextAccessor>();
+            var httpContext = new DefaultHttpContext();
+
+            var authenticationServiceMock = new Mock<IAuthenticationService>();
+            authenticationServiceMock.Setup(x => x.SignInAsync(It.IsAny<HttpContext>(), It.IsAny<string>(), It.IsAny<ClaimsPrincipal>(), It.IsAny<AuthenticationProperties>()))
+                                     .Returns(Task.CompletedTask);
+
+            var serviceProviderMock = new Mock<IServiceProvider>();
+            serviceProviderMock.Setup(x => x.GetService(typeof(IAuthenticationService)))
+                               .Returns(authenticationServiceMock.Object);
+
+            httpContext.RequestServices = serviceProviderMock.Object;
             httpContextAccessor.Setup(x => x.HttpContext).Returns(httpContext);
 
             var claimsFactory = new Mock<IUserClaimsPrincipalFactory<IdentityUser>>();
             claimsFactory.Setup(x => x.CreateAsync(It.IsAny<IdentityUser>()))
-                .ReturnsAsync((IdentityUser u) => new ClaimsPrincipal(new ClaimsIdentity()));
+                         .ReturnsAsync(new ClaimsPrincipal(new ClaimsIdentity()));
 
             var schemesProvider = new Mock<IAuthenticationSchemeProvider>();
             schemesProvider.Setup(x => x.GetAllSchemesAsync())
-                .ReturnsAsync(new List<AuthenticationScheme>());
+                           .ReturnsAsync(new List<AuthenticationScheme>());
 
-            // Create SignInManager mock AFTER userManager exists
-            var signInManagerMock = new Mock<SignInManager<IdentityUser>>(
+            var userConfirmation = new Mock<IUserConfirmation<IdentityUser>>();
+            userConfirmation.Setup(x => x.IsConfirmedAsync(userManager, It.IsAny<IdentityUser>()))
+                            .ReturnsAsync(true);
+
+            var signInManager = new SignInManager<IdentityUser>(
                 userManager,
                 httpContextAccessor.Object,
                 claimsFactory.Object,
-                null,
-                null,
+                optionsAccessor,
+                new Mock<ILogger<SignInManager<IdentityUser>>>().Object,
                 schemesProvider.Object,
-                null);
+                userConfirmation.Object);
 
             var model = new RegisterModel(
                 userManager,
                 _userStoreMock.Object,
-                signInManagerMock.Object,
+                signInManager,
                 _loggerMock.Object,
                 _emailSenderMock.Object);
 
-            model.ModelState.Clear();
-
             model.Url = new DummyUrlHelper();
 
-            var pageHttpContext = new DefaultHttpContext();
-            pageHttpContext.Request.Scheme = "https";
+            var tempDataMock = new Mock<ITempDataDictionary>();
+            model.TempData = tempDataMock.Object;
 
-            model.PageContext = new PageContext
+            var pageContext = new PageContext
             {
-                HttpContext = pageHttpContext
+                HttpContext = httpContext,
+                ActionDescriptor = new CompiledPageActionDescriptor(),
+                RouteData = new RouteData()
             };
+
+            model.PageContext = pageContext;
+            model.ModelState.Clear();
 
             return model;
         }
@@ -291,6 +301,44 @@ namespace Tests.Web
             _emailSenderMock.Verify();
             Assert.NotNull(sentBody);
             Assert.Contains("clicking here", sentBody);
+        }
+
+        [Fact]
+        public async Task OnPostAsync_PasswordMismatch_AddsError()
+        {
+            // Arrange
+            var model = CreateRegisterModel();
+
+            model.Input = new RegisterModel.InputModel
+            {
+                Email = "test@example.com",
+                Password = "Password123!",
+                ConfirmPassword = "Different123!"
+            };
+
+            // Manually trigger validation to make [Compare] attribute work
+            var validationContext = new ValidationContext(model.Input);
+            var validationResults = new List<ValidationResult>();
+            Validator.TryValidateObject(model.Input, validationContext, validationResults, true);
+
+            foreach (var validationResult in validationResults)
+            {
+                model.ModelState.AddModelError("", validationResult.ErrorMessage ?? "Validation error");
+            }
+
+            // Act
+            var postResult = await model.OnPostAsync();
+
+            // Assert
+            Assert.IsType<PageResult>(postResult);
+            Assert.False(model.ModelState.IsValid);
+
+            var errors = model.ModelState["Input.ConfirmPassword"]?.Errors
+                         ?? model.ModelState[string.Empty]?.Errors;
+
+            Assert.NotNull(errors);
+            Assert.NotEmpty(errors);
+            Assert.Contains(errors, e => e.ErrorMessage.Contains("do not match", StringComparison.OrdinalIgnoreCase));
         }
     }
 }

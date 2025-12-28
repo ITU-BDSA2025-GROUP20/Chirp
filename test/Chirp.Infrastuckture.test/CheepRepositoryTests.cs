@@ -86,6 +86,33 @@ public class CheepRepositoryTests : IDisposable
         Assert.Equal(3, aliceCheeps);
     }
 
+    [Fact]
+public async Task GetFollowingNamesAsync_NoFollows_ReturnsEmpty()
+{
+    // Act
+    var result = await _repository.GetFollowingNamesAsync("nonexistent");
+
+    // Assert
+    Assert.Empty(result);
+}
+        [Fact]
+    public async Task GetFollowingNamesAsync_WithFollows_ReturnsSortedNames()
+    {
+        // Arrange - ensure all authors exist
+        var carl = new Author { Name = "carl", Email = "carl@example.com" };
+        _context.Authors.Add(carl);
+        await _context.SaveChangesAsync();
+
+        await _repository.FollowUserAsync("alice", "bob");
+        await _repository.FollowUserAsync("alice", "carl");
+
+        // Act
+        var result = await _repository.GetFollowingNamesAsync("alice");
+
+        // Assert
+        Assert.Equal(new[] { "bob", "carl" }, result.ToArray()); // Sorted alphabetically: bob before carl
+    }
+
     public void Dispose() => _context.Dispose();
 
     [Fact]
@@ -165,6 +192,27 @@ public class CheepRepositoryTests : IDisposable
 
         // Should be ordered newest first
         Assert.Equal("Third!", timeline[0].Text);
+    }
+
+        [Fact]
+    public async Task FollowUserAsync_SelfFollow_DoesNothing()
+    {
+        await _repository.FollowUserAsync("alice", "alice");
+        Assert.False(await _repository.IsFollowingAsync("alice", "alice"));
+    }
+
+    [Fact]
+    public async Task FollowUserAsync_NonExistentFollowee_DoesNothing()
+    {
+        await _repository.FollowUserAsync("alice", "nonexistent");
+        Assert.Empty(await _context.Follows.ToListAsync());
+    }
+
+        [Fact]
+    public async Task GetTimelineForUserAsync_NonExistentUser_ReturnsEmpty()
+    {
+        var result = await _repository.GetTimelineForUserAsync("nonexistent");
+        Assert.Empty(result);
     }
 
 }

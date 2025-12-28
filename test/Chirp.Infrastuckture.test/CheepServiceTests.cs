@@ -67,6 +67,21 @@ public class CheepServiceTests : IDisposable
         Assert.Equal("Cheep #33", result[0].Text);
     }
 
+        [Fact]
+    public async Task TestSeedAsync_PrintsCheeps_WhenDataExists()
+    {
+        // Arrange
+        var output = new StringWriter();
+        Console.SetOut(output);
+
+        // Act
+        await _service.TestSeedAsync();
+
+        // Assert
+        var consoleOutput = output.ToString();
+        Assert.Contains("Total cheeps:", consoleOutput); // Adjust based on seeded data
+    }
+
     [Fact]
     public async Task GetCheeps_InvalidPage_ReturnsFirstPage()
     {

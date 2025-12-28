@@ -101,4 +101,89 @@ public class PublicModelTests
         // Assert
         Assert.IsType<ForbidResult>(result);
     }
+            [Fact]
+        public async Task OnGetFollowAsync_Unauthenticated_ReturnsForbid()
+        {
+            // Arrange
+            var repoMock = new Mock<ICheepRepository>();
+            var service = new CheepService(repoMock.Object);
+            var model = new PublicModel(service, repoMock.Object)
+            {
+                CheepRepository = repoMock.Object,  // <-- REQUIRED FIX
+                PageContext = new PageContext { HttpContext = new DefaultHttpContext() } // No user
+            };
+
+            // Act
+            var result = await model.OnGetFollowAsync("followee");
+
+            // Assert
+            Assert.IsType<ForbidResult>(result);
+        }
+
+        [Fact]
+        public async Task OnGetFollowAsync_Authenticated_FollowsAndRedirects()
+        {
+            // Arrange
+            var repoMock = new Mock<ICheepRepository>();
+            repoMock.Setup(r => r.FollowUserAsync("testuser", "followee")).Returns(Task.CompletedTask);
+            var service = new CheepService(repoMock.Object);
+            var user = new ClaimsPrincipal(new ClaimsIdentity(new[] { new Claim(ClaimTypes.Name, "testuser") }, "mock"));
+            var model = new PublicModel(service, repoMock.Object)
+            {
+                CheepRepository = repoMock.Object,  // <-- REQUIRED FIX
+                PageContext = new PageContext { HttpContext = new DefaultHttpContext { User = user } }
+            };
+
+            // Act
+            var result = await model.OnGetFollowAsync("followee");
+
+            // Assert
+            repoMock.Verify(r => r.FollowUserAsync("testuser", "followee"), Times.Once);
+            Assert.IsType<RedirectToPageResult>(result);
+        }
+
+        [Fact]
+        public async Task OnGetUnfollowAsync_Authenticated_UnfollowsAndRedirects()
+        {
+            // Arrange
+            var repoMock = new Mock<ICheepRepository>();
+            repoMock.Setup(r => r.UnfollowUserAsync("testuser", "followee")).Returns(Task.CompletedTask);
+            var service = new CheepService(repoMock.Object);
+            var user = new ClaimsPrincipal(new ClaimsIdentity(new[] { new Claim(ClaimTypes.Name, "testuser") }, "mock"));
+            var model = new PublicModel(service, repoMock.Object)
+            {
+                CheepRepository = repoMock.Object,  // <-- REQUIRED FIX
+                PageContext = new PageContext { HttpContext = new DefaultHttpContext { User = user } }
+            };
+
+            // Act
+            var result = await model.OnGetUnfollowAsync("followee");
+
+            // Assert
+            repoMock.Verify(r => r.UnfollowUserAsync("testuser", "followee"), Times.Once);
+            Assert.IsType<RedirectToPageResult>(result);
+        }
+
+        [Fact]
+        public async Task OnPostAsync_InvalidModel_ReturnsPageWithErrors()
+        {
+            // Arrange
+            var repoMock = new Mock<ICheepRepository>();
+            var service = new CheepService(repoMock.Object);
+            var user = new ClaimsPrincipal(new ClaimsIdentity(new[] { new Claim(ClaimTypes.Name, "testuser") }, "mock"));
+            var model = new PublicModel(service, repoMock.Object)
+            {
+                CheepRepository = repoMock.Object,  // <-- REQUIRED FIX
+                PageContext = new PageContext { HttpContext = new DefaultHttpContext { User = user } },
+                Text = new string('a', 161) // Too long
+            };
+            model.ModelState.AddModelError(nameof(PublicModel.Text), "Cheeps cannot be longer than 160 characters.");
+
+            // Act
+            var result = await model.OnPostAsync();
+
+            // Assert
+            Assert.IsType<PageResult>(result);
+            Assert.False(model.ModelState.IsValid);
+        }
 }

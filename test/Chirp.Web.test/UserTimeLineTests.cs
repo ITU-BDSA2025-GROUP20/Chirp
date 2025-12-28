@@ -1,4 +1,4 @@
-// test/Chirp.Web.test/UserTimeLine.cs
+// test/Chirp.Web.test/UserTimeLineTests.cs
 using System;
 using System.Collections.Generic;
 using System.Security.Claims;

@@ -313,6 +313,21 @@ namespace Tests.Web
             var error = _loginModel.ModelState[string.Empty].Errors[0];
             Assert.Equal("Invalid login attempt.", error.ErrorMessage);
         }
+                [Fact]
+        public async Task OnPostAsync_RequiresTwoFactor_RedirectsTo2fa()
+        {
+            // Arrange
+            _loginModel.Input = new LoginModel.InputModel { Email = "test@example.com", Password = "Password123!" };
+            _signInManagerMock.Setup(s => s.PasswordSignInAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<bool>(), false))
+                .ReturnsAsync(Microsoft.AspNetCore.Identity.SignInResult.TwoFactorRequired);
+
+            // Act
+            var result = await _loginModel.OnPostAsync("/return");
+
+            // Assert
+            var redirect = Assert.IsType<RedirectToPageResult>(result);
+            Assert.Equal("./LoginWith2fa", redirect.PageName);
+        }
 
         #endregion
     }
