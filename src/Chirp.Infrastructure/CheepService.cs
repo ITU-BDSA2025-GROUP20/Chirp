@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Core;
+using System.Globalization;
 
 namespace Infrastructure.Services
 {
@@ -18,7 +19,6 @@ namespace Infrastructure.Services
             _repository = repository;
         }
 
-        /// Gets all cheeps, paginated. Page 1 is returned if page is null or <= 0.
         public async Task<List<CheepViewModel>> GetCheeps(int? page = 1)
         {
             int pageNumber = page ?? 1;
@@ -41,14 +41,12 @@ namespace Infrastructure.Services
                 .ToList();
         }
 
-        
-        /// Gets cheeps from a specific author, paginated. Page 1 is returned if page is null or <= 0.
         public async Task<List<CheepViewModel>> GetCheepsFromAuthor(string authorName, int? page = 1)
         {
             int pageNumber = page ?? 1;
             if (pageNumber < 1) pageNumber = 1;
 
-            var cheeps = await _repository.GetAllCheepsFromAuthorAsync(authorName); // Only their own
+            var cheeps = await _repository.GetAllCheepsFromAuthorAsync(authorName);
 
             var pagedCheeps = cheeps
                 .OrderByDescending(c => c.TimeStamp)

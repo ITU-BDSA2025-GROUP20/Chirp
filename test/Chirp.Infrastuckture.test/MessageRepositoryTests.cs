@@ -1,3 +1,4 @@
+// test/Chirp.Infrastuckture.test/MessageRepositoryTests.cs
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -8,7 +9,7 @@ using Infrastructure.Models;
 using Microsoft.EntityFrameworkCore;
 using Xunit;
 
-namespace Tests;
+namespace Tests.Infrastructure;
 
 public class MessageRepositoryTests : IDisposable
 {

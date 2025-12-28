@@ -7,7 +7,6 @@ namespace Infrastructure.Models
     {
         [Required]
         public int Id { get; set; }
-        [Required]
         [StringLength(500)]
         public string Text { get; set; } = string.Empty;
         public string? ImageUrl { get; set; }

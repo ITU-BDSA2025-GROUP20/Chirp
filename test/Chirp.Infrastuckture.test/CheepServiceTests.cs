@@ -1,3 +1,4 @@
+// test/Chirp.Infrastuckture.test/CheepServiceTests.cs
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -7,10 +8,12 @@ using Infrastructure.Data;
 using Infrastructure.Models;
 using Infrastructure.Services;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc;
 using Moq;
 using Xunit;
 
-namespace Tests;
+namespace Tests.Infrastructure;
 
 public class CheepServiceTests : IDisposable
 {
@@ -93,4 +96,43 @@ public class CheepServiceTests : IDisposable
     }
 
     public void Dispose() => _context.Dispose();
+
+    [Fact]
+    public async Task GetPrivateTimeline_IncludesFollowedUsersCheeps()
+    {
+        // Arrange - Create tester2 FIRST
+        var author2 = new Author { Name = "tester2", Email = "t2@example.com" };
+        _context.Authors.Add(author2);
+        await _context.SaveChangesAsync();
+
+        // Now create a cheep from tester2
+        _context.Cheeps.Add(new Cheep
+        {
+            AuthorId = author2.AuthorId,
+            Text = "Hello from tester2",
+            TimeStamp = DateTime.UtcNow
+        });
+        await _context.SaveChangesAsync();
+
+        // NOW make tester follow tester2
+        await _repository.FollowUserAsync("tester", "tester2");
+
+        // Act
+        var result = await _service.GetPrivateTimeline("tester");
+
+        // Assert
+        Assert.Contains(result, c => c.Text == "Hello from tester2");
+        Assert.Contains(result, c => c.AuthorName == "tester2");
+    }
+
+    [Fact]
+    public async Task GetPrivateTimeline_PaginatesCorrectly()
+    {
+        // tester has 40 cheeps from seed
+        var page1 = await _service.GetPrivateTimeline("tester", 1);
+        var page2 = await _service.GetPrivateTimeline("tester", 2);
+
+        Assert.Equal(32, page1.Count);
+        Assert.Equal(8, page2.Count);
+    }
 }
