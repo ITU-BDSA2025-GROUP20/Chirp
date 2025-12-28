@@ -1,7 +1,5 @@
-﻿// src/Chirp.Web/Pages/UserTimeline.cshtml.cs
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Infrastructure.Services;
 using Infrastructure.Services;
 using Core;
 using System.ComponentModel.DataAnnotations;
@@ -16,9 +14,12 @@ public class UserTimelineModel : PageModel
     public List<CheepViewModel> Cheeps { get; set; } = new();
     public string Author { get; set; } = string.Empty;
 
+    public int PageNumber { get; set; }
+    public bool HasNextPage { get; set; }
+
     [BindProperty]
-    [StringLength(160, ErrorMessage = "Cheeps cannot be longer than 160 characters.")]
-    public string? Text { get; set; } // ← now nullable
+    [StringLength(160)]
+    public string? Text { get; set; }
 
     [BindProperty]
     public IFormFile? Upload { get; set; }
@@ -29,13 +30,16 @@ public class UserTimelineModel : PageModel
         CheepRepository = repo;
     }
 
-    public async Task<IActionResult> OnGetAsync(string author)
+    public async Task<IActionResult> OnGetAsync(string author, int p = 1)
     {
         Author = author;
+        PageNumber = p < 1 ? 1 : p;
 
         Cheeps = User.Identity?.IsAuthenticated == true && User.Identity.Name == author
-            ? await _service.GetPrivateTimeline(author)
-            : await _service.GetCheepsFromAuthor(author);
+            ? await _service.GetPrivateTimeline(author, PageNumber)
+            : await _service.GetCheepsFromAuthor(author, PageNumber);
+
+        HasNextPage = Cheeps.Count == 32;
 
         return Page();
     }
@@ -43,16 +47,11 @@ public class UserTimelineModel : PageModel
     public async Task<IActionResult> OnPostAsync(string? author = null)
     {
         if (!User.Identity?.IsAuthenticated ?? true) return Forbid();
+        author ??= User.Identity!.Name;
 
-        // At least one of text or image required
         if (string.IsNullOrWhiteSpace(Text) && Upload == null)
         {
             ModelState.AddModelError(string.Empty, "You must write something or upload an image/GIF.");
-        }
-
-        if (Upload != null && Upload.Length > 0)
-        {
-            ModelState.Remove("Text"); // allow empty text if image present
         }
 
         if (!ModelState.IsValid)
@@ -82,16 +81,14 @@ public class UserTimelineModel : PageModel
         };
 
         await CheepRepository.StoreCheepAsync(message);
-        return RedirectToPage(new { author });
+        return RedirectToPage(new { author, p = 1 });
     }
 
     private async Task LoadCheepsAsync(string? author)
     {
-        Cheeps = author == null
-            ? await _service.GetCheeps()
-            : User.Identity?.Name == author
-                ? await _service.GetPrivateTimeline(author)
-                : await _service.GetCheepsFromAuthor(author);
+        Cheeps = User.Identity?.Name == author
+            ? await _service.GetPrivateTimeline(author, PageNumber)
+            : await _service.GetCheepsFromAuthor(author, PageNumber);
     }
 
     private async Task<string> SaveImageAsync(IFormFile file)
@@ -124,13 +121,13 @@ public class UserTimelineModel : PageModel
     {
         if (User.Identity?.Name is not { } user) return Forbid();
         await CheepRepository.FollowUserAsync(user, followee);
-        return RedirectToPage(new { author = RouteData.Values["author"] ?? "" });
+        return RedirectToPage(new { author = RouteData.Values["author"], p = PageNumber });
     }
 
     public async Task<IActionResult> OnGetUnfollowAsync(string followee)
     {
         if (User.Identity?.Name is not { } user) return Forbid();
         await CheepRepository.UnfollowUserAsync(user, followee);
-        return RedirectToPage(new { author = RouteData.Values["author"] ?? "" });
+        return RedirectToPage(new { author = RouteData.Values["author"], p = PageNumber });
     }
 }

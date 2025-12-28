@@ -1,5 +1,4 @@
-﻿// src/Chirp.Web/Pages/Public.cshtml.cs
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Infrastructure.Services;
 using Core;
@@ -14,115 +13,88 @@ public class PublicModel : PageModel
 
     public List<CheepViewModel> Cheeps { get; set; } = new();
 
+    public int PageNumber { get; set; }
+    public bool HasNextPage { get; set; }
+
     [BindProperty]
-    [StringLength(160, ErrorMessage = "Cheeps cannot be longer than 160 characters.")]
-    public string? Text { get; set; } // ← now nullable!
+    [StringLength(160)]
+    public string? Text { get; set; }
 
     [BindProperty]
     public IFormFile? Upload { get; set; }
 
-    public PublicModel(CheepService service, ICheepRepository cheepRepository)
+    public PublicModel(CheepService service, ICheepRepository repo)
     {
         _service = service;
-        CheepRepository = cheepRepository;
+        CheepRepository = repo;
     }
 
-    public async Task<IActionResult> OnGetAsync()
+    public async Task<IActionResult> OnGetAsync(int p = 1)
     {
-        Cheeps = await _service.GetCheeps();
+        PageNumber = p < 1 ? 1 : p;
+        Cheeps = await _service.GetCheeps(PageNumber);
+        HasNextPage = Cheeps.Count == 32;
         return Page();
     }
 
     public async Task<IActionResult> OnPostAsync()
     {
-        if (!User.Identity?.IsAuthenticated ?? true) return Forbid();
+        if (!User.Identity?.IsAuthenticated ?? true)
+            return Forbid();
 
-        // Custom validation: at least text OR image must be provided
         if (string.IsNullOrWhiteSpace(Text) && Upload == null)
-        {
-            ModelState.AddModelError(string.Empty, "You must either write a cheep or attach an image/GIF.");
-        }
-
-        // If we have an image, remove any "required" error on Text
-        if (Upload != null && Upload.Length > 0)
-        {
-            ModelState.Remove("Text");
-        }
+            ModelState.AddModelError(string.Empty, "You must write a cheep or upload an image.");
 
         if (!ModelState.IsValid)
         {
-            Cheeps = await _service.GetCheeps();
+            PageNumber = 1;
+            Cheeps = await _service.GetCheeps(PageNumber);
+            HasNextPage = Cheeps.Count == 32;
             return Page();
         }
 
         string? imageUrl = null;
-
-        if (Upload != null && Upload.Length > 0)
+        if (Upload != null)
         {
-            if (!IsValidImage(Upload))
-            {
-                ModelState.AddModelError("Upload", "Only JPEG, PNG, and GIF files are allowed (max 5 MB).");
-                Cheeps = await _service.GetCheeps();
-                return Page();
-            }
+            var folder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/uploads");
+            Directory.CreateDirectory(folder);
 
-            imageUrl = await SaveImageAsync(Upload);
+            var name = Guid.NewGuid() + "_" + Path.GetFileName(Upload.FileName);
+            var path = Path.Combine(folder, name);
+
+            await using var stream = new FileStream(path, FileMode.Create);
+            await Upload.CopyToAsync(stream);
+
+            imageUrl = "/uploads/" + name;
         }
 
-        var message = new MessageDTO
+        await CheepRepository.StoreCheepAsync(new MessageDTO
         {
-            Text = Text ?? string.Empty, // can be empty if image exists
+            Text = Text ?? "",
             AuthorName = User.Identity!.Name!,
             TimeStamp = DateTime.UtcNow,
             ImageUrl = imageUrl
-        };
+        });
 
-        await CheepRepository.StoreCheepAsync(message);
-        return RedirectToPage();
+        return RedirectToPage(new { p = 1 });
     }
 
-    private async Task<string> SaveImageAsync(IFormFile file)
-    {
-        var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/uploads");
-        Directory.CreateDirectory(uploadsFolder);
-
-        var uniqueFileName = Guid.NewGuid() + "_" + Path.GetFileName(file.FileName);
-        var filePath = Path.Combine(uploadsFolder, uniqueFileName);
-
-        await using var stream = new FileStream(filePath, FileMode.Create);
-        await file.CopyToAsync(stream);
-
-        return "/uploads/" + uniqueFileName;
-    }
-
-    private static bool IsValidImage(IFormFile file)
-    {
-        if (file.Length > 5 * 1024 * 1024) return false;
-
-        var allowedTypes = new[] { "image/jpeg", "image/jpg", "image/png", "image/gif" };
-        if (!allowedTypes.Contains(file.ContentType.ToLowerInvariant())) return false;
-
-        var ext = Path.GetExtension(file.FileName).ToLowerInvariant();
-        return ext is ".jpg" or ".jpeg" or ".png" or ".gif";
-    }
-
-    // ────── Follow/Unfollow helpers ──────
-    public async Task<bool> IsFollowingAsync(string followeeName)
+    // ✅ Follow helpers for public timeline
+    public async Task<bool> IsFollowingAsync(string name)
         => User.Identity?.IsAuthenticated == true
-           && User.Identity.Name is { } currentUser
-           && await CheepRepository.IsFollowingAsync(currentUser, followeeName);
+           && await CheepRepository.IsFollowingAsync(User.Identity.Name!, name);
 
     public async Task<IActionResult> OnGetFollowAsync(string followee)
     {
         if (User.Identity?.Name is not { } user) return Forbid();
         await CheepRepository.FollowUserAsync(user, followee);
-        return RedirectToPage();
+        return RedirectToPage(new { p = PageNumber });
     }
 
     public async Task<IActionResult> OnGetUnfollowAsync(string followee)
     {
         if (User.Identity?.Name is not { } user) return Forbid();
         await CheepRepository.UnfollowUserAsync(user, followee);
-        return RedirectToPage();
+        return RedirectToPage(new { p = PageNumber });
     }
 }
