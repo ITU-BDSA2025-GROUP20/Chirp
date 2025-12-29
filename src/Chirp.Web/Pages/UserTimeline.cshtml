@@ -35,7 +35,7 @@
         @if (!ModelState.IsValid && ModelState.ContainsKey(string.Empty))
         {
             <div class="text-danger mt-2">
-                @foreach (var error in ModelState[string.Empty].Errors)
+                @foreach (var error in ModelState[string.Empty]!.Errors)
                 {
                     <div>@error.ErrorMessage</div>
                 }

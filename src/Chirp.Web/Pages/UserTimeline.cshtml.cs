@@ -87,8 +87,8 @@ public class UserTimelineModel : PageModel
     private async Task LoadCheepsAsync(string? author)
     {
         Cheeps = User.Identity?.Name == author
-            ? await _service.GetPrivateTimeline(author, PageNumber)
-            : await _service.GetCheepsFromAuthor(author, PageNumber);
+            ? await _service.GetPrivateTimeline(author!, PageNumber)
+            : await _service.GetCheepsFromAuthor(author!, PageNumber);
     }
 
     private async Task<string> SaveImageAsync(IFormFile file)
