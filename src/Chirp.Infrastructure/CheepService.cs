@@ -31,26 +31,24 @@ namespace Infrastructure.Services
         {
             DateTime displayTime;
 
-            switch (time.Kind)
+            // Seeded cheeps: year 2023 → already correct local time
+            if (time.Year == 2023)
             {
-                case DateTimeKind.Utc:
-                    displayTime = TimeZoneInfo.ConvertTimeFromUtc(time, CetZone);
-                    break;
-
-                case DateTimeKind.Local:
-                    displayTime = TimeZoneInfo.ConvertTime(time, CetZone);
-                    break;
-
-                case DateTimeKind.Unspecified:
-                default:
-                    // Seeded data → already correct local time
-                    displayTime = time;
-                    break;
+                displayTime = time; // do NOT convert
+            }
+            else
+            {
+                // New cheeps: treat as UTC
+                if (time.Kind == DateTimeKind.Unspecified)
+                {
+                    time = DateTime.SpecifyKind(time, DateTimeKind.Utc);
+                }
+                displayTime = TimeZoneInfo.ConvertTimeFromUtc(time, CetZone);
             }
 
             return displayTime.ToString("dd/MM/yy HH:mm:ss", CultureInfo.InvariantCulture);
         }
-
+        
 
         public async Task<List<CheepViewModel>> GetCheeps(int? page = 1)
         {
