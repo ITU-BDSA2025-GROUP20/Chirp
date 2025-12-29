@@ -27,11 +27,29 @@ namespace Infrastructure.Services
             _repository = repository;
         }
 
-        private static string FormatCet(DateTime utcTime)
+        private static string FormatCet(DateTime time)
         {
-            var cetTime = TimeZoneInfo.ConvertTimeFromUtc(utcTime, CetZone);
+            DateTime cetTime;
+
+            if (time.Kind == DateTimeKind.Utc)
+            {
+                // Correct path for new data
+                cetTime = TimeZoneInfo.ConvertTimeFromUtc(time, CetZone);
+            }
+            else if (time.Kind == DateTimeKind.Local)
+            {
+                // Convert local → CET (safe)
+                cetTime = TimeZoneInfo.ConvertTime(time, CetZone);
+            }
+            else
+            {
+                // Legacy data: assume already CET, DO NOT convert
+                cetTime = time;
+            }
+
             return cetTime.ToString("dd/MM/yy HH:mm:ss", CultureInfo.InvariantCulture);
         }
+
 
         public async Task<List<CheepViewModel>> GetCheeps(int? page = 1)
         {
