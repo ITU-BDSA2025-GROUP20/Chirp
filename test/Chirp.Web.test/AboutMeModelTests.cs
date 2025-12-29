@@ -45,12 +45,10 @@ namespace Tests.Web
             // Arrange
             var repoMock = new Mock<ICheepRepository>();
 
+            // Mock the list of users that the authenticated user is following
             repoMock.Setup(r => r.GetFollowingNamesAsync("testuser"))
                     .ReturnsAsync(new List<string> { "followeduser" });
 
-            // Do not mock GetCheepsFromAuthor on service - it's not overridable
-            // Instead, accept that in unit test with empty DB, Cheeps will be empty
-            // The test still verifies the important parts: following list and no exception
             var service = new CheepService(repoMock.Object);
 
             var user = new ClaimsPrincipal(new ClaimsIdentity(new[] { new Claim(ClaimTypes.Name, "testuser") }, "mock"));
@@ -68,7 +66,7 @@ namespace Tests.Web
             // Assert
             Assert.IsType<PageResult>(result);
             Assert.Equal("testuser", model.AuthorName);
-            Assert.Empty(model.Cheeps); // No cheeps mocked, so empty - acceptable for this test
+            Assert.Empty(model.Cheeps); // No cheeps mocked → expected empty in this unit test
             Assert.Single(model.Following);
             Assert.Contains("followeduser", model.Following);
         }
@@ -94,6 +92,7 @@ namespace Tests.Web
         [Fact]
         public async Task OnPostUnfollowAsync_InvalidFollowee_ReturnsBadRequest()
         {
+            // Trying to unfollow oneself is considered invalid
             var repoMock = new Mock<ICheepRepository>();
             var service = new CheepService(repoMock.Object);
 
@@ -131,6 +130,7 @@ namespace Tests.Web
 
             var result = await model.OnPostUnfollowAsync("followeduser");
 
+            // Verify that the repository method was called exactly once
             repoMock.Verify(r => r.UnfollowUserAsync("testuser", "followeduser"), Times.Once);
             Assert.IsType<RedirectToPageResult>(result);
         }

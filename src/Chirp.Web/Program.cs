@@ -57,8 +57,8 @@ builder.Services.Configure<IdentityOptions>(options =>
 builder.Services.AddAuthentication()
     .AddGitHub(o =>
     {
-        o.ClientId = builder.Configuration["authentication:github:clientId"];
-        o.ClientSecret = builder.Configuration["authentication:github:clientSecret"];
+        o.ClientId = builder.Configuration["authentication:github:clientId"]!;
+        o.ClientSecret = builder.Configuration["authentication:github:clientSecret"]!;
         o.CallbackPath = "/signin-github";
     });
 
@@ -103,7 +103,7 @@ try
         Email = "ropf@itu.dk",
         EmailConfirmed = true
         };
-        await userManager.CreateAsync(helge, helgePassword);
+        await userManager.CreateAsync(helge, helgePassword!);
     }
 
     var adrian = await userManager.FindByEmailAsync("adho@itu.dk");
@@ -115,7 +115,7 @@ try
         Email = "adho@itu.dk",
         EmailConfirmed = true
         };
-        await userManager.CreateAsync(adrian, adrianPassword);
+        await userManager.CreateAsync(adrian, adrianPassword!);
     }
 }
 catch (Exception ex)
