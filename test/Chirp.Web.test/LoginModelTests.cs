@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Areas.Identity.Pages.Account;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -14,6 +15,7 @@ using Microsoft.Extensions.Logging;
 using Moq;
 using Xunit;
 
+// Tests the LoginModel Razor Page for handling user login, including external logins and two-factor authentication.
 namespace Tests.Web
 {
     public class LoginModelTests
@@ -24,29 +26,32 @@ namespace Tests.Web
         private readonly Mock<ITempDataDictionary> _tempDataMock;
         private readonly LoginModel _loginModel;
 
+        // Initializes mocks for dependencies and configures LoginModel with minimal required context.
         public LoginModelTests()
         {
-            // Mock UserManager (required for SignInManager)
+            // UserManager requires multiple parameters; nulls are safe for mocks in tests.
             var userManagerMock = new Mock<UserManager<IdentityUser>>(
-                Mock.Of<IUserStore<IdentityUser>>(), null, null, null, null, null, null, null, null);
+                Mock.Of<IUserStore<IdentityUser>>(),
+                null!, null!, null!, null!, null!, null!, null!, null!
+            );
 
-            // Mock SignInManager
+            // SignInManager handles authentication logic, mocked to isolate LoginModel behavior.
             _signInManagerMock = new Mock<SignInManager<IdentityUser>>(
                 userManagerMock.Object,
                 Mock.Of<IHttpContextAccessor>(),
                 Mock.Of<IUserClaimsPrincipalFactory<IdentityUser>>(),
-                null, null, null, null);
+                null!, null!, null!, null!
+            );
 
             _loggerMock = new Mock<ILogger<LoginModel>>();
 
-            // Mock IUrlHelper – returns "/" for Url.Content("~/")
+            // UrlHelper mock returns "/" for home to simulate typical routing behavior.
             _urlHelperMock = new Mock<IUrlHelper>();
             _urlHelperMock.Setup(u => u.Content("~/")).Returns("/");
 
-            // Mock ITempDataDictionary
             _tempDataMock = new Mock<ITempDataDictionary>();
 
-            // Create the page model
+            // Set up LoginModel with mocked dependencies and basic HTTP context.
             _loginModel = new LoginModel(_signInManagerMock.Object, _loggerMock.Object)
             {
                 PageContext = new PageContext
@@ -58,11 +63,12 @@ namespace Tests.Web
             };
         }
 
+        // Configures mock for IAuthenticationService to handle external scheme sign-out.
         private void SetupAuthenticationServiceMock()
         {
             var authServiceMock = new Mock<IAuthenticationService>();
             authServiceMock
-                .Setup(a => a.SignOutAsync(It.IsAny<HttpContext>(), IdentityConstants.ExternalScheme, null))
+                .Setup(a => a.SignOutAsync(It.IsAny<HttpContext>(), IdentityConstants.ExternalScheme, null!))
                 .Returns(Task.CompletedTask);
 
             var serviceProviderMock = new Mock<IServiceProvider>();
@@ -75,55 +81,49 @@ namespace Tests.Web
 
         #region OnGetAsync Tests
 
+        // Verifies that an error message in query string is added to ModelState.
         [Fact]
         public async Task OnGetAsync_WithErrorMessage_AddsModelError()
         {
-            // Arrange
             SetupAuthenticationServiceMock();
             _loginModel.ErrorMessage = "Test error";
 
-            // Act
             await _loginModel.OnGetAsync();
 
-            // Assert
             Assert.False(_loginModel.ModelState.IsValid);
-            var error = _loginModel.ModelState[string.Empty].Errors[0];
+            var error = Assert.Single(_loginModel.ModelState[string.Empty]!.Errors);
             Assert.Equal("Test error", error.ErrorMessage);
         }
 
+        // Ensures ReturnUrl defaults to home ("/") when not provided.
         [Fact]
         public async Task OnGetAsync_DefaultsReturnUrlToHome()
         {
-            // Arrange
             SetupAuthenticationServiceMock();
 
-            // Act
             await _loginModel.OnGetAsync();
 
-            // Assert
             Assert.Equal("/", _loginModel.ReturnUrl);
         }
 
+        // Confirms that a provided ReturnUrl is preserved.
         [Fact]
         public async Task OnGetAsync_UsesProvidedReturnUrl()
         {
-            // Arrange
             SetupAuthenticationServiceMock();
 
-            // Act
             await _loginModel.OnGetAsync("/custom-return");
 
-            // Assert
             Assert.Equal("/custom-return", _loginModel.ReturnUrl);
         }
 
+        // Tests that external authentication schemes are signed out on page load (e.g., for external login cleanup).
         [Fact]
         public async Task OnGetAsync_SignsOutExternalScheme()
         {
-            // Arrange
             var authServiceMock = new Mock<IAuthenticationService>();
             authServiceMock
-                .Setup(a => a.SignOutAsync(It.IsAny<HttpContext>(), IdentityConstants.ExternalScheme, null))
+                .Setup(a => a.SignOutAsync(It.IsAny<HttpContext>(), IdentityConstants.ExternalScheme, null!))
                 .Returns(Task.CompletedTask)
                 .Verifiable();
 
@@ -134,32 +134,28 @@ namespace Tests.Web
 
             _loginModel.PageContext.HttpContext.RequestServices = serviceProviderMock.Object;
 
-            // Act
             await _loginModel.OnGetAsync();
 
-            // Assert
             authServiceMock.Verify();
         }
 
+        // Verifies that external login providers (e.g., Google) are loaded correctly.
         [Fact]
         public async Task OnGetAsync_LoadsExternalLogins()
         {
-            // Arrange
             SetupAuthenticationServiceMock();
 
             var schemes = new List<AuthenticationScheme>
             {
-                new AuthenticationScheme("Google", "Google", typeof(AuthenticationHandler<AuthenticationSchemeOptions>))
+                new AuthenticationScheme("Google", "Google", typeof(CookieAuthenticationHandler))
             };
 
             _signInManagerMock
                 .Setup(s => s.GetExternalAuthenticationSchemesAsync())
                 .ReturnsAsync(schemes);
 
-            // Act
             await _loginModel.OnGetAsync();
 
-            // Assert
             Assert.Equal(schemes, _loginModel.ExternalLogins);
         }
 
@@ -167,23 +163,21 @@ namespace Tests.Web
 
         #region OnPostAsync Tests
 
+        // Ensures invalid model state (e.g., missing email) returns the login page.
         [Fact]
         public async Task OnPostAsync_InvalidModelState_ReturnsPage()
         {
-            // Arrange
             _loginModel.ModelState.AddModelError("Test", "Invalid");
 
-            // Act
             var result = await _loginModel.OnPostAsync();
 
-            // Assert
             Assert.IsType<PageResult>(result);
         }
 
+        // Tests successful login redirects to specified ReturnUrl and logs success.
         [Fact]
         public async Task OnPostAsync_SuccessfulLogin_RedirectsToReturnUrl()
         {
-            // Arrange
             _loginModel.Input = new LoginModel.InputModel
             {
                 Email = "test@example.com",
@@ -195,27 +189,23 @@ namespace Tests.Web
                 .Setup(s => s.PasswordSignInAsync("test@example.com", "password", true, false))
                 .ReturnsAsync(Microsoft.AspNetCore.Identity.SignInResult.Success);
 
-            // Act
             var result = await _loginModel.OnPostAsync("/custom");
 
-            // Assert
             var redirect = Assert.IsType<LocalRedirectResult>(result);
             Assert.Equal("/custom", redirect.Url);
 
-            _loggerMock.Verify(
-                l => l.Log(
-                    LogLevel.Information,
-                    It.IsAny<EventId>(),
-                    It.IsAny<It.IsAnyType>(),
-                    null,
-                    It.IsAny<Func<It.IsAnyType, Exception, string>>()),
-                Times.Once);
+            _loggerMock.Verify(l => l.Log(
+                LogLevel.Information,
+                It.IsAny<EventId>(),
+                It.IsAny<It.IsAnyType>(),
+                null!,
+                It.IsAny<Func<It.IsAnyType, Exception?, string>>()), Times.Once);
         }
 
+        // Verifies successful login defaults to home ("/") when no ReturnUrl is provided.
         [Fact]
         public async Task OnPostAsync_DefaultReturnUrlOnSuccess()
         {
-            // Arrange
             _loginModel.Input = new LoginModel.InputModel
             {
                 Email = "test@example.com",
@@ -226,18 +216,16 @@ namespace Tests.Web
                 .Setup(s => s.PasswordSignInAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<bool>(), false))
                 .ReturnsAsync(Microsoft.AspNetCore.Identity.SignInResult.Success);
 
-            // Act
             var result = await _loginModel.OnPostAsync();
 
-            // Assert
             var redirect = Assert.IsType<LocalRedirectResult>(result);
             Assert.Equal("/", redirect.Url);
         }
 
+        // Tests two-factor authentication requirement redirects to 2FA page with correct parameters.
         [Fact]
         public async Task OnPostAsync_RequiresTwoFactor_RedirectsTo2faPage()
         {
-            // Arrange
             _loginModel.Input = new LoginModel.InputModel
             {
                 Email = "test@example.com",
@@ -249,20 +237,22 @@ namespace Tests.Web
                 .Setup(s => s.PasswordSignInAsync(It.IsAny<string>(), It.IsAny<string>(), true, false))
                 .ReturnsAsync(Microsoft.AspNetCore.Identity.SignInResult.TwoFactorRequired);
 
-            // Act
             var result = await _loginModel.OnPostAsync("/return");
 
-            // Assert
             var redirect = Assert.IsType<RedirectToPageResult>(result);
             Assert.Equal("./LoginWith2fa", redirect.PageName);
-            Assert.Equal("/return", redirect.RouteValues["ReturnUrl"]);
-            Assert.True((bool)redirect.RouteValues["RememberMe"]);
+
+            Assert.True(redirect.RouteValues!.TryGetValue("ReturnUrl", out var returnUrlObj));
+            Assert.Equal("/return", (string)returnUrlObj!);
+
+            Assert.True(redirect.RouteValues.TryGetValue("RememberMe", out var rememberMeObj));
+            Assert.True((bool)rememberMeObj!);
         }
 
+        // Ensures locked-out accounts redirect to Lockout page and log a warning.
         [Fact]
         public async Task OnPostAsync_LockedOut_RedirectsToLockoutPage()
         {
-            // Arrange
             _loginModel.Input = new LoginModel.InputModel
             {
                 Email = "test@example.com",
@@ -273,27 +263,23 @@ namespace Tests.Web
                 .Setup(s => s.PasswordSignInAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<bool>(), false))
                 .ReturnsAsync(Microsoft.AspNetCore.Identity.SignInResult.LockedOut);
 
-            // Act
             var result = await _loginModel.OnPostAsync();
 
-            // Assert
             var redirect = Assert.IsType<RedirectToPageResult>(result);
             Assert.Equal("./Lockout", redirect.PageName);
 
-            _loggerMock.Verify(
-                l => l.Log(
-                    LogLevel.Warning,
-                    It.IsAny<EventId>(),
-                    It.IsAny<It.IsAnyType>(),
-                    null,
-                    It.IsAny<Func<It.IsAnyType, Exception, string>>()),
-                Times.Once);
+            _loggerMock.Verify(l => l.Log(
+                LogLevel.Warning,
+                It.IsAny<EventId>(),
+                It.IsAny<It.IsAnyType>(),
+                null!,
+                It.IsAny<Func<It.IsAnyType, Exception?, string>>()), Times.Once);
         }
 
+        // Verifies invalid credentials add an error to ModelState and return the login page.
         [Fact]
         public async Task OnPostAsync_InvalidCredentials_AddsErrorAndReturnsPage()
         {
-            // Arrange
             _loginModel.Input = new LoginModel.InputModel
             {
                 Email = "test@example.com",
@@ -304,14 +290,27 @@ namespace Tests.Web
                 .Setup(s => s.PasswordSignInAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<bool>(), false))
                 .ReturnsAsync(Microsoft.AspNetCore.Identity.SignInResult.Failed);
 
-            // Act
             var result = await _loginModel.OnPostAsync();
 
-            // Assert
             Assert.IsType<PageResult>(result);
             Assert.False(_loginModel.ModelState.IsValid);
-            var error = _loginModel.ModelState[string.Empty].Errors[0];
+
+            var error = Assert.Single(_loginModel.ModelState[string.Empty]!.Errors);
             Assert.Equal("Invalid login attempt.", error.ErrorMessage);
+        }
+
+        // Duplicate of OnPostAsync_RequiresTwoFactor_RedirectsTo2faPage; consider removing to reduce redundancy.
+        [Fact]
+        public async Task OnPostAsync_RequiresTwoFactor_RedirectsTo2fa()
+        {
+            _loginModel.Input = new LoginModel.InputModel { Email = "test@example.com", Password = "Password123!" };
+            _signInManagerMock.Setup(s => s.PasswordSignInAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<bool>(), false))
+                .ReturnsAsync(Microsoft.AspNetCore.Identity.SignInResult.TwoFactorRequired);
+
+            var result = await _loginModel.OnPostAsync("/return");
+
+            var redirect = Assert.IsType<RedirectToPageResult>(result);
+            Assert.Equal("./LoginWith2fa", redirect.PageName);
         }
 
         #endregion

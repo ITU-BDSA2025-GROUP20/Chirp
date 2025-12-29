@@ -29,26 +29,32 @@ namespace Tests.Web
             _model = new RegisterConfirmationModel(_userManagerMock.Object, _emailSenderMock.Object);
         }
 
+        // Creates a minimal UserManager mock. The many null! parameters are the optional services
+        // (options, password hasher, user validators, etc.) that are not needed for these tests.
         private static Mock<UserManager<IdentityUser>> GetMockUserManager()
         {
             var store = new Mock<IUserStore<IdentityUser>>();
-            var mock = new Mock<UserManager<IdentityUser>>(store.Object, null, null, null, null, null, null, null, null);
+            var mock = new Mock<UserManager<IdentityUser>>(store.Object, null!, null!, null!, null!, null!, null!, null!, null!);
             return mock;
         }
 
+        // Configures PageContext and a mocked IUrlHelper so that the page model can generate URLs.
+        // The URL helper is set up to produce predictable confirmation URLs like:
+        // https://example.com/Identity/Account/ConfirmEmail?userId=...&code=...&returnUrl=...
         private void SetupPageContext(string scheme = "https")
         {
             var httpContext = new DefaultHttpContext();
             httpContext.Request.Scheme = scheme;
 
-            // Set the current page to something in the Identity area so routing can "find" pages
+            // RouteData and ActionDescriptor tell the framework that the current page is
+            // /Account/RegisterConfirmation in the Identity area – required for correct routing.
             var routeData = new RouteData();
             routeData.Values["page"] = "/Account/RegisterConfirmation";
             routeData.Values["area"] = "Identity";
 
             var actionDescriptor = new Microsoft.AspNetCore.Mvc.Abstractions.ActionDescriptor
             {
-                RouteValues = new System.Collections.Generic.Dictionary<string, string>
+                RouteValues = new System.Collections.Generic.Dictionary<string, string?>
                 {
                     { "page", "/Account/RegisterConfirmation" },
                     { "area", "Identity" }
@@ -66,14 +72,18 @@ namespace Tests.Web
 
             urlHelperMock.SetupGet(u => u.ActionContext).Returns(actionContext);
 
-            // Always return a non-null URL so the code doesn't skip the assignment
+            // Generates a deterministic confirmation URL based on the values passed to RouteUrl.
+            // This prevents null URLs and allows the page model to assign EmailConfirmationUrl
+            // when the feature is enabled.
             urlHelperMock
                 .Setup(u => u.RouteUrl(It.IsAny<UrlRouteContext>()))
                 .Returns<UrlRouteContext>(context =>
                 {
                     var protocol = context.Protocol ?? httpContext.Request.Scheme;
 
-                    var values = new RouteValueDictionary(context.Values ?? new { });
+                    var values = context.Values is not null 
+                        ? new RouteValueDictionary(context.Values) 
+                        : new RouteValueDictionary();
 
                     var area = values["area"]?.ToString() ?? "Identity";
                     var userId = values["userId"]?.ToString() ?? "";
@@ -83,6 +93,7 @@ namespace Tests.Web
                     return $"{protocol}://example.com/{area}/Account/ConfirmEmail?userId={userId}&code={code}&returnUrl={returnUrl}";
                 });
 
+            // Simple content path resolution – not used in these tests but required by the contract.
             urlHelperMock
                 .Setup(u => u.Content(It.IsAny<string>()))
                 .Returns<string>(c => c ?? "/");
@@ -90,6 +101,7 @@ namespace Tests.Web
             _model.Url = urlHelperMock.Object;
         }
 
+        // If no email is provided, the scaffolded page immediately redirects to the home page (/Index).
         [Fact]
         public async Task OnGetAsync_EmailNull_RedirectsToIndex()
         {
@@ -101,6 +113,8 @@ namespace Tests.Web
             Assert.Equal("/Index", redirectResult.PageName);
         }
 
+        // When a valid-looking email is supplied but no user exists with that email,
+        // the page returns a 404 NotFound with a specific message.
         [Fact]
         public async Task OnGetAsync_UserNotFound_ReturnsNotFound()
         {
@@ -109,7 +123,7 @@ namespace Tests.Web
 
             _userManagerMock
                 .Setup(m => m.FindByEmailAsync(email))
-                .ReturnsAsync((IdentityUser)null);
+                .ReturnsAsync((IdentityUser?)null);
 
             var result = await _model.OnGetAsync(email);
 
@@ -117,6 +131,9 @@ namespace Tests.Web
             Assert.Equal($"Unable to load user with email '{email}'.", notFoundResult.Value);
         }
 
+        // For a valid user, the page renders normally and sets the Email property.
+        // In the default scaffolded code, DisplayConfirmAccountLink is hardcoded to false,
+        // so no confirmation link is generated or displayed.
         [Fact]
         public async Task OnGetAsync_ValidEmail_SetsPropertiesCorrectly()
         {
@@ -136,6 +153,8 @@ namespace Tests.Web
             Assert.Null(_model.EmailConfirmationUrl);
         }
 
+        // Same scenario as above but with HTTP scheme and a different returnUrl.
+        // Confirms that the confirmation link remains hidden by default in the scaffolded implementation.
         [Fact]
         public async Task OnGetAsync_ValidEmail_ByDefault_HidesConfirmationLink()
         {

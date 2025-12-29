@@ -8,10 +8,17 @@ public static class DbInitializer
 {
     public static async Task SeedDatabaseAsync(CheepDbContext chirpContext)
     {
-        await chirpContext.Database.MigrateAsync();
+       if (chirpContext.Database.ProviderName != "Microsoft.EntityFrameworkCore.InMemory")
+        {
+            await chirpContext.Database.MigrateAsync();
+        }
+        else
+        {
+            await chirpContext.Database.EnsureCreatedAsync();
+        }
 
         // Only seed if empty
-        if (await chirpContext.Authors.AnyAsync() && await chirpContext.Cheeps.AnyAsync())
+        if (await chirpContext.Authors.AnyAsync() || await chirpContext.Cheeps.AnyAsync())
             return;
 
 

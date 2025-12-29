@@ -14,7 +14,7 @@
         </h1>
 
         <div class="navigation">
-            @if (User.Identity.IsAuthenticated)
+            @if (User.Identity!.IsAuthenticated)
             {
                 <div>
                     @if (User.Identity?.IsAuthenticated == true && User.Identity.Name is not null)
@@ -27,7 +27,7 @@
                         }
                     <a href="/">public timeline</a> |
                     <a asp-page="/AboutMe">about me</a> |
-                    <a asp-area="Identity" asp-page="/Account/Logout">logout [@User.Identity.Name]</a>
+                    <a asp-area="Identity" asp-page="/Account/Logout">logout [@User.Identity!.Name]</a>
                 </div>
             }
             else
