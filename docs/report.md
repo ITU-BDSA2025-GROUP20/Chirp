@@ -37,6 +37,8 @@ We illustrate two main user journeys to show how functionality differs based on 
 5. Can follow/unfollow other authors from any timeline or from about me page.
 6. Can view list of authors they follow from about me page.
 
+![Flowchart showing unauthenticated vs authenticated user journeys](docs/User_Activities.pdf)
+
 **Sequence of functionality/calls through Chirp!**
 
 
