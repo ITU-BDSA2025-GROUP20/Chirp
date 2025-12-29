@@ -8,7 +8,7 @@
 <div>
     <h2>Public Timeline</h2>
 
-    @* ------------------- CHEEP INPUT BOX (only for logged-in users) ------------------- *@
+    @* Cheep input box (only for logged-in users) *@
     @if (User.Identity?.IsAuthenticated ?? false)
     {
         <div class="cheepbox">
@@ -35,7 +35,7 @@
         }
     }
 
-    @* ------------------- LIST OF CHEEPS ------------------- *@
+    @* List of cheeps *@
     @if (Model.Cheeps.Any())
     {
         <ul id="messagelist" class="cheeps">
