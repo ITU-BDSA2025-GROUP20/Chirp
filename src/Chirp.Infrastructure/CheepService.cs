@@ -29,25 +29,26 @@ namespace Infrastructure.Services
 
         private static string FormatCet(DateTime time)
         {
-            DateTime cetTime;
+            DateTime displayTime;
 
-            if (time.Kind == DateTimeKind.Utc)
+            switch (time.Kind)
             {
-                // Correct path for new data
-                cetTime = TimeZoneInfo.ConvertTimeFromUtc(time, CetZone);
-            }
-            else if (time.Kind == DateTimeKind.Local)
-            {
-                // Convert local → CET (safe)
-                cetTime = TimeZoneInfo.ConvertTime(time, CetZone);
-            }
-            else
-            {
-                // Legacy data: assume already CET, DO NOT convert
-                cetTime = time;
+                case DateTimeKind.Utc:
+                    displayTime = TimeZoneInfo.ConvertTimeFromUtc(time, CetZone);
+                    break;
+
+                case DateTimeKind.Local:
+                    displayTime = TimeZoneInfo.ConvertTime(time, CetZone);
+                    break;
+
+                case DateTimeKind.Unspecified:
+                default:
+                    // Seeded data → already correct local time
+                    displayTime = time;
+                    break;
             }
 
-            return cetTime.ToString("dd/MM/yy HH:mm:ss", CultureInfo.InvariantCulture);
+            return displayTime.ToString("dd/MM/yy HH:mm:ss", CultureInfo.InvariantCulture);
         }
 
 
