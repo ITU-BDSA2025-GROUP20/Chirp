@@ -18,6 +18,15 @@ The Web layer is the outer layer of our Onion. it is resposible for handling HTT
 The layers use Data Transfer Objects (DTO's) to communicate and transfer data from the center of the onion and outwards. Ensuring that entities are not exposed outside the Core layer. 
 
 **Achitecture of the deployed application**
+
+Chirp! is a client-server web application built with ASP.NET Core Razor Pages.
+
+- **Server**: Single ASP.NET Core web application (Chirp.Web project) deployed to **Azure App Service** (Linux plan).  
+- **Database**: PostgreSQL hosted on **Azure Database for PostgreSQL — Flexible Server**.  
+- **Client**: Standard web browser communicating with the server exclusively over HTTPS.  
+- Static assets (CSS, JS, images) are served directly from the Azure App Service.
+
+No separate API layer or SPA client — the Razor Pages engine handles both server-side rendering and minimal dynamic behavior.
 Illustrate server-client application
 
 **User activities**
