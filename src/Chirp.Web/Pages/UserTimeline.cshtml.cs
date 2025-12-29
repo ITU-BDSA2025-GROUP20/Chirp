@@ -67,9 +67,7 @@ public class UserTimelineModel : PageModel
         return RedirectToPage(new { author });
     }
 
-    // ──────────────────────────────────────────────────────────────
     // Safe helpers used from the Razor view
-    // ──────────────────────────────────────────────────────────────
     public async Task<bool> IsFollowingAsync(string followeeName)
     {
         if (User.Identity?.IsAuthenticated != true || User.Identity.Name is not { } currentUser)
