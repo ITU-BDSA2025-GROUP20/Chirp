@@ -15,7 +15,7 @@ public class CheepRepository : ICheepRepository
         _dbcontext = dbcontext;
     }
 
-    public async Task<IEnumerable<MessageDTO>> GetAllCheepsAsync()
+    public async Task<IEnumerable<MessageDTO>> GetAllCheepsAsync() // Retrieves a list of cheeps, including their author and sorts them by newest to oldest. Converting it to a DTO before then returning it.
     {
         var cheeps = await _dbcontext.Cheeps
             .Include(c => c.Author)
@@ -29,10 +29,10 @@ public class CheepRepository : ICheepRepository
             Text = c.Text,
             AuthorName = c.Author.Name,
             TimeStamp = c.TimeStamp
-        }).ToList();
+        }).ToList(); 
     }
 
-    public async Task<MessageDTO?> GetCheepByIdAsync(int id)
+    public async Task<MessageDTO?> GetCheepByIdAsync(int id) // Getting only one cheep, by its id.
     {
         var cheep = await _dbcontext.Cheeps
             .Include(c => c.Author)
@@ -48,7 +48,7 @@ public class CheepRepository : ICheepRepository
         };
     }
 
-    public async Task<IEnumerable<MessageDTO>> GetAllCheepsFromAuthorAsync(string authorIdentity)
+    public async Task<IEnumerable<MessageDTO>> GetAllCheepsFromAuthorAsync(string authorIdentity) // Same as GetAllCheeps, only from one specific author.
     {
         var cheeps = await _dbcontext.Cheeps
             .Include(c => c.Author)
@@ -65,7 +65,7 @@ public class CheepRepository : ICheepRepository
         }).ToList();
     }
 
-    public async Task StoreCheepAsync(MessageDTO message)
+    public async Task StoreCheepAsync(MessageDTO message)  // Storing cheeps by converting them from the transfer model to a database model.
     {
         var author = await _dbcontext.Authors
             .FirstOrDefaultAsync(a => a.Name == message.AuthorName);
@@ -93,7 +93,7 @@ public class CheepRepository : ICheepRepository
         await _dbcontext.SaveChangesAsync();
     }
 
-    public async Task FollowUserAsync(string followerName, string followeeName)
+    public async Task FollowUserAsync(string followerName, string followeeName) // A follower follows a followee
     {
         if (followerName == followeeName) return;
 
@@ -116,7 +116,7 @@ public class CheepRepository : ICheepRepository
         }
     }
 
-    public async Task UnfollowUserAsync(string followerName, string followeeName)
+    public async Task UnfollowUserAsync(string followerName, string followeeName) // Unfollow method.
     {
         var follower = await _dbcontext.Authors.FirstOrDefaultAsync(a => a.Name == followerName);
         var followee = await _dbcontext.Authors.FirstOrDefaultAsync(a => a.Name == followeeName);
@@ -133,7 +133,7 @@ public class CheepRepository : ICheepRepository
         }
     }
 
-    public async Task<bool> IsFollowingAsync(string followerName, string followeeName)
+    public async Task<bool> IsFollowingAsync(string followerName, string followeeName) // Check to see if a follower follows a followee.
     {
         var follower = await _dbcontext.Authors.FirstOrDefaultAsync(a => a.Name == followerName);
         var followee = await _dbcontext.Authors.FirstOrDefaultAsync(a => a.Name == followeeName);
@@ -144,7 +144,7 @@ public class CheepRepository : ICheepRepository
             .AnyAsync(f => f.FollowerId == follower.AuthorId && f.FolloweeId == followee.AuthorId);
     }
 
-    public async Task<IEnumerable<MessageDTO>> GetTimelineForUserAsync(string username)
+    public async Task<IEnumerable<MessageDTO>> GetTimelineForUserAsync(string username) // Get a users timeline, getting all posts they have posted and their followees have posted.
     {
         var author = await _dbcontext.Authors
             .Include(a => a.Following)
@@ -173,7 +173,7 @@ public class CheepRepository : ICheepRepository
         return cheeps;
     }
 
-    public async Task<IReadOnlyList<string>> GetFollowingNamesAsync(string followerName)
+    public async Task<IReadOnlyList<string>> GetFollowingNamesAsync(string followerName) // Get a list of people an author is following.
 {
     var author = await _dbcontext.Authors
         .Include(a => a.Following)
