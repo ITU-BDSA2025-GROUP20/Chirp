@@ -88,7 +88,7 @@ public class CheepRepository : ICheepRepository
         {
             Text = message.Text,
             AuthorId = author.AuthorId,
-            TimeStamp = message.TimeStamp,
+            TimeStamp = DateTime.UtcNow,
             ImageUrl = message.ImageUrl // Save the image URL
         };
 
