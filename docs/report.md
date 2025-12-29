@@ -41,7 +41,7 @@ We illustrate two main user journeys to show how functionality differs based on 
 
 **Sequence of functionality/calls through Chirp!**
 
-
+![UML sequence diagram of the main page load flow](Sequence_of_functionality.png)
 
 ***Process***
 
