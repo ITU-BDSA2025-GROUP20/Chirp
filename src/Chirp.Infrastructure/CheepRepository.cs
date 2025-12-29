@@ -28,7 +28,8 @@ public class CheepRepository : ICheepRepository
             Id = c.CheepId,
             Text = c.Text,
             AuthorName = c.Author.Name,
-            TimeStamp = c.TimeStamp
+            TimeStamp = c.TimeStamp,
+            ImageUrl = c.ImageUrl
         }).ToList();
     }
 
@@ -58,10 +59,11 @@ public class CheepRepository : ICheepRepository
 
      return cheeps.Select(c => new MessageDTO
         {
-          Id = c.CheepId,
-          Text = c.Text,
-          AuthorName = c.Author.Name,
-          TimeStamp = c.TimeStamp
+            Id = c.CheepId,
+            Text = c.Text,
+            AuthorName = c.Author.Name,
+            TimeStamp = c.TimeStamp,
+            ImageUrl = c.ImageUrl
         }).ToList();
     }
 
@@ -86,7 +88,8 @@ public class CheepRepository : ICheepRepository
         {
             Text = message.Text,
             AuthorId = author.AuthorId,
-            TimeStamp = DateTime.UtcNow
+            TimeStamp = message.TimeStamp,
+            ImageUrl = message.ImageUrl // Save the image URL
         };
 
         _dbcontext.Cheeps.Add(cheepEntity);
@@ -181,7 +184,8 @@ public class CheepRepository : ICheepRepository
                 Id = c.CheepId,
                 Text = c.Text,
                 AuthorName = c.Author.Name,
-                TimeStamp = c.TimeStamp
+                TimeStamp = c.TimeStamp,
+                ImageUrl = c.ImageUrl
             })
             .ToListAsync();
 

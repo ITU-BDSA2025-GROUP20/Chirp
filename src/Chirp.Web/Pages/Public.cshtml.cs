@@ -1,5 +1,4 @@
-﻿// src/Chirp.Web/Pages/Public.cshtml.cs
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Infrastructure.Services;
 using Core;
@@ -10,70 +9,92 @@ namespace Web.Pages;
 public class PublicModel : PageModel
 {
     private readonly CheepService _service;
-    public required ICheepRepository CheepRepository { get; set; } // DI will fill it
+    public required ICheepRepository CheepRepository { get; set; }
 
     public List<CheepViewModel> Cheeps { get; set; } = new();
 
-    [BindProperty]
-    [StringLength(160, ErrorMessage = "Cheeps cannot be longer than 160 characters.")]
-    [Required(ErrorMessage = "You must write something to cheep!")]
-    public string Text { get; set; } = string.Empty;
+    public int PageNumber { get; set; }
+    public bool HasNextPage { get; set; }
 
-    public PublicModel(CheepService service, ICheepRepository cheepRepository)
+    [BindProperty]
+    [StringLength(160)]
+    public string? Text { get; set; }
+
+    [BindProperty]
+    public IFormFile? Upload { get; set; }
+
+    public PublicModel(CheepService service, ICheepRepository repo)
     {
         _service = service;
-        CheepRepository = cheepRepository;
+        CheepRepository = repo;
     }
 
-    public async Task<IActionResult> OnGetAsync()
+    public async Task<IActionResult> OnGetAsync(int p = 1)
     {
-        Cheeps = await _service.GetCheeps();
+        PageNumber = p < 1 ? 1 : p;
+        Cheeps = await _service.GetCheeps(PageNumber);
+        HasNextPage = Cheeps.Count == 32;
         return Page();
     }
 
     public async Task<IActionResult> OnPostAsync()
     {
-        if (!User.Identity?.IsAuthenticated ?? true) return Forbid();
+        if (!User.Identity?.IsAuthenticated ?? true)
+            return Forbid();
+
+        if (string.IsNullOrWhiteSpace(Text) && Upload == null)
+            ModelState.AddModelError(string.Empty, "You must write a cheep or upload an image.");
 
         if (!ModelState.IsValid)
         {
-            Cheeps = await _service.GetCheeps();
+            PageNumber = 1;
+            Cheeps = await _service.GetCheeps(PageNumber);
+            HasNextPage = Cheeps.Count == 32;
             return Page();
         }
 
-        var message = new MessageDTO
+        string? imageUrl = null;
+        if (Upload != null)
         {
-            Text = Text,
-            AuthorName = User.Identity!.Name!, // safe – we checked IsAuthenticated
-            TimeStamp = DateTime.UtcNow
-        };
+            var folder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/uploads");
+            Directory.CreateDirectory(folder);
 
-        await CheepRepository.StoreCheepAsync(message);
-        return RedirectToPage();
+            var name = Guid.NewGuid() + "_" + Path.GetFileName(Upload.FileName);
+            var path = Path.Combine(folder, name);
+
+            await using var stream = new FileStream(path, FileMode.Create);
+            await Upload.CopyToAsync(stream);
+
+            imageUrl = "/uploads/" + name;
+        }
+
+        await CheepRepository.StoreCheepAsync(new MessageDTO
+        {
+            Text = Text ?? "",
+            AuthorName = User.Identity!.Name!,
+            TimeStamp = DateTime.UtcNow,
+            ImageUrl = imageUrl
+        });
+
+        return RedirectToPage(new { p = 1 });
     }
 
-    // ──────────────────────────────────────────────────────────────
-    // Safe helpers used from the Razor view
-    // ──────────────────────────────────────────────────────────────
-    public async Task<bool> IsFollowingAsync(string followeeName)
-    {
-        if (User.Identity?.IsAuthenticated != true || User.Identity.Name is not { } currentUser)
-            return false;
-
-        return await CheepRepository.IsFollowingAsync(currentUser, followeeName);
-    }
+    // ✅ Follow helpers for public timeline
+    public async Task<bool> IsFollowingAsync(string name)
+        => User.Identity?.IsAuthenticated == true
+           && await CheepRepository.IsFollowingAsync(User.Identity.Name!, name);
 
     public async Task<IActionResult> OnGetFollowAsync(string followee)
     {
-        if (User.Identity?.Name is not { } currentUser) return Forbid();
-        await CheepRepository.FollowUserAsync(currentUser, followee);
-        return RedirectToPage();
+        if (User.Identity?.Name is not { } user) return Forbid();
+        await CheepRepository.FollowUserAsync(user, followee);
+        return RedirectToPage(new { p = PageNumber });
     }
 
     public async Task<IActionResult> OnGetUnfollowAsync(string followee)
     {
-        if (User.Identity?.Name is not { } currentUser) return Forbid();
-        await CheepRepository.UnfollowUserAsync(currentUser, followee);
-        return RedirectToPage();
+        if (User.Identity?.Name is not { } user) return Forbid();
+        await CheepRepository.UnfollowUserAsync(user, followee);
+        return RedirectToPage(new { p = PageNumber });
     }
 }

@@ -35,7 +35,8 @@ namespace Infrastructure.Services
             return pagedCheeps.Select(c => new CheepViewModel(
                     c.AuthorName,
                     c.Text,
-                    c.TimeStamp.ToString("MM/dd/yy HH:mm:ss", CultureInfo.InvariantCulture)
+                    c.TimeStamp.ToString("MM/dd/yy H:mm:ss", System.Globalization.CultureInfo.InvariantCulture),
+                    c.ImageUrl
                 ))
                 .ToList();
         }
@@ -56,7 +57,8 @@ namespace Infrastructure.Services
             return pagedCheeps.Select(c => new CheepViewModel(
                     c.AuthorName,
                     c.Text,
-                    c.TimeStamp.ToString("MM/dd/yy HH:mm:ss", CultureInfo.InvariantCulture)
+                    c.TimeStamp.ToString("MM/dd/yy H:mm:ss", System.Globalization.CultureInfo.InvariantCulture),
+                    c.ImageUrl
                 ))
                 .ToList();
         }
@@ -88,7 +90,8 @@ namespace Infrastructure.Services
             return pagedCheeps.Select(c => new CheepViewModel(
                     c.AuthorName,
                     c.Text,
-                    c.TimeStamp.ToString("MM/dd/yy HH:mm:ss", CultureInfo.InvariantCulture)
+                    c.TimeStamp.ToString("MM/dd/yy H:mm:ss", System.Globalization.CultureInfo.InvariantCulture),
+                    c.ImageUrl
                 ))
                 .ToList();
         }
@@ -96,5 +99,5 @@ namespace Infrastructure.Services
 
     
 
-    public record CheepViewModel(string AuthorName, string Text, string TimeStamp);
+    public record CheepViewModel(string AuthorName, string? Text, string TimeStamp, string? ImageUrl = null);
 }
