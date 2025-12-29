@@ -4,7 +4,7 @@ using Infrastructure.Models;
 using Microsoft.EntityFrameworkCore;
 
 
-public static class DbInitializer
+public static class DbInitializer // Initialise the database with a list of people and all their posts.
 {
     public static async Task SeedDatabaseAsync(CheepDbContext chirpContext)
     {
