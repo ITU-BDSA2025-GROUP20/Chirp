@@ -1,4 +1,4 @@
-**_Design and Architecture of Chirp!_**
+# _Design and Architecture of Chirp!_
 
 **Domain model**
 
