@@ -110,4 +110,8 @@ We assume you are at the last step of “How to make Chirp! work locally”
 
 ## License
 
+We use MIT license.
+
 ## LLMs, ChatGPT, CoPolit and others
+
+We have used ChatGPT, CoPilot, Venice.ai, and Grok. If used correctly, the chatbots can be used to speed up the process of coding, something like changing all of one variable to another, but if used to just make code from scratch, you lose the learning aspect of it and just get the answer. We have used chatbots after searching the internet or talking with each other, and even when using them, we asked how it got the answer. We believe that learning is important, and if you just use a chatbot to get all the answers, you don't learn.
