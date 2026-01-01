@@ -79,7 +79,8 @@ A better way would have been to have a combined workflow that did Build, Test, R
 1. Clone repository from terminal: "git clone https://github.com/ITU-BDSA2025-GROUP20/Chirp.git"
 2. Make sure dependencies are installed. Navigate to the Chirp folder and run: "dotnet restore" 
 3. Run: "cd src/Chirp.Web" this moves you within the application layer.
-4. Followed by: "dotnet watch". This starts a local server at
+4. Run these two
+5. Followed by: "dotnet watch". This starts a local server at
 
 **How to run test suite locally**
 Same here. explain in detail.
