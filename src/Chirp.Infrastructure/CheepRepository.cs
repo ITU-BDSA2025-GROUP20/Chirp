@@ -28,8 +28,9 @@ public class CheepRepository : ICheepRepository
             Id = c.CheepId,
             Text = c.Text,
             AuthorName = c.Author.Name,
-            TimeStamp = c.TimeStamp
-        }).ToList(); 
+            TimeStamp = c.TimeStamp,
+            ImageUrl = c.ImageUrl
+        }).ToList();
     }
 
     public async Task<MessageDTO?> GetCheepByIdAsync(int id) // Getting only one cheep, by its id.
@@ -48,24 +49,26 @@ public class CheepRepository : ICheepRepository
         };
     }
 
-    public async Task<IEnumerable<MessageDTO>> GetAllCheepsFromAuthorAsync(string authorIdentity) // Same as GetAllCheeps, only from one specific author.
+    public async Task<IEnumerable<MessageDTO>> GetAllCheepsFromAuthorAsync(string authorName)
     {
-        var cheeps = await _dbcontext.Cheeps
+     var cheeps = await _dbcontext.Cheeps
             .Include(c => c.Author)
-            .Where(c => c.Author.Email == authorIdentity)
+            .Where(c => c.Author.Name == authorName)
             .OrderByDescending(c => c.TimeStamp)
-            .ToListAsync();
+           .ToListAsync();
 
-        return cheeps.Select(c => new MessageDTO
+     return cheeps.Select(c => new MessageDTO
         {
             Id = c.CheepId,
             Text = c.Text,
             AuthorName = c.Author.Name,
-            TimeStamp = c.TimeStamp
+            TimeStamp = c.TimeStamp,
+            ImageUrl = c.ImageUrl
         }).ToList();
     }
 
-    public async Task StoreCheepAsync(MessageDTO message)  // Storing cheeps by converting them from the transfer model to a database model.
+
+    public async Task StoreCheepAsync(MessageDTO message)
     {
         var author = await _dbcontext.Authors
             .FirstOrDefaultAsync(a => a.Name == message.AuthorName);
@@ -75,7 +78,7 @@ public class CheepRepository : ICheepRepository
             author = new Author
             {
                 Name = message.AuthorName,
-                Email = $"{message.AuthorName}@example.com" 
+                Email = $"{message.AuthorName}@example.com"
             };
             _dbcontext.Authors.Add(author);
             await _dbcontext.SaveChangesAsync();
@@ -85,35 +88,51 @@ public class CheepRepository : ICheepRepository
         {
             Text = message.Text,
             AuthorId = author.AuthorId,
-            TimeStamp = DateTime.UtcNow
+            TimeStamp = DateTime.UtcNow,
+            ImageUrl = message.ImageUrl
         };
 
         _dbcontext.Cheeps.Add(cheepEntity);
         await _dbcontext.SaveChangesAsync();
     }
 
-    public async Task FollowUserAsync(string followerName, string followeeName) // A follower follows a followee
+    public async Task FollowUserAsync(string followerName, string followeeName)
+{
+    if (followerName == followeeName) return;
+
+    var follower = await _dbcontext.Authors.FirstOrDefaultAsync(a => a.Name == followerName);
+    if (follower == null)
     {
-        if (followerName == followeeName) return;
-
-        var follower = await _dbcontext.Authors.FirstOrDefaultAsync(a => a.Name == followerName);
-        var followee = await _dbcontext.Authors.FirstOrDefaultAsync(a => a.Name == followeeName);
-
-        if (follower == null || followee == null) return;
-
-        var existing = await _dbcontext.Follows
-            .AnyAsync(f => f.FollowerId == follower.AuthorId && f.FolloweeId == followee.AuthorId);
-
-        if (!existing)
+        follower = new Author
         {
-            _dbcontext.Follows.Add(new Follow
-            {
-                FollowerId = follower.AuthorId,
-                FolloweeId = followee.AuthorId
-            });
-            await _dbcontext.SaveChangesAsync();
-        }
+            Name = followerName,
+            Email = $"{followerName}@example.com"
+        };
+        _dbcontext.Authors.Add(follower);
+        await _dbcontext.SaveChangesAsync(); // Need to save to get AuthorId
     }
+
+    var followee = await _dbcontext.Authors.FirstOrDefaultAsync(a => a.Name == followeeName);
+    if (followee == null)
+    {
+        // Optionally create followee too, or just skip/return
+        // Most cases: followee already exists because they have cheeps
+        return;
+    }
+
+    var existing = await _dbcontext.Follows
+        .AnyAsync(f => f.FollowerId == follower.AuthorId && f.FolloweeId == followee.AuthorId);
+
+    if (!existing)
+    {
+        _dbcontext.Follows.Add(new Follow
+        {
+            FollowerId = follower.AuthorId,
+            FolloweeId = followee.AuthorId
+        });
+        await _dbcontext.SaveChangesAsync();
+    }
+}
 
     public async Task UnfollowUserAsync(string followerName, string followeeName) // Unfollow method.
     {
@@ -165,7 +184,8 @@ public class CheepRepository : ICheepRepository
                 Id = c.CheepId,
                 Text = c.Text,
                 AuthorName = c.Author.Name,
-                TimeStamp = c.TimeStamp
+                TimeStamp = c.TimeStamp,
+                ImageUrl = c.ImageUrl
             })
             .ToListAsync();
 

@@ -1,7 +1,7 @@
 @page
 @model Chirp.Web.Pages.AboutMeModel
 @{
-    ViewData["Title"] = $"About {Model.DisplayName ?? Model.UserName}";
+    ViewData["Title"] = $"About {Model.AuthorName ?? Model.UserName}";
 }
 
 @* UI Specification for the AboutMe page, displaying followees, posts and stored data. *@
@@ -9,46 +9,103 @@
     <h2>About Me</h2>
 
     <div style="background:#f8f9fa; padding:1.5rem; border-radius:8px; margin-bottom:2rem;">
-        <p><strong>Name:</strong> @Model.DisplayName</p>
+        <p><strong>Name:</strong> @(Model.AuthorName ?? "Not set")</p>
         <p><strong>Username:</strong> @Model.UserName</p>
-        <p><strong>Email:</strong> <a href="mailto:@Model.Email">@Model.Email</a></p>
+        <p>
+            <strong>Email:</strong>
+            @if (!string.IsNullOrEmpty(Model.Email))
+            {
+                <a href="mailto:@Model.Email">@Model.Email</a>
+            }
+            else
+            {
+                <em>Not provided</em>
+            }
+        </p>
     </div>
 
     <h3>My Cheeps (@Model.Cheeps.Count)</h3>
+
     @if (Model.Cheeps.Any())
     {
-        <ul id="messagelist" class="cheeps" style="list-style:none; padding:0;">
+        <ul id="messagelist" class="cheeps">
             @foreach (var cheep in Model.Cheeps)
             {
-                <li style="background:#fff; padding:1rem; margin-bottom:1rem; border:1px solid #ddd; border-radius:6px;">
-                    <p style="margin:0;">
-                        <strong><a href="/@cheep.AuthorName">@cheep.AuthorName</a></strong>
-                        @cheep.Text
-                        <br />
-                        <small style="color:#666;">— @cheep.TimeStamp</small>
-                    </p>
+                <li>
+                    <div class="cheep-content">
+                        <p>
+                            <strong>
+                                <a href="/@cheep.AuthorName">@cheep.AuthorName</a>
+
+                                @if (User.Identity?.IsAuthenticated == true &&
+                                     User.Identity.Name is not null &&
+                                     User.Identity.Name != cheep.AuthorName)
+                                {
+                                    var isFollowing = await Model.IsFollowingAsync(cheep.AuthorName);
+                                    if (isFollowing)
+                                    {
+                                        <a href="?handler=Unfollow&followee=@cheep.AuthorName"
+                                           class="text-danger"
+                                           style="margin-left: 8px; font-size: 0.9em;">unfollow</a>
+                                    }
+                                    else
+                                    {
+                                        <a href="?handler=Follow&followee=@cheep.AuthorName"
+                                           style="margin-left: 8px; font-size: 0.9em;">follow</a>
+                                    }
+                                }
+                            </strong>
+
+                            @if (!string.IsNullOrWhiteSpace(cheep.Text))
+                            {
+                                <br />
+                                <span class="cheep-text">@cheep.Text</span>
+                            }
+
+                            <small class="text-muted">— @cheep.TimeStamp</small>
+                        </p>
+
+                        @* ✅ IMAGE / GIF SUPPORT (FIX) *@
+                        @if (!string.IsNullOrEmpty(cheep.ImageUrl))
+                        {
+                            <div class="cheep-image">
+                                <img src="@cheep.ImageUrl"
+                                     alt="Cheep media"
+                                     loading="lazy"
+                                     style="max-width: 100%; height: auto; border-radius: 12px; margin-top: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);" />
+                            </div>
+                        }
+                    </div>
                 </li>
             }
         </ul>
     }
     else
     {
-        <p><em>No cheeps yet.</em></p>
+        <em>There are no cheeps yet.</em>
     }
 
     <hr style="margin:2rem 0;" />
 
     <h3>Following (@Model.Following.Count)</h3>
+
     @if (Model.Following.Any())
     {
         <ul style="list-style:none; padding:0;">
             @foreach (var name in Model.Following)
             {
-                <li style="padding:0.5rem 0; display:flex; justify-content:space-between; align-items:center;">
-                    <strong><a href="/@name">@name</a></strong>
+                <li style="padding:0.75rem 0; display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #eee;">
+                    <strong>
+                        <a href="/@name">@name</a>
+                    </strong>
+
                     <form method="post" asp-page-handler="Unfollow" style="margin:0;">
                         <input type="hidden" name="followee" value="@name" />
-                        <button type="submit" class="btn btn-sm btn-outline-danger">Unfollow</button>
+                        <button type="submit"
+                                class="btn btn-sm btn-outline-danger"
+                                onclick="return confirm('Unfollow @name?');">
+                            Unfollow
+                        </button>
                     </form>
                 </li>
             }

@@ -8,6 +8,7 @@ namespace Infrastructure.Models
         public int CheepId { get; set; } 
         
         public string Text { get; set; } = string.Empty;
+        public string? ImageUrl { get; set; }
 
         public int AuthorId { get; set; }
 

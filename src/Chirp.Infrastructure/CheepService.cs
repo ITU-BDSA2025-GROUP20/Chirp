@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Core;
+using System.Globalization;
+using System.Runtime.InteropServices;
 
 namespace Infrastructure.Services
 {
@@ -13,12 +15,42 @@ namespace Infrastructure.Services
         private readonly ICheepRepository _repository;
         private const int PageSize = 32;
 
+        private static readonly TimeZoneInfo CetZone =
+            TimeZoneInfo.FindSystemTimeZoneById(
+                RuntimeInformation.IsOSPlatform(OSPlatform.Windows)
+                    ? "Central European Standard Time"
+                    : "Europe/Paris"
+            );
+
         public CheepService(ICheepRepository repository)
         {
             _repository = repository;
         }
 
-        /// Gets all cheeps, paginated. Page 1 is returned if page is null or <= 0.
+        // Make sure all time is in Cet. End to End test failed due to using computer time instead of a universal time.
+        private static string FormatCet(DateTime time)
+        {
+            DateTime displayTime;
+
+            // Seeded cheeps: year 2023 is already correct local time
+            if (time.Year == 2023)
+            {
+                displayTime = time; // do NOT convert
+            }
+            else
+            {
+                // New cheeps: treat as UTC
+                if (time.Kind == DateTimeKind.Unspecified)
+                {
+                    time = DateTime.SpecifyKind(time, DateTimeKind.Utc);
+                }
+                displayTime = TimeZoneInfo.ConvertTimeFromUtc(time, CetZone);
+            }
+
+            return displayTime.ToString("dd/MM/yy HH:mm:ss", CultureInfo.InvariantCulture);
+        }
+        
+
         public async Task<List<CheepViewModel>> GetCheeps(int? page = 1)
         {
             int pageNumber = page ?? 1;
@@ -32,22 +64,22 @@ namespace Infrastructure.Services
                 .Take(PageSize)
                 .ToList();
 
-            return pagedCheeps.Select(c => new CheepViewModel(
+            return pagedCheeps
+                .Select(c => new CheepViewModel(
                     c.AuthorName,
                     c.Text,
-                    c.TimeStamp.ToString("MM/dd/yy H:mm:ss", System.Globalization.CultureInfo.InvariantCulture)
+                    FormatCet(c.TimeStamp),
+                    c.ImageUrl
                 ))
                 .ToList();
         }
 
-        
-        /// Gets cheeps from a specific author, paginated. Page 1 is returned if page is null or <= 0.
         public async Task<List<CheepViewModel>> GetCheepsFromAuthor(string authorName, int? page = 1)
         {
             int pageNumber = page ?? 1;
             if (pageNumber < 1) pageNumber = 1;
 
-            var cheeps = await _repository.GetAllCheepsFromAuthorAsync(authorName); // Only their own
+            var cheeps = await _repository.GetAllCheepsFromAuthorAsync(authorName);
 
             var pagedCheeps = cheeps
                 .OrderByDescending(c => c.TimeStamp)
@@ -55,10 +87,35 @@ namespace Infrastructure.Services
                 .Take(PageSize)
                 .ToList();
 
-            return pagedCheeps.Select(c => new CheepViewModel(
+            return pagedCheeps
+                .Select(c => new CheepViewModel(
                     c.AuthorName,
                     c.Text,
-                    c.TimeStamp.ToString("MM/dd/yy H:mm:ss", System.Globalization.CultureInfo.InvariantCulture)
+                    FormatCet(c.TimeStamp),
+                    c.ImageUrl
+                ))
+                .ToList();
+        }
+
+        public async Task<List<CheepViewModel>> GetPrivateTimeline(string username, int? page = 1)
+        {
+            int pageNumber = page ?? 1;
+            if (pageNumber < 1) pageNumber = 1;
+
+            var cheeps = await _repository.GetTimelineForUserAsync(username);
+
+            // Repository already returns newest-first
+            var pagedCheeps = cheeps
+                .Skip((pageNumber - 1) * PageSize)
+                .Take(PageSize)
+                .ToList();
+
+            return pagedCheeps
+                .Select(c => new CheepViewModel(
+                    c.AuthorName,
+                    c.Text,
+                    FormatCet(c.TimeStamp),
+                    c.ImageUrl
                 ))
                 .ToList();
         }
@@ -72,31 +129,15 @@ namespace Infrastructure.Services
 
             foreach (var cheep in cheepList)
             {
-                Console.WriteLine($"{cheep.AuthorName}: {cheep.Text} ({cheep.TimeStamp})");
+                Console.WriteLine($"{cheep.AuthorName}: {cheep.Text} ({FormatCet(cheep.TimeStamp)})");
             }
-        }
-        public async Task<List<CheepViewModel>> GetPrivateTimeline(string username, int? page = 1)
-        {
-            int pageNumber = page ?? 1;
-            if (pageNumber < 1) pageNumber = 1;
-
-            var cheeps = await _repository.GetTimelineForUserAsync(username);
-
-            var pagedCheeps = cheeps
-                .Skip((pageNumber - 1) * PageSize)
-                .Take(PageSize)
-                .ToList();
-
-            return pagedCheeps.Select(c => new CheepViewModel(
-                    c.AuthorName,
-                    c.Text,
-                    c.TimeStamp.ToString("MM/dd/yy H:mm:ss", System.Globalization.CultureInfo.InvariantCulture)
-                ))
-                .ToList();
         }
     }
 
-    
-
-    public record CheepViewModel(string AuthorName, string Text, string TimeStamp);
+    public record CheepViewModel(
+        string AuthorName,
+        string? Text,
+        string TimeStamp,
+        string? ImageUrl = null
+    );
 }

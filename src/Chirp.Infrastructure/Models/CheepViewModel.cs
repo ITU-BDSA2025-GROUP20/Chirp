@@ -9,6 +9,7 @@ namespace Infrastructure.Models
         public int Id { get; set; }
         [StringLength(500)]
         public string Text { get; set; } = string.Empty;
+        public string? ImageUrl { get; set; }
         [Required]
         public string AuthorName { get; set; } = string.Empty;
         public string TimeStamp { get; set; } = string.Empty;

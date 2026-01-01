@@ -8,7 +8,7 @@ public class MessageDTO
 
         [StringLength(160)]
         public string Text { get; set; } = string.Empty;
-
+        public string? ImageUrl { get; set; }
         public int AuthorId { get; set; }
 
         public string AuthorName { get; set; } = null!;
