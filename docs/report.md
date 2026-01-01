@@ -1,7 +1,8 @@
 ***Design and Architecture of Chirp!***
 
 **Domain model**
-
+![Domain model diagram of the models](Domain_Model_Diagram.png)
+The Domain model illustrastes our Models. We chose to illustrate the ASP.Net Identity in an abstract relation to the Author. It represents the authenticated user, while Author represents the user domain.
 
 
 **Architecture - In the small**
@@ -27,7 +28,7 @@ Chirp! is a client-server web application built with ASP.NET Core Razor Pages.
 - Static assets (CSS, JS, images) are served directly from the Azure App Service.
 
 No separate API layer or SPA client — the Razor Pages engine handles both server-side rendering and minimal dynamic behavior.
-Illustrate server-client application
+![Deployment diagram using components to illustrate main concept](Deployment_Diagram.png)
 
 **User activities**
 
@@ -55,8 +56,17 @@ We illustrate two main user journeys to show how functionality differs based on 
 ***Process***
 
 **Build, test, release and deployment**
+![Activity diagram displaying the two workflows for deployment and publishing](Activity_Diagram.png)
+For our project we used two workflows. One for publishing and release the lates version and one for deployment on our Azure Web App. Both apply alot of the same logic. 
+The publish workflow attempts to build before anything else. If that fails the workflow stops. Then it applies the tests followed by a published version of the program in Github.
+The deployment does the same first steps. Build followed by Test, then it logs into Azure and deploys to the web application. 
+
+We activate the deployment workflow by pushing anything to the main branch. To activate the publish workflow we manually release a version through git.
+
+A better way would have been to have a combined workflow that did Build, Test, Release and Deployment on every push to the main branch.
 
 **Team work**
+
 
 **How to make Chirp! work locally**
 explain in detail how to make it work locally.
