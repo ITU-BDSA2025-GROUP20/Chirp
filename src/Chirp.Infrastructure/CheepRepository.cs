@@ -22,7 +22,7 @@ public class CheepRepository : ICheepRepository
             .OrderByDescending(c => c.TimeStamp)
             .ToListAsync();
 
-        // Map entity → DTO
+        // Map entity to DTO
         return cheeps.Select(c => new MessageDTO
         {
             Id = c.CheepId,
@@ -72,11 +72,10 @@ public class CheepRepository : ICheepRepository
 
         if (author == null)
         {
-            // Optionally: create author if not exists (depends on your design)
             author = new Author
             {
                 Name = message.AuthorName,
-                Email = $"{message.AuthorName}@example.com" // or fetch from Identity
+                Email = $"{message.AuthorName}@example.com" 
             };
             _dbcontext.Authors.Add(author);
             await _dbcontext.SaveChangesAsync();
