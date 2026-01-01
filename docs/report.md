@@ -1,7 +1,9 @@
 ***Design and Architecture of Chirp!***
 
 **Domain model**
+
 ![Domain model diagram of the models](Domain_Model_Diagram.png)
+
 The Domain model illustrastes our Models. We chose to illustrate the ASP.Net Identity in an abstract relation to the Author. It represents the authenticated user, while Author represents the user domain.
 
 
@@ -18,6 +20,8 @@ The Web layer is the outer layer of our Onion. it is resposible for handling HTT
 
 The layers use Data Transfer Objects (DTO's) to communicate and transfer data from the center of the onion and outwards. Ensuring that entities are not exposed outside the Core layer. 
 
+![Diagram illustrating the onion architecture layers and their dependencies](Architecture_In_the_small.png)
+
 **Achitecture of the deployed application**
 
 Chirp! is a client-server web application built with ASP.NET Core Razor Pages.
@@ -28,6 +32,7 @@ Chirp! is a client-server web application built with ASP.NET Core Razor Pages.
 - Static assets (CSS, JS, images) are served directly from the Azure App Service.
 
 No separate API layer or SPA client — the Razor Pages engine handles both server-side rendering and minimal dynamic behavior.
+
 ![Deployment diagram using components to illustrate main concept](Deployment_Diagram.png)
 
 **User activities**
@@ -56,7 +61,9 @@ We illustrate two main user journeys to show how functionality differs based on 
 ***Process***
 
 **Build, test, release and deployment**
+
 ![Activity diagram displaying the two workflows for deployment and publishing](Activity_Diagram.png)
+
 For our project we used two workflows. One for publishing and release the lates version and one for deployment on our Azure Web App. Both apply alot of the same logic. 
 The publish workflow attempts to build before anything else. If that fails the workflow stops. Then it applies the tests followed by a published version of the program in Github.
 The deployment does the same first steps. Build followed by Test, then it logs into Azure and deploys to the web application. 
