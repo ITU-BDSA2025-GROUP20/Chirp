@@ -75,11 +75,14 @@ A better way would have been to have a combined workflow that did Build, test, r
 ## Team work
 
 We did not use any form of project boards, we instead used the sessions as a sort of benchmark, where we were in the project timeline and what our next goal was. We communicated a lot with each other and had a lot of in-person coding sessions. That is why we did not comment on pull requests. We went through them in-person instead and talked about what was good and what could be improved. In hindsight, writing this down would have been better regardless, but hindsight is 20/20.
+We had one feature we never got around to implementing, displaying usernames instead of users’ email addresses. We deprioritized it because it was not a critical feature, and in the end, we did not get to making it.
 
 ![Diagram of how we make issues on git](diagrams/Team_Work.png)
 
 We would discover a problem or a feature that needed to be added. Then make an issue on git while talking about what to do to fix or make the feature. We would then make the feature and then merge it into main.
 We tried to do trunk-based development in the beginning, but shifted to feature-based development, as we wanted Main to be working and not a mess of half-written code.
+
+As a sidenote kiaf and Xerzes01 is the same person, as well as PipFuglen and oskk.
 
 ## How to make Chirp! work locally
 
