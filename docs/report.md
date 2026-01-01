@@ -25,7 +25,7 @@ The layers use Data Transfer Objects (DTOs) to communicate and transfer data fro
 Chirp! is a client-server web application built with ASP.NET Core Razor Pages.
 
 - **Server**: Single ASP.NET Core web application (Chirp.Web project) deployed to **Azure App Service** (Linux plan).
-- **Database**: PostgreSQL hosted on **Azure Database for PostgreSQL — Flexible Server**.
+- **Database**: SQLite database stored in project and accessed by the application.
 - **Client**: Standard web browser communicating with the server exclusively over HTTPS.
 - Static assets (CSS, JS, images) are served directly from the Azure App Service.
 
