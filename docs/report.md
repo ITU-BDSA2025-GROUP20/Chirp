@@ -1,12 +1,13 @@
 # _Design and Architecture of Chirp!_
 
-**Domain model**
+## Domain model
 
 ![Domain model diagram of the models](Domain_Model_Diagram.png)
 
 The Domain model illustrastes our Models. We chose to illustrate the ASP.Net Identity in an abstract relation to the Author. It represents the authenticated user, while Author represents the user domain.
 
-**Architecture - In the small**
+## Architecture - In the small
+
 Make illustration of the Onion and what resides inside it.
 
 For the Chirp! program we have implemented the Onion-Architecture structure. The structure is built up in layers: Core, Infrastructure and Web.
@@ -21,7 +22,7 @@ The layers use Data Transfer Objects (DTO's) to communicate and transfer data fr
 
 ![Diagram illustrating the onion architecture layers and their dependencies](Architecture_In_the_small.png)
 
-**Achitecture of the deployed application**
+## Achitecture of the deployed application
 
 Chirp! is a client-server web application built with ASP.NET Core Razor Pages.
 
@@ -34,7 +35,7 @@ No separate API layer or SPA client — the Razor Pages engine handles both serv
 
 ![Deployment diagram using components to illustrate main concept](Deployment_Diagram.png)
 
-**User activities**
+## User activities
 
 We illustrate two main user journeys to show how functionality differs based on authentication status.
 
@@ -55,13 +56,13 @@ _Authenticated user:_
 
 ![Flowchart showing unauthenticated vs authenticated user journeys](User_Activities.png)
 
-**Sequence of functionality/calls through Chirp!**
+## Sequence of functionality/calls through Chirp!
 
 ![UML sequence diagram of the main page load flow](Sequence_of_functionality.png)
 
-**_Process_**
+# _Process_
 
-**Build, test, release and deployment**
+## Build, test, release and deployment
 
 ![Activity diagram displaying the two workflows for deployment and publishing](Activity_Diagram.png)
 
@@ -73,7 +74,8 @@ We activate the deployment workflow by pushing anything to the main branch. To a
 
 A better way would have been to have a combined workflow that did Build, Test, Release and Deployment on every push to the main branch.
 
-**Team work**
+## Team work
+
 We did not use any form of project boards, we instead used the sessions as a sort of benchmark, where we were in the project and what our next goal was. We communicated a lot with each other and had a lot of in-person coding sessions. That is why we did not comment on pull requests, we went through them in-person and talked about what was good and what was bad. In hindsight, writing this down would have been good regardless, but hindsight is 20/20.
 
 ![Diagram of how we make issues on git](Team_Work.png)
@@ -81,7 +83,7 @@ We did not use any form of project boards, we instead used the sessions as a sor
 We would discover a problem or a feature that needed to be added. Then make an issue on git while talking about what to do to fix or make the feature. We would then make the feature and then merge it into main.
 We tried to do trunk-based development in the beginning, but shifted to feature-based development, as we wanted Main to be working and not a mess of half-written code.
 
-**How to make Chirp! work locally**
+## How to make Chirp! work locally
 
 1. Clone repository from terminal: "git clone https://github.com/ITU-BDSA2025-GROUP20/Chirp.git"
 2. Make sure dependencies are installed. Navigate to the Chirp folder and run: "dotnet restore"
@@ -95,7 +97,8 @@ We tried to do trunk-based development in the beginning, but shifted to feature-
 5. Followed by: "dotnet watch". This starts a local server at "http://localhost:5273". The "dotnet watch" command should take you straight to the local host.
 6. Now you are free to interact with the application!
 
-**How to run test suite locally**
+## How to run test suite locally
+
 We assume you are at the last step of “How to make Chirp! work locally”
 
 1. Press “Ctrl + C”
@@ -103,8 +106,8 @@ We assume you are at the last step of “How to make Chirp! work locally”
 3. Run “cd test”
 4. Then run “dotnet test”. This will start the tests.
 
-**Ethics**
+# Ethics
 
-**License**
+## License
 
-LLMs, ChatGPT, CoPolit
+## LLMs, ChatGPT, CoPolit and others
