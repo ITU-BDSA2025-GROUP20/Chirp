@@ -53,7 +53,7 @@ public class CheepRepository : ICheepRepository
     {
      var cheeps = await _dbcontext.Cheeps
             .Include(c => c.Author)
-            .Where(c => c.Author.Name == authorName)  // ← Changed from .Email to .Name
+            .Where(c => c.Author.Name == authorName)
             .OrderByDescending(c => c.TimeStamp)
            .ToListAsync();
 
@@ -89,7 +89,7 @@ public class CheepRepository : ICheepRepository
             Text = message.Text,
             AuthorId = author.AuthorId,
             TimeStamp = DateTime.UtcNow,
-            ImageUrl = message.ImageUrl // Save the image URL
+            ImageUrl = message.ImageUrl
         };
 
         _dbcontext.Cheeps.Add(cheepEntity);
@@ -106,7 +106,7 @@ public class CheepRepository : ICheepRepository
         follower = new Author
         {
             Name = followerName,
-            Email = $"{followerName}@example.com" // or leave empty if not needed
+            Email = $"{followerName}@example.com"
         };
         _dbcontext.Authors.Add(follower);
         await _dbcontext.SaveChangesAsync(); // Need to save to get AuthorId
