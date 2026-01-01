@@ -20,7 +20,7 @@ The Web layer is the outer layer of our Onion. it is resposible for handling HTT
 
 The layers use Data Transfer Objects (DTO's) to communicate and transfer data from the center of the onion and outwards. Ensuring that entities are not exposed outside the Core layer.
 
-![Diagram illustrating the onion architecture layers and their dependencies](Architecture_In_the_small.png)
+![Diagram illustrating the onion architecture layers and their dependencies](diagrams/Architecture_In_the_small.png)
 
 ## Achitecture of the deployed application
 
