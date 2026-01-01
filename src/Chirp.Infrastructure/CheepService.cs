@@ -27,11 +27,12 @@ namespace Infrastructure.Services
             _repository = repository;
         }
 
+        // Make sure all time is in Cet. End to End test failed due to using computer time instead of a universal time.
         private static string FormatCet(DateTime time)
         {
             DateTime displayTime;
 
-            // Seeded cheeps: year 2023 → already correct local time
+            // Seeded cheeps: year 2023 is already correct local time
             if (time.Year == 2023)
             {
                 displayTime = time; // do NOT convert
