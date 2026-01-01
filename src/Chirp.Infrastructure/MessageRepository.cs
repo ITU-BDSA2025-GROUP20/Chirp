@@ -6,7 +6,7 @@ using Core;
 
 namespace Infrastructure
 {
-    public class MessageRepository : IMessageRepository
+    public class MessageRepository : IMessageRepository // Data access layer for cheeps, hiding away database details providing a communicative layer the application speaks through to the database layer.
     {
         private readonly CheepDbContext _dbContext;
 

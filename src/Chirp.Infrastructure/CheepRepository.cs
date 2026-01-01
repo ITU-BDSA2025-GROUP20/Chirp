@@ -15,14 +15,14 @@ public class CheepRepository : ICheepRepository
         _dbcontext = dbcontext;
     }
 
-    public async Task<IEnumerable<MessageDTO>> GetAllCheepsAsync()
+    public async Task<IEnumerable<MessageDTO>> GetAllCheepsAsync() // Retrieves a list of cheeps, including their author and sorts them by newest to oldest. Converting it to a DTO before then returning it.
     {
         var cheeps = await _dbcontext.Cheeps
             .Include(c => c.Author)
             .OrderByDescending(c => c.TimeStamp)
             .ToListAsync();
 
-        // Map entity → DTO
+        // Map entity to DTO
         return cheeps.Select(c => new MessageDTO
         {
             Id = c.CheepId,
@@ -33,7 +33,7 @@ public class CheepRepository : ICheepRepository
         }).ToList();
     }
 
-    public async Task<MessageDTO?> GetCheepByIdAsync(int id)
+    public async Task<MessageDTO?> GetCheepByIdAsync(int id) // Getting only one cheep, by its id.
     {
         var cheep = await _dbcontext.Cheeps
             .Include(c => c.Author)
@@ -134,7 +134,7 @@ public class CheepRepository : ICheepRepository
     }
 }
 
-    public async Task UnfollowUserAsync(string followerName, string followeeName)
+    public async Task UnfollowUserAsync(string followerName, string followeeName) // Unfollow method.
     {
         var follower = await _dbcontext.Authors.FirstOrDefaultAsync(a => a.Name == followerName);
         var followee = await _dbcontext.Authors.FirstOrDefaultAsync(a => a.Name == followeeName);
@@ -151,7 +151,7 @@ public class CheepRepository : ICheepRepository
         }
     }
 
-    public async Task<bool> IsFollowingAsync(string followerName, string followeeName)
+    public async Task<bool> IsFollowingAsync(string followerName, string followeeName) // Check to see if a follower follows a followee.
     {
         var follower = await _dbcontext.Authors.FirstOrDefaultAsync(a => a.Name == followerName);
         var followee = await _dbcontext.Authors.FirstOrDefaultAsync(a => a.Name == followeeName);
@@ -162,7 +162,7 @@ public class CheepRepository : ICheepRepository
             .AnyAsync(f => f.FollowerId == follower.AuthorId && f.FolloweeId == followee.AuthorId);
     }
 
-    public async Task<IEnumerable<MessageDTO>> GetTimelineForUserAsync(string username)
+    public async Task<IEnumerable<MessageDTO>> GetTimelineForUserAsync(string username) // Get a users timeline, getting all posts they have posted and their followees have posted.
     {
         var author = await _dbcontext.Authors
             .Include(a => a.Following)
@@ -192,7 +192,7 @@ public class CheepRepository : ICheepRepository
         return cheeps;
     }
 
-    public async Task<IReadOnlyList<string>> GetFollowingNamesAsync(string followerName)
+    public async Task<IReadOnlyList<string>> GetFollowingNamesAsync(string followerName) // Get a list of people an author is following.
 {
     var author = await _dbcontext.Authors
         .Include(a => a.Following)

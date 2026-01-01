@@ -24,23 +24,23 @@ namespace Infrastructure.Data
             {
             entity.Property(e => e.TimeStamp)
             .HasColumnType("TEXT");
-            });
+            }); // Upon creation of a CheepDbContext, the property TimeStamp of cheep is set as TEXT
 
             builder.Entity<Follow>()
-                .HasKey(f => new { f.FollowerId, f.FolloweeId });
+                .HasKey(f => new { f.FollowerId, f.FolloweeId }); // Define the primary key of Follow as FollowId and FolloweeId such that no person can follow the same person twice.
 
             builder.Entity<Follow>()
-                .HasOne(f => f.Follower)
-                .WithMany(a => a.Following)
-                .HasForeignKey(f => f.FollowerId)
-                .OnDelete(DeleteBehavior.Cascade);
+                .HasOne(f => f.Follower) // Further clarification that a Follow has one Follower.
+                .WithMany(a => a.Following) // With many Following, I.E. one person can follow many people.
+                .HasForeignKey(f => f.FollowerId) 
+                .OnDelete(DeleteBehavior.Cascade); // Should the Follower be deleted, also delete follow records.
 
-            builder.Entity<Follow>()
+            builder.Entity<Follow>() // Inverse of above.
                 .HasOne(f => f.Followee)
                 .WithMany(a => a.Followers)
                 .HasForeignKey(f => f.FolloweeId)
-                .OnDelete(DeleteBehavior.Cascade);
-        }
+                .OnDelete(DeleteBehavior.Cascade); 
+        } 
     }
 
     

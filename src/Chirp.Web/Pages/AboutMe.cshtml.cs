@@ -9,7 +9,7 @@ using CheepViewModel = Infrastructure.Services.CheepViewModel;
 
 namespace Chirp.Web.Pages 
 {
-    public class AboutMeModel : PageModel
+    public class AboutMeModel : PageModel // More server side logic for the cshtml, to give data to the AboutMe page
     {
         private readonly CheepService _service;
         public required ICheepRepository CheepRepository { get; set; }
