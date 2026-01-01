@@ -1,3 +1,14 @@
+---
+title: _Chirp!_ Project Report
+subtitle: ITU BDSA 2025 Group 20
+author:
+  - "Gustav Nilsson <gnil@itu.dk>"
+  - "Kian Frede Frølund <kiaf@itu.dk>"
+  - "Patrick Fransgaard <pafr@itu.dk>"
+  - "Oskar Snoer Kristiansen <oskk@itu.dk>"
+numbersections: true
+---
+
 # _Design and Architecture of Chirp!_
 
 ## Domain model
