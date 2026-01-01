@@ -2,7 +2,7 @@
 
 ## Domain model
 
-![Domain model diagram of the models](Domain_Model_Diagram.png)
+![Domain model diagram of the models](diagrams/Domain_Model_Diagram.png)
 
 The Domain model illustrastes our Models. We chose to illustrate the ASP.Net Identity in an abstract relation to the Author. It represents the authenticated user, while Author represents the user domain.
 
@@ -33,7 +33,7 @@ Chirp! is a client-server web application built with ASP.NET Core Razor Pages.
 
 No separate API layer or SPA client — the Razor Pages engine handles both server-side rendering and minimal dynamic behavior.
 
-![Deployment diagram using components to illustrate main concept](Deployment_Diagram.png)
+![Deployment diagram using components to illustrate main concept](diagrams/Deployment_Diagram.png)
 
 ## User activities
 
@@ -54,17 +54,17 @@ _Authenticated user:_
 5. Can follow/unfollow other authors from any timeline or from about me page.
 6. Can view list of authors they follow from about me page.
 
-![Flowchart showing unauthenticated vs authenticated user journeys](User_Activities.png)
+![Flowchart showing unauthenticated vs authenticated user journeys](diagrams/User_Activities.png)
 
 ## Sequence of functionality/calls through Chirp!
 
-![UML sequence diagram of the main page load flow](Sequence_of_functionality.png)
+![UML sequence diagram of the main page load flow](diagrams/Sequence_of_functionality.png)
 
 # _Process_
 
 ## Build, test, release and deployment
 
-![Activity diagram displaying the two workflows for deployment and publishing](Activity_Diagram.png)
+![Activity diagram displaying the two workflows for deployment and publishing](diagrams/Activity_Diagram.png)
 
 For our project we used two workflows. One for publishing and release the lates version and one for deployment on our Azure Web App. Both apply alot of the same logic.
 The publish workflow attempts to build before anything else. If that fails the workflow stops. Then it applies the tests followed by a published version of the program in Github.
@@ -78,7 +78,7 @@ A better way would have been to have a combined workflow that did Build, Test, R
 
 We did not use any form of project boards, we instead used the sessions as a sort of benchmark, where we were in the project and what our next goal was. We communicated a lot with each other and had a lot of in-person coding sessions. That is why we did not comment on pull requests, we went through them in-person and talked about what was good and what was bad. In hindsight, writing this down would have been good regardless, but hindsight is 20/20.
 
-![Diagram of how we make issues on git](Team_Work.png)
+![Diagram of how we make issues on git](diagrams/Team_Work.png)
 
 We would discover a problem or a feature that needed to be added. Then make an issue on git while talking about what to do to fix or make the feature. We would then make the feature and then merge it into main.
 We tried to do trunk-based development in the beginning, but shifted to feature-based development, as we wanted Main to be working and not a mess of half-written code.
